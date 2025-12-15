@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <script type="text/javascript" src="./lib/howler.min.js"></script>
+  <script type="text/javascript" src="./lib/pako.min.js"></script>
+  <script type="text/javascript" src="./MQ2.js"></script>
+
+  <link rel="StyleSheet" href="./css/black.css" type="text/css">
+  <link rel="StyleSheet" href="./css/roomrecess.css" type="text/css">
+
+  <script type="text/javascript" src="./jquery.min.js"></script>
+  <script type="text/javascript" src="/java/button-effect.js"></script>
+  <script type="text/javascript" src="/java/homescroll.js"></script>
+  <script>
+    window.addEventListener("touchmove", function (event) { }, false)
+    if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
+      var meta = document.getElementById("viewport")
+      meta.setAttribute('content', 'width=device-width, initial-scale=' + (2 / window.devicePixelRatio) + ', user-scalable=no')
+    }
+    window.addEventListener("keydown", function (e) {
+      // space and arrow keys
+      if ([37, 38, 39, 40, 8, 32].indexOf(e.keyCode) > -1) {
+        e.preventDefault()
+      }
+    }, false);
+  </script>
+  <style>
+    #openfl-content {
+      background: #46722D;
+      width: 800px;
+      height: 573px;
+    }
+
+    @font-face {
+      font-family: 'Asimov';
+      src: url('fonts/Asimov.eot');
+      src: url('fonts/Asimov.eot?#iefix') format('embedded-opentype'),
+        url('fonts/Asimov.svg#my-font-family') format('svg'),
+        url('fonts/Asimov.woff') format('woff'),
+        url('fonts/Asimov.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Devinne Swash';
+      src: url('fonts/DevinneSwash.eot');
+      src: url('fonts/DevinneSwash.eot?#iefix') format('embedded-opentype'),
+        url('fonts/DevinneSwash.svg#my-font-family') format('svg'),
+        url('fonts/DevinneSwash.woff') format('woff'),
+        url('fonts/DevinneSwash.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
+  <script>
+    var game = document.getElementById("gameFocus")
+    if (game)
+      game.focus();
+  </script>
+  <!-- Start of Mobile Responsive Code -->
+  <style type="text/css">
+    @media screen and (max-width:1150px) {
+      #rightMenuHomePage {
+        position: unset;
+        width: 100%;
+        margin-top: 0;
+        height: 100%;
+      }
+
+      .header {
+        width: 100%;
+        min-width: 100%;
+        height: 92px;
+      }
+
+      .logo img {
+        width: 250px !important;
+        margin-left: 50%;
+        transform: translateX(-50%);
+      }
+
+      #contentHomePage {
+        min-width: 100%;
+        margin-right: 0;
+        margin-top: 100px;
+        height: 100%;
+      }
+
+      #openfl-content {
+        width: 100%;
+        min-width: 100%;
+        /*overflow-x: scroll;
+      overflow-y: hidden;*/
+      }
+
+      .fullPage {
+        min-width: 100%;
+      }
+
+      .w-100dr {
+        width: 100%;
+      }
+
+      #content {
+        width: 100% !important;
+        min-width: 100% !important;
+        height: auto !important;
+      }
+
+      #leftThing {
+        width: 100% !important;
+        float: unset !important;
+      }
+
+      #rightThing {
+        width: 100% !important;
+        float: unset !important;
+      }
+
+      .searchbar_Dr {
+        left: 50% !important;
+        position: fixed;
+        top: 52px !important;
+        transform: translateX(-50%);
+      }
+
+      #openfl-content canvas {
+        height: 100% !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+      }
+    }
+
+
+    @media screen and (max-width: 767px) {
+      p.welcome-text {
+        text-align: center;
+      }
+
+      .header-block {
+        float: unset;
+        text-align: center;
+        padding-bottom: 14px;
+      }
+
+      .header-block p {
+        margin-bottom: 0px;
+        text-align: center;
+        display: inline-block;
+      }
+
+      .header-link {
+        float: unset;
+      }
+
+      .wp-organic-logo {
+        display: block;
+        margin-bottom: 25px;
+
+      }
+
+
+    }
+
+    @media screen and (max-width: 1150px) and (min-width: 460px) {
+      div#rightMenuContent {
+        position: static !important;
+      }
+    }
+
+    /*!-- added 5-10-20--*/
+    @media screen and (max-width: 1150px) {
+      div#ad_300 {
+        position: fixed !important;
+        right: 0 !important;
+      }
+    }
+  </style>
+  <!-- End of Mobile Responsive Code -->
+</head>
+
+<body>
+
+  <div>
+    <center>
+      <div>
+        <a href="/MQ2Maps.html" target="_blank"><img src="/images/butMaps.png" atl="Math Quest 2 Maps" width=200
+            height=100></a>
+
+        <a href="/pages/Weapons.html" target="_blank"><img src="/images/butWeapons.png" atl="Math Quest 2 Weapons"
+            width=200 height=100></a>
+
+        <a href="/pages/Armor.html" target="_blank"><img src="/images/butArmor.png" atl="Math Quest 2 Armor" width=200
+            height=100></a>
+      </div>
+      <div>
+        <a href="/pages/Magic.html" target="_blank"><img src="/images/butMagic.png" atl="Math Quest 2 Magic" width=200
+            height=100></a>
+
+        <a href="/pages/Skills.html" target="_blank"><img src="/images/butSkills.png" atl="Math Quest 2 Skills"
+            width=200 height=100></a>
+
+        <a href="/pages/Rings.html" target="_blank"><img src="/images/butRings.png" atl="Math Quest 2 Rings" width=200
+            height=100></a>
+      </div>
+    </center>
+    <div id="gameFocus" align="center">
+      <noscript>This webpage makes extensive use of JavaScript. Please enable JavaScript in your web browser to view
+        this page.</noscript>
+      <div id="openfl-content"></div>
+      <script type="text/javascript">
+        lime.embed("MQ2", "openfl-content", 900, 650, { parameters: {} });
+      </script>
+    </div>
+
+
+</html>
