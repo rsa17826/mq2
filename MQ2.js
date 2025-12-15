@@ -15365,8 +15365,7 @@ $jscomp.polyfill(
                 1 <= a.butYes.get_alpha() &&
                 1 == a.typingName
               ? (a.buttonSound.play(),
-                1 <= a.placeInNumber
-                  ? ((a.typingName = false),
+                   ((a.typingName = false),
                     (a.typingPass = true),
                     1 == a.newGame
                       ? a.inputInst[0].set_text(
@@ -15393,17 +15392,11 @@ $jscomp.polyfill(
                         "mouseDown",
                         n(this, this.mobilePassInputHandler)
                       ))
-                  : a.inputInst[0].set_text("You need a longer name."))
-              : a.butYes.hitTestPoint(
-                  this.get_mouseX(),
-                  this.get_mouseY(),
-                  true
-                ) &&
-                1 <= a.butYes.get_alpha() &&
+                    )
+              : 1 <= a.butYes.get_alpha() &&
                 1 == a.typingPass &&
                 (a.buttonSound.play(),
-                1 <= a.placeInNumber
-                  ? ((a.typingPass = false),
+                   ((a.typingPass = false),
                     1 == a.newGame
                       ? (a.inputInst[0].set_text(
                           "Checking for character availability..."
@@ -15438,7 +15431,7 @@ $jscomp.polyfill(
                         )
                       )
                     ))
-                  : a.inputInst[0].set_text("You need a longer password."))
+                  )
         },
         showLetterButs: function () {
           for (var c = 0; 27 > c; ) {

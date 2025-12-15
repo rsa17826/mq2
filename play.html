@@ -13,6 +13,7 @@
   <script type="text/javascript" src="/java/button-effect.js"></script>
   <script type="text/javascript" src="/java/homescroll.js"></script>
   <script>
+    Object.assign(window, console)
     window.addEventListener("touchmove", function (event) { }, false)
     if (typeof window.devicePixelRatio != 'undefined' && window.devicePixelRatio > 2) {
       var meta = document.getElementById("viewport")
