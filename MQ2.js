@@ -24,6 +24,7 @@ $jscomp.defineProperty =
   $jscomp.ASSUME_ES5 || "function" == typeof Object.defineProperties
     ? Object.defineProperty
     : function (ea, t, R) {
+        ea != Array.prot
         ea != Array.prototype && ea != Object.prototype && (ea[t] = R.value)
       }
 $jscomp.getGlobal = function (ea) {
@@ -103148,3 +103149,7 @@ var saveAs =
     define("FileSaver.js", function () {
       return saveAs
     })
+// ^ +(\w+): function \(.*\{$
+// 
+// $&
+// trace("function called: $1");
