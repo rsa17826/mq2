@@ -103149,7 +103149,7 @@ var saveAs =
     define("FileSaver.js", function () {
       return saveAs
     })
-// ^ +[a-zA-Z](\w+): function \(.*\{$
+// ^ +([a-zA-Z]\w+): function \(.*\{$
 // 
 // $&
 // trace("function called: $1");
