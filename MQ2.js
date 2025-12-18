@@ -15192,48 +15192,59 @@ showFuncCall("preClickHandler");
               true
             )
               ? ((a.newGame = true),
-                a.inputInst[0].set_text("Type a name for your character."),
-                a.inputInst[2].set_text("Pick a character."),
-                a.inputInst[2].set_y(450),
-                0 == a.mobile && a.inputInst[2].set_visible(true),
-                a.boy[0].set_x(95),
-                a.boy[0].set_y(510),
-                1 == a.mobile && a.boy[0].set_y(0),
-                a.boy[0].set_visible(true),
-                a.colCPillar[0].set_x(a.boy[0].get_x() + 33),
-                a.colCPillar[0].set_y(a.boy[0].get_y() + 10),
-                a.colCPillar[0].set_visible(true),
-                a.girl[0].set_x(a.boy[0].get_x() + 150),
-                a.girl[0].set_y(510),
-                1 == a.mobile && a.girl[0].set_y(0),
-                a.girl[0].set_visible(true),
-                a.colCPillar[1].set_x(a.girl[0].get_x() + 33),
-                a.colCPillar[1].set_y(a.girl[0].get_y() + 10),
-                a.colCPillar[1].set_visible(true),
-                a.boy2[0].set_x(a.girl[0].get_x() + 150),
-                a.boy2[0].set_y(510),
-                1 == a.mobile && a.boy2[0].set_y(0),
-                a.boy2[0].set_visible(true),
-                a.colCPillar[2].set_x(a.boy2[0].get_x() + 33),
-                a.colCPillar[2].set_y(a.boy2[0].get_y() + 10),
-                a.colCPillar[2].set_visible(true),
-                a.girl2[0].set_x(a.boy2[0].get_x() + 150),
-                a.girl2[0].set_y(510),
-                1 == a.mobile && a.girl2[0].set_y(0),
-                a.girl2[0].set_visible(true),
-                a.colCPillar[3].set_x(a.girl2[0].get_x() + 33),
-                a.colCPillar[3].set_y(a.girl2[0].get_y() + 10),
-                a.colCPillar[3].set_visible(true),
-                a.guardChar[0].set_x(a.girl2[0].get_x() + 150),
-                a.guardChar[0].set_y(510),
-                1 == a.mobile && a.guardChar[0].set_y(0),
-                a.guardChar[0].set_visible(true),
-                a.colCPillar[4].set_x(a.guardChar[0].get_x() + 33),
-                a.colCPillar[4].set_y(a.guardChar[0].get_y() + 10),
-                a.colCPillar[4].set_visible(true),
-                a.frame.set_x(a.boy[0].get_x() + 3),
-                a.frame.set_y(a.boy[0].get_y() - 10),
-                a.frame.set_visible(true))
+              (a.south = 12),
+                        (a.east = 6),
+                        (a.weapon[0] = 2),
+                        a.dmg++,
+                        (a.armor[0] = 2),
+                        a.def++,
+                        a["char"][0].set_x(350),
+                        a["char"][0].set_y(450),
+                        this.MoveAllChar(),
+                        this.Create()
+                // a.inputInst[0].set_text("Type a name for your character."),
+                // a.inputInst[2].set_text("Pick a character."),
+                // a.inputInst[2].set_y(450),
+                // 0 == a.mobile && a.inputInst[2].set_visible(true),
+                // a.boy[0].set_x(95),
+                // a.boy[0].set_y(510),
+                // 1 == a.mobile && a.boy[0].set_y(0),
+                // a.boy[0].set_visible(true),
+                // a.colCPillar[0].set_x(a.boy[0].get_x() + 33),
+                // a.colCPillar[0].set_y(a.boy[0].get_y() + 10),
+                // a.colCPillar[0].set_visible(true),
+                // a.girl[0].set_x(a.boy[0].get_x() + 150),
+                // a.girl[0].set_y(510),
+                // 1 == a.mobile && a.girl[0].set_y(0),
+                // a.girl[0].set_visible(true),
+                // a.colCPillar[1].set_x(a.girl[0].get_x() + 33),
+                // a.colCPillar[1].set_y(a.girl[0].get_y() + 10),
+                // a.colCPillar[1].set_visible(true),
+                // a.boy2[0].set_x(a.girl[0].get_x() + 150),
+                // a.boy2[0].set_y(510),
+                // 1 == a.mobile && a.boy2[0].set_y(0),
+                // a.boy2[0].set_visible(true),
+                // a.colCPillar[2].set_x(a.boy2[0].get_x() + 33),
+                // a.colCPillar[2].set_y(a.boy2[0].get_y() + 10),
+                // a.colCPillar[2].set_visible(true),
+                // a.girl2[0].set_x(a.boy2[0].get_x() + 150),
+                // a.girl2[0].set_y(510),
+                // 1 == a.mobile && a.girl2[0].set_y(0),
+                // a.girl2[0].set_visible(true),
+                // a.colCPillar[3].set_x(a.girl2[0].get_x() + 33),
+                // a.colCPillar[3].set_y(a.girl2[0].get_y() + 10),
+                // a.colCPillar[3].set_visible(true),
+                // a.guardChar[0].set_x(a.girl2[0].get_x() + 150),
+                // a.guardChar[0].set_y(510),
+                // 1 == a.mobile && a.guardChar[0].set_y(0),
+                // a.guardChar[0].set_visible(true),
+                // a.colCPillar[4].set_x(a.guardChar[0].get_x() + 33),
+                // a.colCPillar[4].set_y(a.guardChar[0].get_y() + 10),
+                // a.colCPillar[4].set_visible(true),
+                // a.frame.set_x(a.boy[0].get_x() + 3),
+                // a.frame.set_y(a.boy[0].get_y() - 10),
+                // a.frame.set_visible(true))
+          )
               : ((a.newGame = false),
               this.Load())
             a.buttonSound.play()
@@ -15249,10 +15260,10 @@ showFuncCall("preClickHandler");
               a.buttonShadow[d].set_visible(false)
               a.colButtonMain[d].set_alpha(0)
             }
-            a.inputInst[0].set_visible(true)
-            a.inputBox[0].set_x(100)
-            a.inputBox[0].set_y(170)
-            a.inputBox[0].set_visible(true)
+            // a.inputInst[0].set_visible(true)
+            // a.inputBox[0].set_x(100)
+            // a.inputBox[0].set_y(170)
+            // a.inputBox[0].set_visible(true)
             // 0 == a.mobile
             //   ? (this.stage.addEventListener(
             //       "keyDown",
@@ -15286,10 +15297,10 @@ showFuncCall("preClickHandler");
             //     a.buttonMain[1].set_visible(true),
             //     a.buttonDisplay[1].set_visible(true),
             //     a.buttonShadow[1].set_visible(true),
-            //     a.butPrev.set_x(200),
-            //     a.butYes.set_x(600),
-            //     a.butPrev.set_y(500),
-            //     a.butYes.set_y(500))
+                a.butPrev.set_x(200) 
+                a.butYes.set_x(600)
+                a.butPrev.set_y(500)
+                a.butYes.set_y(500)
             a.butPrev.set_alpha(1)
             a.butYes.set_alpha(1)
           } else if (
