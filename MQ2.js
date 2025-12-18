@@ -502,6 +502,7 @@ $jscomp.polyfill(
           return a
         },
         exec: function () {
+showFuncCall("exec");
           window.addEventListener("keydown", n(this, this.handleKeyEvent), false)
           window.addEventListener("keyup", n(this, this.handleKeyEvent), false)
           window.addEventListener("focus", n(this, this.handleWindowEvent), false)
@@ -574,6 +575,7 @@ $jscomp.polyfill(
         },
         exit: function () {},
         handleApplicationEvent: function (a) {
+showFuncCall("handleApplicationEvent");
           a = 0
           for (var b = this.parent.__windows; a < b.length; ) {
             var c = b[a]
@@ -601,6 +603,7 @@ $jscomp.polyfill(
           window.requestAnimationFrame(n(this, this.handleApplicationEvent))
         },
         handleKeyEvent: function (a) {
+showFuncCall("handleKeyEvent");
           if (null != this.parent.__window) {
             var b = this.convertKeyCode(
                 null != a.keyCode ? a.keyCode : a.which
@@ -622,6 +625,7 @@ $jscomp.polyfill(
           }
         },
         handleSensorEvent: function (a) {
+showFuncCall("handleSensorEvent");
           this.accelerometer.onUpdate.dispatch(
             a.accelerationIncludingGravity.x,
             a.accelerationIncludingGravity.y,
@@ -629,6 +633,7 @@ $jscomp.polyfill(
           )
         },
         handleWindowEvent: function (a) {
+showFuncCall("handleWindowEvent");
           if (null != this.parent.__window)
             switch (a.type) {
               case "blur":
@@ -644,6 +649,7 @@ $jscomp.polyfill(
             }
         },
         updateGameDevices: function () {
+showFuncCall("updateGameDevices");
           var a = hc.__getDeviceData()
           if (null != a)
             for (var b, d, m, f, q, e = 0, g = a.length; e < g; )
@@ -784,10 +790,12 @@ $jscomp.polyfill(
         __windowByID: null,
         __windows: null,
         addModule: function (a) {
+showFuncCall("addModule");
           a.__registerLimeModule(this)
           this.modules.push(a)
         },
         exec: function () {
+showFuncCall("exec");
           Ea.current = this
           return this.__backend.exec()
         },
@@ -1034,6 +1042,7 @@ $jscomp.polyfill(
         __iterators: null,
         __targetDispatcher: null,
         addEventListener: function (a, b, d, m, f) {
+showFuncCall("addEventListener");
           null == m && (m = 0)
           null == d && (d = false)
           if (null != b)
@@ -1064,16 +1073,19 @@ $jscomp.polyfill(
                 null != H[a] ? d.setReserved(a, b) : (d.h[a] = b)
         },
         dispatchEvent: function (a) {
+showFuncCall("dispatchEvent");
           a.target =
             null != this.__targetDispatcher ? this.__targetDispatcher : this
           return this.__dispatchEvent(a)
         },
         hasEventListener: function (a) {
+showFuncCall("hasEventListener");
           if (null == this.__eventMap) return false
           var b = this.__eventMap
           return null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a)
         },
         removeEventListener: function (a, b, d) {
+showFuncCall("removeEventListener");
           null == d && (d = false)
           if (null != this.__eventMap && null != b) {
             var c = this.__eventMap
@@ -1454,6 +1466,7 @@ $jscomp.polyfill(
         __context: null,
         __style: null,
         addEventListener: function (a, b, d, m, f) {
+showFuncCall("addEventListener");
           null == f && (f = false)
           null == m && (m = 0)
           null == d && (d = false)
@@ -3374,15 +3387,18 @@ $jscomp.polyfill(
           this.__replaceSelectedText(a, false)
         },
         replaceText: function (a, b, d) {
+showFuncCall("replaceText");
           this.__replaceText(a, b, d, false)
         },
         setSelection: function (a, b) {
+showFuncCall("setSelection");
           this.__selectionIndex = a
           this.__caretIndex = b
           this.__stopCursorTimer()
           this.__startCursorTimer()
         },
         setTextFormat: function (a, b, d) {
+showFuncCall("setTextFormat");
           null == d && (d = 0)
           null == b && (b = 0)
           var c = g.get_length(this.get_text())
@@ -5075,6 +5091,7 @@ $jscomp.polyfill(
           a.ty = b * a.b + c * a.d + a.ty
         },
         set_background: function (a) {
+
           a != this.__textEngine.background &&
             ((this.__dirty = true),
             this.__renderDirty ||
@@ -5082,6 +5099,7 @@ $jscomp.polyfill(
           return (this.__textEngine.background = a)
         },
         set_border: function (a) {
+
           a != this.__textEngine.border &&
             ((this.__dirty = true),
             this.__renderDirty ||
@@ -5089,9 +5107,11 @@ $jscomp.polyfill(
           return (this.__textEngine.border = a)
         },
         get_defaultTextFormat: function () {
+
           return this.__textFormat.clone()
         },
         set_defaultTextFormat: function (a) {
+
           this.__textFormat.__merge(a)
           this.__dirty = this.__layoutDirty = true
           this.__renderDirty ||
@@ -5099,6 +5119,7 @@ $jscomp.polyfill(
           return a
         },
         set_displayAsPassword: function (a) {
+
           a != this.__displayAsPassword &&
             ((this.__layoutDirty = this.__dirty = true),
             this.__renderDirty ||
@@ -5108,13 +5129,16 @@ $jscomp.polyfill(
           return a
         },
         set_embedFonts: function (a) {
+
           return (this.__textEngine.embedFonts = a)
         },
         get_height: function () {
+
           this.__updateLayout()
           return this.__textEngine.height * Math.abs(this.get_scaleY())
         },
         set_height: function (a) {
+
           a != this.__textEngine.height &&
             (this.__setTransformDirty(),
             (this.__layoutDirty = this.__dirty = true),
@@ -5124,9 +5148,11 @@ $jscomp.polyfill(
           return this.__textEngine.height * Math.abs(this.get_scaleY())
         },
         get_htmlText: function () {
+
           return this.__isHTML ? this.__rawHtmlText : this.__text
         },
         set_htmlText: function (a) {
+
           ;(this.__isHTML && this.__text == a) ||
             ((this.__layoutDirty = this.__dirty = true),
             this.__renderDirty ||
@@ -5151,12 +5177,15 @@ $jscomp.polyfill(
           return a
         },
         get_length: function () {
+
           return null != this.__text ? g.get_length(this.__text) : 0
         },
         get_multiline: function () {
+
           return this.__textEngine.multiline
         },
         set_multiline: function (a) {
+
           a != this.__textEngine.multiline &&
             ((this.__layoutDirty = this.__dirty = true),
             this.__updateText(this.__text),
@@ -5166,9 +5195,11 @@ $jscomp.polyfill(
           return (this.__textEngine.multiline = a)
         },
         get_scrollH: function () {
+
           return this.__textEngine.scrollH
         },
         set_scrollH: function (a) {
+
           this.__updateLayout()
           a > this.__textEngine.maxScrollH && (a = this.__textEngine.maxScrollH)
           0 > a && (a = 0)
@@ -5180,9 +5211,11 @@ $jscomp.polyfill(
           return (this.__textEngine.scrollH = a)
         },
         get_scrollV: function () {
+
           return this.__textEngine.scrollV
         },
         set_scrollV: function (a) {
+
           this.__updateLayout()
           a > this.__textEngine.maxScrollV && (a = this.__textEngine.maxScrollV)
           1 > a && (a = 1)
@@ -5194,9 +5227,11 @@ $jscomp.polyfill(
           return (this.__textEngine.scrollV = a)
         },
         get_selectable: function () {
+
           return this.__textEngine.selectable
         },
         set_selectable: function (a) {
+
           a != this.__textEngine.selectable &&
             1 == this.get_type() &&
             (null != this.stage && this.stage.get_focus() == this
@@ -5205,14 +5240,17 @@ $jscomp.polyfill(
           return (this.__textEngine.selectable = a)
         },
         get_tabEnabled: function () {
+
           return null == this.__tabEnabled
             ? 1 == this.__textEngine.type
             : this.__tabEnabled
         },
         get_text: function () {
+
           return this.__text
         },
         set_text: function (a) {
+
           if (this.__isHTML || this.__text != a)
             (this.__layoutDirty = this.__dirty = true),
               this.__renderDirty ||
@@ -5232,9 +5270,11 @@ $jscomp.polyfill(
           return a
         },
         get_type: function () {
+
           return this.__textEngine.type
         },
         set_type: function (a) {
+
           a != this.__textEngine.type &&
             (1 == a
               ? (this.addEventListener(
@@ -5255,10 +5295,12 @@ $jscomp.polyfill(
           return (this.__textEngine.type = a)
         },
         get_width: function () {
+
           this.__updateLayout()
           return this.__textEngine.width * Math.abs(this.__scaleX)
         },
         set_width: function (a) {
+
           a != this.__textEngine.width &&
             (this.__setTransformDirty(),
             (this.__layoutDirty = this.__dirty = true),
@@ -5268,6 +5310,7 @@ $jscomp.polyfill(
           return this.__textEngine.width * Math.abs(this.__scaleX)
         },
         set_wordWrap: function (a) {
+
           a != this.__textEngine.wordWrap &&
             ((this.__layoutDirty = this.__dirty = true),
             this.__renderDirty ||
@@ -5275,22 +5318,27 @@ $jscomp.polyfill(
           return (this.__textEngine.wordWrap = a)
         },
         get_x: function () {
+
           return this.__transform.tx + this.__offsetX
         },
         set_x: function (a) {
+
           a != this.__transform.tx + this.__offsetX &&
             this.__setTransformDirty()
           return (this.__transform.tx = a - this.__offsetX)
         },
         get_y: function () {
+
           return this.__transform.ty + this.__offsetY
         },
         set_y: function (a) {
+
           a != this.__transform.ty + this.__offsetY &&
             this.__setTransformDirty()
           return (this.__transform.ty = a - this.__offsetY)
         },
         stage_onMouseMove: function (a) {
+showFuncCall("stage_onMouseMove");
           null != this.stage &&
             this.__textEngine.selectable &&
             0 <= this.__selectionIndex &&
@@ -5310,6 +5358,7 @@ $jscomp.polyfill(
                     this.__setParentRenderDirty()))))
         },
         stage_onMouseUp: function (a) {
+showFuncCall("stage_onMouseUp");
           if (
             null != this.stage &&
             (this.stage.removeEventListener(
@@ -5346,15 +5395,18 @@ $jscomp.polyfill(
           }
         },
         this_onAddedToStage: function (a) {
+showFuncCall("this_onAddedToStage");
           this.this_onFocusIn(null)
         },
         this_onFocusIn: function (a) {
+showFuncCall("this_onFocusIn");
           1 == this.get_type() &&
             null != this.stage &&
             this.stage.get_focus() == this &&
             this.__startTextInput()
         },
         this_onFocusOut: function (a) {
+showFuncCall("this_onFocusOut");
           this.__stopCursorTimer()
           null != a.relatedObject && Ra.__instanceof(a.relatedObject, Aa)
             ? (null != this.stage &&
@@ -5373,6 +5425,7 @@ $jscomp.polyfill(
               ((this.__renderDirty = true), this.__setParentRenderDirty()))
         },
         this_onKeyDown: function (a) {
+showFuncCall("this_onKeyDown");
           this.get_selectable() &&
             1 != this.get_type() &&
             67 == a.keyCode &&
@@ -5383,6 +5436,7 @@ $jscomp.polyfill(
             )
         },
         this_onMouseDown: function (a) {
+showFuncCall("this_onMouseDown");
           if (this.get_selectable() || 1 == this.get_type())
             this.__updateLayout(),
               (this.__selectionIndex = this.__caretIndex =
@@ -5404,9 +5458,11 @@ $jscomp.polyfill(
               )
         },
         this_onMouseWheel: function (a) {
+showFuncCall("this_onMouseWheel");
           this.set_scrollV(this.get_scrollV() - a.delta)
         },
         window_onKeyDown: function (a, b) {
+showFuncCall("window_onKeyDown");
           switch (a) {
             case 8:
               this.__selectionIndex == this.__caretIndex &&
@@ -5551,6 +5607,7 @@ $jscomp.polyfill(
           }
         },
         window_onTextInput: function (a) {
+showFuncCall("window_onTextInput");
           this.__replaceSelectedText(a, true)
           this.dispatchEvent(new Ia("change", true))
         },
@@ -5604,18 +5661,21 @@ $jscomp.polyfill(
         __context: null,
         __bitmap: null,
         beginBitmapFill: function (a, b, d, m) {
+showFuncCall("beginBitmapFill");
           null == m && (m = false)
           null == d && (d = true)
           this.__commands.beginBitmapFill(a, null != b ? b.clone() : null, d, m)
           this.__visible = true
         },
         beginFill: function (a, b) {
+showFuncCall("beginFill");
           null == b && (b = 1)
           null == a && (a = 0)
           this.__commands.beginFill(a & 16777215, b)
           0 < b && (this.__visible = true)
         },
         beginGradientFill: function (a, b, d, m, f, q, e, g) {
+showFuncCall("beginGradientFill");
           null == g && (g = 0)
           null == e && (e = 1)
           null == q && (q = 0)
@@ -5643,6 +5703,7 @@ $jscomp.polyfill(
           }
         },
         clear: function () {
+showFuncCall("clear");
           for (var a = this.__usedShaderBuffers.h; null != a; ) {
             var b = a.item
             a = a.next
@@ -5660,6 +5721,7 @@ $jscomp.polyfill(
           this.moveTo(0, 0)
         },
         copyFrom: function (a) {
+showFuncCall("copyFrom");
           this.__bounds = null != a.__bounds ? a.__bounds.clone() : null
           this.__commands = a.__commands.copy()
           this.set___dirty(true)
@@ -5670,6 +5732,7 @@ $jscomp.polyfill(
           this.__visible = a.__visible
         },
         curveTo: function (a, b, d, m) {
+showFuncCall("curveTo");
           this.__inflateBounds(
             this.__positionX - this.__strokePadding,
             this.__positionY - this.__strokePadding
@@ -5710,6 +5773,7 @@ $jscomp.polyfill(
           this.set___dirty(true)
         },
         drawRect: function (a, b, d, m) {
+showFuncCall("drawRect");
           if (0 != d || 0 != m) {
             var c = 0 > d ? -1 : 1,
               q = 0 > m ? -1 : 1
@@ -5726,9 +5790,11 @@ $jscomp.polyfill(
           }
         },
         endFill: function () {
+showFuncCall("endFill");
           this.__commands.endFill()
         },
         lineStyle: function (a, b, d, m, f, q, e, g) {
+showFuncCall("lineStyle");
           null == g && (g = 3)
           null == f && (f = 2)
           null == m && (m = false)
@@ -5742,6 +5808,7 @@ $jscomp.polyfill(
           null != a && (this.__visible = true)
         },
         lineTo: function (a, b) {
+showFuncCall("lineTo");
           isFinite(a) &&
             isFinite(b) &&
             (this.__inflateBounds(
@@ -5766,6 +5833,7 @@ $jscomp.polyfill(
             this.set___dirty(true))
         },
         moveTo: function (a, b) {
+showFuncCall("moveTo");
           this.__positionX = a
           this.__positionY = b
           this.__commands.moveTo(a, b)
@@ -5887,6 +5955,7 @@ $jscomp.polyfill(
           }
         },
         set___dirty: function (a) {
+
           if (a && null != this.__owner) {
             var b = this.__owner
             b.__renderDirty ||
@@ -5921,6 +5990,7 @@ $jscomp.polyfill(
         ii: null,
         o: null,
         append: function (a) {
+showFuncCall("append");
           if (0 == this.get_length())
             return (
               (this.types = a.types),
@@ -7614,6 +7684,7 @@ $jscomp.polyfill(
           return a
         },
         beginBitmapFill: function (a, b, d, m) {
+showFuncCall("beginBitmapFill");
           this.prepareWrite()
           this.types.push(T.BEGIN_BITMAP_FILL)
           this.o.push(a)
@@ -7622,12 +7693,14 @@ $jscomp.polyfill(
           this.b.push(m)
         },
         beginFill: function (a, b) {
+showFuncCall("beginFill");
           this.prepareWrite()
           this.types.push(T.BEGIN_FILL)
           this.i.push(a)
           this.f.push(b)
         },
         beginGradientFill: function (a, b, d, m, f, q, e, g) {
+showFuncCall("beginGradientFill");
           this.prepareWrite()
           this.types.push(T.BEGIN_GRADIENT_FILL)
           this.o.push(a)
@@ -7640,11 +7713,13 @@ $jscomp.polyfill(
           this.f.push(g)
         },
         beginShaderFill: function (a) {
+showFuncCall("beginShaderFill");
           this.prepareWrite()
           this.types.push(T.BEGIN_SHADER_FILL)
           this.o.push(a)
         },
         clear: function () {
+showFuncCall("clear");
           this.types = Ub.empty.types
           this.b = Ub.empty.b
           this.i = Ub.empty.i
@@ -7655,11 +7730,13 @@ $jscomp.polyfill(
           this.copyOnWrite = true
         },
         copy: function () {
+showFuncCall("copy");
           var a = new Ub()
           a.append(this)
           return a
         },
         cubicCurveTo: function (a, b, d, m, f, q) {
+showFuncCall("cubicCurveTo");
           this.prepareWrite()
           this.types.push(T.CUBIC_CURVE_TO)
           this.f.push(a)
@@ -7670,6 +7747,7 @@ $jscomp.polyfill(
           this.f.push(q)
         },
         curveTo: function (a, b, d, m) {
+showFuncCall("curveTo");
           this.prepareWrite()
           this.types.push(T.CURVE_TO)
           this.f.push(a)
@@ -7678,6 +7756,7 @@ $jscomp.polyfill(
           this.f.push(m)
         },
         drawCircle: function (a, b, d) {
+showFuncCall("drawCircle");
           this.prepareWrite()
           this.types.push(T.DRAW_CIRCLE)
           this.f.push(a)
@@ -7685,6 +7764,7 @@ $jscomp.polyfill(
           this.f.push(d)
         },
         drawEllipse: function (a, b, d, m) {
+showFuncCall("drawEllipse");
           this.prepareWrite()
           this.types.push(T.DRAW_ELLIPSE)
           this.f.push(a)
@@ -7693,6 +7773,7 @@ $jscomp.polyfill(
           this.f.push(m)
         },
         drawQuads: function (a, b, d) {
+showFuncCall("drawQuads");
           this.prepareWrite()
           this.types.push(T.DRAW_QUADS)
           this.o.push(a)
@@ -7700,6 +7781,7 @@ $jscomp.polyfill(
           this.o.push(d)
         },
         drawRect: function (a, b, d, m) {
+showFuncCall("drawRect");
           this.prepareWrite()
           this.types.push(T.DRAW_RECT)
           this.f.push(a)
@@ -7708,6 +7790,7 @@ $jscomp.polyfill(
           this.f.push(m)
         },
         drawRoundRect: function (a, b, d, m, f, q) {
+showFuncCall("drawRoundRect");
           this.prepareWrite()
           this.types.push(T.DRAW_ROUND_RECT)
           this.f.push(a)
@@ -7718,6 +7801,7 @@ $jscomp.polyfill(
           this.o.push(q)
         },
         drawTriangles: function (a, b, d, m) {
+showFuncCall("drawTriangles");
           this.prepareWrite()
           this.types.push(T.DRAW_TRIANGLES)
           this.o.push(a)
@@ -7726,10 +7810,12 @@ $jscomp.polyfill(
           this.o.push(m)
         },
         endFill: function () {
+showFuncCall("endFill");
           this.prepareWrite()
           this.types.push(T.END_FILL)
         },
         lineBitmapStyle: function (a, b, d, m) {
+showFuncCall("lineBitmapStyle");
           this.prepareWrite()
           this.types.push(T.LINE_BITMAP_STYLE)
           this.o.push(a)
@@ -7738,6 +7824,7 @@ $jscomp.polyfill(
           this.b.push(m)
         },
         lineGradientStyle: function (a, b, d, m, f, q, e, g) {
+showFuncCall("lineGradientStyle");
           this.prepareWrite()
           this.types.push(T.LINE_GRADIENT_STYLE)
           this.o.push(a)
@@ -7750,6 +7837,7 @@ $jscomp.polyfill(
           this.f.push(g)
         },
         lineStyle: function (a, b, d, m, f, q, e, g) {
+showFuncCall("lineStyle");
           this.prepareWrite()
           this.types.push(T.LINE_STYLE)
           this.o.push(a)
@@ -7762,18 +7850,21 @@ $jscomp.polyfill(
           this.f.push(g)
         },
         lineTo: function (a, b) {
+showFuncCall("lineTo");
           this.prepareWrite()
           this.types.push(T.LINE_TO)
           this.f.push(a)
           this.f.push(b)
         },
         moveTo: function (a, b) {
+showFuncCall("moveTo");
           this.prepareWrite()
           this.types.push(T.MOVE_TO)
           this.f.push(a)
           this.f.push(b)
         },
         prepareWrite: function () {
+showFuncCall("prepareWrite");
           this.copyOnWrite &&
             ((this.types = this.types.slice()),
             (this.b = this.b.slice()),
@@ -7785,19 +7876,23 @@ $jscomp.polyfill(
             (this.copyOnWrite = false))
         },
         overrideMatrix: function (a) {
+showFuncCall("overrideMatrix");
           this.prepareWrite()
           this.types.push(T.OVERRIDE_MATRIX)
           this.o.push(a)
         },
         windingEvenOdd: function () {
+showFuncCall("windingEvenOdd");
           this.prepareWrite()
           this.types.push(T.WINDING_EVEN_ODD)
         },
         windingNonZero: function () {
+showFuncCall("windingNonZero");
           this.prepareWrite()
           this.types.push(T.WINDING_NON_ZERO)
         },
         get_length: function () {
+
           return this.types.length
         },
         __class__: Ub,
@@ -7851,9 +7946,11 @@ $jscomp.polyfill(
         tx: null,
         ty: null,
         clone: function () {
+showFuncCall("clone");
           return new za(this.a, this.b, this.c, this.d, this.tx, this.ty)
         },
         concat: function (a) {
+showFuncCall("concat");
           var b = this.a * a.a + this.b * a.c
           this.b = this.a * a.b + this.b * a.d
           this.a = b
@@ -7865,6 +7962,7 @@ $jscomp.polyfill(
           this.tx = b
         },
         copyFrom: function (a) {
+showFuncCall("copyFrom");
           this.a = a.a
           this.b = a.b
           this.c = a.c
@@ -7873,6 +7971,7 @@ $jscomp.polyfill(
           this.ty = a.ty
         },
         equals: function (a) {
+showFuncCall("equals");
           return null != a &&
             this.tx == a.tx &&
             this.ty == a.ty &&
@@ -7883,12 +7982,14 @@ $jscomp.polyfill(
             : false
         },
         identity: function () {
+showFuncCall("identity");
           this.a = 1
           this.c = this.b = 0
           this.d = 1
           this.ty = this.tx = 0
         },
         invert: function () {
+showFuncCall("invert");
           var a = this.a * this.d - this.b * this.c
           if (0 == a)
             (this.a = this.b = this.c = this.d = 0),
@@ -7908,6 +8009,7 @@ $jscomp.polyfill(
           return this
         },
         scale: function (a, b) {
+showFuncCall("scale");
           this.a *= a
           this.b *= b
           this.c *= a
@@ -7916,6 +8018,7 @@ $jscomp.polyfill(
           this.ty *= b
         },
         setTo: function (a, b, d, m, f, q) {
+showFuncCall("setTo");
           this.a = a
           this.b = b
           this.c = d
@@ -7924,6 +8027,7 @@ $jscomp.polyfill(
           this.ty = q
         },
         translate: function (a, b) {
+showFuncCall("translate");
           this.tx += a
           this.ty += b
         },
@@ -7980,16 +8084,19 @@ $jscomp.polyfill(
         paramTypes: null,
         shader: null,
         addBoolOverride: function (a, b) {
+showFuncCall("addBoolOverride");
           this.overrideBoolNames[this.overrideBoolCount] = a
           this.overrideBoolValues[this.overrideBoolCount] = b
           this.overrideBoolCount++
         },
         addFloatOverride: function (a, b) {
+showFuncCall("addFloatOverride");
           this.overrideFloatNames[this.overrideFloatCount] = a
           this.overrideFloatValues[this.overrideFloatCount] = b
           this.overrideFloatCount++
         },
         clearOverride: function () {
+showFuncCall("clearOverride");
           this.overrideBoolCount =
             this.overrideFloatCount =
             this.overrideIntCount =
@@ -8172,6 +8279,7 @@ $jscomp.polyfill(
         __restrictRegexp: null,
         __useIntAdvances: null,
         getBounds: function () {
+showFuncCall("getBounds");
           var a = this.border ? 1 : 0
           this.bounds.width = this.width + a
           this.bounds.height = this.height + a
@@ -8195,12 +8303,14 @@ $jscomp.polyfill(
           )
         },
         getLineBreakIndex: function (a) {
+showFuncCall("getLineBreakIndex");
           null == a && (a = 0)
           var b = g.indexOf(this.text, "\n", a)
           a = g.indexOf(this.text, "\r", a)
           return -1 == b ? a : -1 == a ? b : b < a ? b : a
         },
         getLineMeasurements: function () {
+showFuncCall("getLineMeasurements");
           this.lineAscents.set_length(0)
           this.lineDescents.set_length(0)
           this.lineLeadings.set_length(0)
@@ -8281,6 +8391,7 @@ $jscomp.polyfill(
           this.scrollH > this.maxScrollH && (this.scrollH = this.maxScrollH)
         },
         getLayoutGroups: function () {
+showFuncCall("getLayoutGroups");
           var a = this
           this.layoutGroups.set_length(0)
           if (null != this.text && !g.equals(this.text, "")) {
@@ -8599,12 +8710,14 @@ $jscomp.polyfill(
           }
         },
         restrictText: function (a) {
+showFuncCall("restrictText");
           if (null == a) return a
           null != this.__restrictRegexp &&
             (a = this.__restrictRegexp.split(a).join(""))
           return a
         },
         setTextAlignment: function () {
+showFuncCall("setTextAlignment");
           for (
             var a = -1,
               b = 0,
@@ -8676,6 +8789,7 @@ $jscomp.polyfill(
           q && this.getLineMeasurements()
         },
         update: function () {
+showFuncCall("update");
           null == this.text || 0 == this.textFormatRanges.get_length()
             ? (this.lineAscents.set_length(0),
               this.lineBreaks.set_length(0),
@@ -8694,6 +8808,7 @@ $jscomp.polyfill(
           this.getBounds()
         },
         set_text: function (a) {
+
           return (this.text = a)
         },
         __class__: Ba,
@@ -8716,23 +8831,28 @@ $jscomp.polyfill(
         x: null,
         y: null,
         clone: function () {
+showFuncCall("clone");
           return new ia(this.x, this.y, this.width, this.height)
         },
         contains: function (a, b) {
+showFuncCall("contains");
           return a >= this.x && b >= this.y && a < this.get_right()
             ? b < this.get_bottom()
             : false
         },
         containsPoint: function (a) {
+showFuncCall("containsPoint");
           return this.contains(a.x, a.y)
         },
         copyFrom: function (a) {
+showFuncCall("copyFrom");
           this.x = a.x
           this.y = a.y
           this.width = a.width
           this.height = a.height
         },
         equals: function (a) {
+showFuncCall("equals");
           return a == this
             ? true
             : null != a &&
@@ -8743,6 +8863,7 @@ $jscomp.polyfill(
             : false
         },
         intersects: function (a) {
+showFuncCall("intersects");
           var b = this.x < a.x ? a.x : this.x
           if (
             (this.get_right() > a.get_right()
@@ -8758,6 +8879,7 @@ $jscomp.polyfill(
           )
         },
         setTo: function (a, b, d, m) {
+showFuncCall("setTo");
           this.x = a
           this.y = b
           this.width = d
@@ -8822,15 +8944,19 @@ $jscomp.polyfill(
           a.setTo(c + b.tx, f + b.ty, m - c, q - f)
         },
         get_bottom: function () {
+
           return this.y + this.height
         },
         get_left: function () {
+
           return this.x
         },
         get_right: function () {
+
           return this.x + this.width
         },
         get_top: function () {
+
           return this.y
         },
         __class__: ia,
@@ -8874,6 +9000,7 @@ $jscomp.polyfill(
         __ascent: null,
         __descent: null,
         clone: function () {
+showFuncCall("clone");
           var a = new v(
             this.font,
             this.size,
@@ -9045,6 +9172,7 @@ $jscomp.polyfill(
           b[3] = this.alphaOffset
         },
         get_color: function () {
+
           return (
             ((this.redOffset | 0) << 16) |
             ((this.greenOffset | 0) << 8) |
@@ -9053,6 +9181,7 @@ $jscomp.polyfill(
           )
         },
         set_color: function (a) {
+
           this.redOffset = (a >> 16) & 255
           this.greenOffset = (a >> 8) & 255
           this.blueOffset = a & 255
@@ -9093,6 +9222,7 @@ $jscomp.polyfill(
         url: null,
         __buffer: null,
         load: function (a, b) {
+showFuncCall("load");
           var c = this
           this.url = a.url
           a = Qa.getLibrary("default")
@@ -9115,6 +9245,7 @@ $jscomp.polyfill(
               })
         },
         play: function (a, b, d) {
+showFuncCall("play");
           null == b && (b = 0)
           null == a && (a = 0)
           if (null == this.__buffer || 32 <= L.__soundChannels.length)
@@ -9135,11 +9266,13 @@ $jscomp.polyfill(
           return new Ca(q, d)
         },
         get_length: function () {
+
           return null != this.__buffer
             ? (1e3 * this.__buffer.get_src().duration()) | 0
             : 0
         },
         AudioBuffer_onURLLoad: function (a) {
+showFuncCall("AudioBuffer_onURLLoad");
           null == a
             ? this.dispatchEvent(new Oe("ioError"))
             : ((this.__buffer = a), this.dispatchEvent(new Ia("complete")))
@@ -9198,33 +9331,42 @@ $jscomp.polyfill(
             null != this.parent && this.parent.__setRenderDirty())
         },
         get_alpha: function () {
+
           return this.__alpha
         },
         set_alpha: function (a) {
+
           a != this.__alpha && ((this.__alpha = a), this.__setRenderDirty())
           return a
         },
         get_colorTransform: function () {
+
           return this.__colorTransform
         },
         set_colorTransform: function (a) {
+
           a != this.__colorTransform &&
             ((this.__colorTransform = a), this.__setRenderDirty())
           return a
         },
         get_id: function () {
+
           return this.__id
         },
         get_matrix: function () {
+
           return this.__matrix
         },
         get_originX: function () {
+
           return this.__originX
         },
         get_originY: function () {
+
           return this.__originY
         },
         get_rotation: function () {
+
           if (null == this.__rotation)
             if (0 == this.__matrix.b && 0 == this.__matrix.c)
               (this.__rotationSine = this.__rotation = 0),
@@ -9238,6 +9380,7 @@ $jscomp.polyfill(
           return this.__rotation
         },
         set_rotation: function (a) {
+
           if (a != this.__rotation) {
             this.__rotation = a
             var b = (Math.PI / 180) * a
@@ -9254,6 +9397,7 @@ $jscomp.polyfill(
           return a
         },
         get_scaleX: function () {
+
           null == this.__scaleX &&
             (0 == this.get_matrix().b
               ? (this.__scaleX = this.__matrix.a)
@@ -9264,6 +9408,7 @@ $jscomp.polyfill(
           return this.__scaleX
         },
         set_scaleX: function (a) {
+
           if (a != this.__scaleX) {
             this.__scaleX = a
             if (0 == this.__matrix.b) this.__matrix.a = a
@@ -9278,6 +9423,7 @@ $jscomp.polyfill(
           return a
         },
         get_scaleY: function () {
+
           null == this.__scaleY &&
             (this.__scaleY =
               0 == this.__matrix.c
@@ -9289,6 +9435,7 @@ $jscomp.polyfill(
           return this.__scaleY
         },
         set_scaleY: function (a) {
+
           if (a != this.__scaleY) {
             this.__scaleY = a
             if (0 == this.__matrix.c) this.__matrix.d = a
@@ -9303,34 +9450,43 @@ $jscomp.polyfill(
           return a
         },
         get_shader: function () {
+
           return this.__shader
         },
         get_tileset: function () {
+
           return this.__tileset
         },
         set_tileset: function (a) {
+
           a != this.__tileset && ((this.__tileset = a), this.__setRenderDirty())
           return a
         },
         get_visible: function () {
+
           return this.__visible
         },
         set_visible: function (a) {
+
           a != this.__visible && ((this.__visible = a), this.__setRenderDirty())
           return a
         },
         get_x: function () {
+
           return this.__matrix.tx
         },
         set_x: function (a) {
+
           a != this.__matrix.tx &&
             ((this.__matrix.tx = a), this.__setRenderDirty())
           return a
         },
         get_y: function () {
+
           return this.__matrix.ty
         },
         set_y: function (a) {
+
           a != this.__matrix.ty &&
             ((this.__matrix.ty = a), this.__setRenderDirty())
           return a
@@ -9685,14 +9841,17 @@ $jscomp.polyfill(
               )
         },
         get_bitmapData: function () {
+
           return this.__bitmapData
         },
         get_height: function () {
+
           return null != this.__bitmapData
             ? this.__bitmapData.height * Math.abs(this.get_scaleY())
             : 0
         },
         set_height: function (a) {
+
           return null != this.__bitmapData
             ? (a != this.__bitmapData.height &&
                 (this.__renderDirty ||
@@ -9702,11 +9861,13 @@ $jscomp.polyfill(
             : 0
         },
         get_width: function () {
+
           return null != this.__bitmapData
             ? this.__bitmapData.width * Math.abs(this.__scaleX)
             : 0
         },
         set_width: function (a) {
+
           return null != this.__bitmapData
             ? (a != this.__bitmapData.width &&
                 (this.__renderDirty ||
@@ -9738,6 +9899,7 @@ $jscomp.polyfill(
         __soundTransform: null,
         __source: null,
         stop: function () {
+showFuncCall("stop");
           L.__unregisterSoundChannel(this)
           this.__isValid && (this.__source.stop(), this.__dispose())
         },
@@ -9751,19 +9913,23 @@ $jscomp.polyfill(
           this.set_soundTransform(this.get_soundTransform())
         },
         get_position: function () {
+
           return this.__isValid
             ? this.__source.get_currentTime() + this.__source.offset
             : 0
         },
         set_position: function (a) {
+
           if (!this.__isValid) return 0
           this.__source.set_currentTime((a | 0) - this.__source.offset)
           return a
         },
         get_soundTransform: function () {
+
           return this.__soundTransform.clone()
         },
         set_soundTransform: function (a) {
+
           if (null != a) {
             this.__soundTransform.pan = a.pan
             this.__soundTransform.volume = a.volume
@@ -9781,6 +9947,7 @@ $jscomp.polyfill(
           return a
         },
         source_onComplete: function () {
+showFuncCall("source_onComplete");
           L.__unregisterSoundChannel(this)
           this.__dispose()
           this.dispatchEvent(new Ia("soundComplete"))
@@ -9808,6 +9975,7 @@ $jscomp.polyfill(
         rightToRight: null,
         volume: null,
         clone: function () {
+showFuncCall("clone");
           return new ma(this.volume, this.pan)
         },
         __class__: ma,
@@ -9857,10 +10025,12 @@ $jscomp.polyfill(
         __timeElapsed: null,
         __totalFrames: null,
         gotoAndPlay: function (a, b) {
+showFuncCall("gotoAndPlay");
           this.play()
           this.__goto(this.__resolveFrameReference(a))
         },
         play: function () {
+showFuncCall("play");
           null == this.__symbol ||
             this.__playing ||
             2 > this.__totalFrames ||
@@ -10360,9 +10530,11 @@ $jscomp.polyfill(
           cur: 0,
           arr: a,
           hasNext: function () {
+showFuncCall("hasNext");
             return this.cur < this.arr.length
           },
           next: function () {
+showFuncCall("next");
             return this.arr[this.cur++]
           },
         }
@@ -10389,6 +10561,7 @@ $jscomp.polyfill(
         __repeatCount: null,
         __timerID: null,
         start: function () {
+showFuncCall("start");
           this.running ||
             ((this.running = true),
             (this.__timerID = window.setInterval(
@@ -10397,11 +10570,13 @@ $jscomp.polyfill(
             )))
         },
         stop: function () {
+showFuncCall("stop");
           this.running = false
           null != this.__timerID &&
             (window.clearInterval(this.__timerID), (this.__timerID = null))
         },
         timer_onTimer: function () {
+showFuncCall("timer_onTimer");
           this.currentCount++
           0 < this.__repeatCount && this.currentCount >= this.__repeatCount
             ? (this.stop(),
@@ -10425,6 +10600,7 @@ $jscomp.polyfill(
         message: null,
         name: null,
         toString: function () {
+showFuncCall("toString");
           return null != this.message ? this.message : "Error"
         },
         __class__: Rb,
@@ -14476,6 +14652,7 @@ $jscomp.polyfill(
         mapCharIconMap: null,
         butExit: null,
         BattleThemeComplete: function (c) {
+showFuncCall("BattleThemeComplete");
           a.battleThemeLoaded = true
           console.log("battle theme loaded")
           a.battleTheme.removeEventListener(
@@ -14489,6 +14666,7 @@ $jscomp.polyfill(
           )
         },
         WorldThemeComplete: function (c) {
+showFuncCall("WorldThemeComplete");
           a.worldThemeLoaded = true
           console.log("world theme loaded")
           a.worldTheme.removeEventListener(
@@ -14504,6 +14682,7 @@ $jscomp.polyfill(
           )
         },
         DungeonThemeComplete: function (c) {
+showFuncCall("DungeonThemeComplete");
           a.dungeonThemeLoaded = true
           console.log("dungeon theme loaded")
           a.dungeonTheme.removeEventListener(
@@ -14519,6 +14698,7 @@ $jscomp.polyfill(
           )
         },
         UnbrokenThemeComplete: function (c) {
+showFuncCall("UnbrokenThemeComplete");
           a.unbrokenThemeLoaded = true
           console.log("unbroken theme loaded")
           a.unbrokenTheme.removeEventListener(
@@ -14844,6 +15024,7 @@ $jscomp.polyfill(
         bgSide: null,
         colChest: null,
         DeviceScreen: function () {
+showFuncCall("DeviceScreen");
           this.ClearScreen()
           a.south = -1
           a.east = -1
@@ -14870,6 +15051,7 @@ $jscomp.polyfill(
           )
         },
         TitleScreen: function () {
+showFuncCall("TitleScreen");
           this.ClearScreen()
           a.south = -1
           a.east = -1
@@ -14913,6 +15095,7 @@ $jscomp.polyfill(
           for (b = a.boy.length; c < b; ) (d = c++), (a["char"][d] = a.boy[d])
         },
         titleEnterHandler: function (c) {
+showFuncCall("titleEnterHandler");
           13 == c.keyCode &&
           1 <= a.butYes.get_alpha() &&
                 1 == a.typingPass &&
@@ -14956,6 +15139,7 @@ $jscomp.polyfill(
                   : a.inputInst[0].set_text("You need a longer password."))
         },
         preClickHandler: function (c) {
+showFuncCall("preClickHandler");
           this.iPad.hitTestPoint(this.get_mouseX(), this.get_mouseY(), true) &&
           1 == this.iPad.get_visible()
             ? ((a.mobile = true),
@@ -15051,7 +15235,7 @@ $jscomp.polyfill(
                 a.frame.set_y(a.boy[0].get_y() - 10),
                 a.frame.set_visible(true))
               : ((a.newGame = false),
-                a.inputInst[0].set_text("Type your character's name."))
+              this.Load())
             a.buttonSound.play()
             a.typingName = true
             a.placeInNumber = 0
@@ -15069,43 +15253,43 @@ $jscomp.polyfill(
             a.inputBox[0].set_x(100)
             a.inputBox[0].set_y(170)
             a.inputBox[0].set_visible(true)
-            0 == a.mobile
-              ? (this.stage.addEventListener(
-                  "keyDown",
-                  n(this, this.charNameHandler)
-                ),
-                a.butPrev.set_x(300),
-                a.butYes.set_x(500),
-                a.butPrev.set_y(325),
-                a.butYes.set_y(325))
-              : 1 == a.mobile &&
-                (this.stage.addEventListener(
-                  "mouseDown",
-                  n(this, this.mobileCharNameHandler)
-                ),
-                this.showLetterButs(),
-                1 == a.keyboard
-                  ? (a.buttonDisplay[1].set_text("Uppercase"),
-                    a.buttonShadow[1].set_text("Uppercase"))
-                  : 2 == a.keyboard
-                  ? (a.buttonDisplay[1].set_text("Lowercase"),
-                    a.buttonShadow[1].set_text("Lowercase"))
-                  : 3 == a.keyboard &&
-                    (a.buttonDisplay[1].set_text("Numbers"),
-                    a.buttonShadow[1].set_text("Numbers")),
-                (a.butInputFormat.color = 16777215),
-                a.buttonDisplay[1].setTextFormat(a.butInputFormat),
-                (a.butInputFormat.color = 5056261),
-                a.buttonShadow[1].setTextFormat(a.butInputFormat),
-                a.buttonDisplay[1].set_y(a.buttonMain[1].get_y() + 35),
-                a.buttonShadow[1].set_y(a.buttonMain[1].get_y() + 30),
-                a.buttonMain[1].set_visible(true),
-                a.buttonDisplay[1].set_visible(true),
-                a.buttonShadow[1].set_visible(true),
-                a.butPrev.set_x(200),
-                a.butYes.set_x(600),
-                a.butPrev.set_y(500),
-                a.butYes.set_y(500))
+            // 0 == a.mobile
+            //   ? (this.stage.addEventListener(
+            //       "keyDown",
+            //       n(this, this.charNameHandler)
+            //     ),
+            //     a.butPrev.set_x(300),
+            //     a.butYes.set_x(500),
+            //     a.butPrev.set_y(325),
+            //     a.butYes.set_y(325))
+            //   : 1 == a.mobile &&
+            //     (this.stage.addEventListener(
+            //       "mouseDown",
+            //       n(this, this.mobileCharNameHandler)
+            //     ),
+            //     this.showLetterButs(),
+            //     1 == a.keyboard
+            //       ? (a.buttonDisplay[1].set_text("Uppercase"),
+            //         a.buttonShadow[1].set_text("Uppercase"))
+            //       : 2 == a.keyboard
+            //       ? (a.buttonDisplay[1].set_text("Lowercase"),
+            //         a.buttonShadow[1].set_text("Lowercase"))
+            //       : 3 == a.keyboard &&
+            //         (a.buttonDisplay[1].set_text("Numbers"),
+            //         a.buttonShadow[1].set_text("Numbers")),
+            //     (a.butInputFormat.color = 16777215),
+            //     a.buttonDisplay[1].setTextFormat(a.butInputFormat),
+            //     (a.butInputFormat.color = 5056261),
+            //     a.buttonShadow[1].setTextFormat(a.butInputFormat),
+            //     a.buttonDisplay[1].set_y(a.buttonMain[1].get_y() + 35),
+            //     a.buttonShadow[1].set_y(a.buttonMain[1].get_y() + 30),
+            //     a.buttonMain[1].set_visible(true),
+            //     a.buttonDisplay[1].set_visible(true),
+            //     a.buttonShadow[1].set_visible(true),
+            //     a.butPrev.set_x(200),
+            //     a.butYes.set_x(600),
+            //     a.butPrev.set_y(500),
+            //     a.butYes.set_y(500))
             a.butPrev.set_alpha(1)
             a.butYes.set_alpha(1)
           } else if (
@@ -15435,6 +15619,7 @@ $jscomp.polyfill(
                   )
         },
         showLetterButs: function () {
+showFuncCall("showLetterButs");
           for (var c = 0; 27 > c; ) {
             var b = c++
             9 > b
@@ -15466,6 +15651,7 @@ $jscomp.polyfill(
           }
         },
         removeLetterButs: function () {
+showFuncCall("removeLetterButs");
           for (var c = 0; 27 > c; ) {
             var b = c++
             a.butInput[b].set_visible(false)
@@ -15474,6 +15660,7 @@ $jscomp.polyfill(
           a.backspaceArrow.set_visible(false)
         },
         mobileCharNameHandler: function (c) {
+showFuncCall("mobileCharNameHandler");
           a.digits = 15
           a.inputFormat.size = 36
           a.inputFormat.color = 20224
@@ -15527,6 +15714,7 @@ $jscomp.polyfill(
             a.charName.setTextFormat(a.charNameFormat))
         },
         charNameHandler: function (c) {
+showFuncCall("charNameHandler");
           a.digits = 15
           a.inputFormat.size = 36
           a.inputFormat.color = 20224
@@ -15562,6 +15750,7 @@ $jscomp.polyfill(
           console.log(a.placeInNumber)
         },
         mobilePassInputHandler: function (c) {
+showFuncCall("mobilePassInputHandler");
           a.digits = 15
           a.charNameFormat.color = 16733525
           for (c = 0; 26 > c; ) {
@@ -15621,6 +15810,7 @@ $jscomp.polyfill(
             a.passHidden.setTextFormat(a.charNameFormat))
         },
         passInputHandler: function (c) {
+showFuncCall("passInputHandler");
           a.digits = 15
           a.charNameFormat.color = 16733525
           8 == c.keyCode && 0 < a.placeInNumber
@@ -15662,6 +15852,7 @@ $jscomp.polyfill(
           console.log(a.placeInNumber)
         },
         Create: function () {
+showFuncCall("Create");
           console.log(g.toString(a.charName.get_text()))
           var c = g.plus(a.charName.get_text(), "."),
             b = a.password.get_text()
@@ -15675,6 +15866,7 @@ $jscomp.polyfill(
           this.sender.addEventListener("complete", n(this, this.sendComplete))
         },
         LoadDay: function () {
+showFuncCall("LoadDay");
           a.ClearButtons(-1)
           this.RemoveInputListeners()
           a.titles[a.loadingLegionData].set_x(75)
@@ -15685,12 +15877,14 @@ $jscomp.polyfill(
           this.sender.addEventListener("complete", n(this, this.DayComplete))
         },
         DayComplete: function (c) {
+showFuncCall("DayComplete");
           this.sender.removeEventListener("complete", n(this, this.DayComplete))
           a.today = k.parseInt(this.sender.data)
           console.log("MQ Day: " + a.today)
           this.GetLegionpoints()
         },
         Load: function () {
+showFuncCall("Load");
           console.log(g.toString(a.charName.get_text()))
           var c = g.plus(a.charName.get_text(), "."),
             b = a.password.get_text()
@@ -15702,6 +15896,7 @@ $jscomp.polyfill(
           this.sender.addEventListener("complete", n(this, this.sendComplete))
         },
         save: function () {
+showFuncCall("save");
           a.showHS = false
           this.sideFormat.color = 16728128
           a.sideDisplay[8].set_text("Saving")
@@ -15722,6 +15917,7 @@ $jscomp.polyfill(
             ((a.quest[a.itemFinder] -= 1e3), (a.ring[31] = 2))
         },
         GetLegionpoints: function () {
+showFuncCall("GetLegionpoints");
           console.log("Getting legion points")
           a.questFormat.color = 10790143
           1 == a.showLegionPoints &&
@@ -15737,6 +15933,7 @@ $jscomp.polyfill(
           )
         },
         LoadLegionComplete: function (c) {
+showFuncCall("LoadLegionComplete");
           console.log("load legion points complete")
           this.legionloader.removeEventListener(
             "complete",
@@ -15858,6 +16055,7 @@ $jscomp.polyfill(
           this.OverLapChecker()
         },
         SaveHS: function () {
+showFuncCall("SaveHS");
           console.log("save hs started")
           if (1e3 > a.level) {
             var c = jb._new()
@@ -15873,6 +16071,7 @@ $jscomp.polyfill(
           }
         },
         LoadHS: function () {
+showFuncCall("LoadHS");
           a.showHS = true
           console.log("load hs started")
           0 == a.checkDay &&
@@ -15887,6 +16086,7 @@ $jscomp.polyfill(
           this.sender.addEventListener("complete", n(this, this.LoadHSComplete))
         },
         LoadHSComplete: function (c) {
+showFuncCall("LoadHSComplete");
           console.log("load hs complete")
           this.sender.removeEventListener(
             "complete",
@@ -15902,6 +16102,7 @@ $jscomp.polyfill(
           1 == a.showHS && 0 == a.checkDay && this.Standings()
         },
         Standings: function () {
+showFuncCall("Standings");
           console.log("standings")
           var c = 0
           a.hsFormat.size = 32
@@ -15986,6 +16187,7 @@ $jscomp.polyfill(
           a.hsFormat.color = 20224
         },
         sendComplete: function (c) {
+showFuncCall("sendComplete");
           this.sender.removeEventListener(
             "complete",
             n(this, this.sendComplete)
@@ -16130,6 +16332,7 @@ $jscomp.polyfill(
           console.log("saved")
         },
         preGame: function () {
+showFuncCall("preGame");
           this.stage.removeEventListener(
             "mouseDown",
             n(this, this.preClickHandler)
@@ -16190,6 +16393,7 @@ $jscomp.polyfill(
           a.timer.start()
         },
         game: function (c) {
+showFuncCall("game");
           1 == a.worldThemePlaying &&
           a.chan.get_position() >= a.worldTheme.get_length() - 10
             ? (console.log("replay world theme"),
@@ -17215,8 +17419,8 @@ $jscomp.polyfill(
           0 == this.showWindow &&
             0 == this.showMess &&
             0 == this.showGraphic &&
-            0 < a.magicGraphic[a.retrace].get_alpha() &&
-            a.magicGraphic[a.retrace].set_alpha(0)
+            0 < a.magicGraphic[a.reerror].get_alpha() &&
+            a.magicGraphic[a.reerror].set_alpha(0)
           0 == this.showWindow &&
             0 == this.showMess &&
             0 == this.showGraphic &&
@@ -18312,6 +18516,7 @@ $jscomp.polyfill(
           }
         },
         MessageSetup: function () {
+showFuncCall("MessageSetup");
           a.ClearButtons(-1)
           this.CharBounceBack()
           this.RemoveInputListeners()
@@ -18320,6 +18525,7 @@ $jscomp.polyfill(
           a.messFin = false
         },
         TriggeredBattle: function () {
+showFuncCall("TriggeredBattle");
           this.CharBounceBack()
           a.engaged = true
           this.RemoveInputListeners()
@@ -18343,6 +18549,7 @@ $jscomp.polyfill(
           this.showBattle = true
         },
         WeaknessTriggeredFunc: function () {
+showFuncCall("WeaknessTriggeredFunc");
           0 == a.weaknessTriggered &&
             (a.weakenedGraphic.set_x(90),
             a.weakenedGraphic.set_y(150),
@@ -18354,6 +18561,7 @@ $jscomp.polyfill(
               a.icon[a.stalShieldIcon].set_visible(false))
         },
         colChecker: function (c) {
+showFuncCall("colChecker");
           this.onSpike = false
           for (c = 0; 50 > c; ) {
             var b = c++
@@ -20323,6 +20531,7 @@ $jscomp.polyfill(
           }
         },
         ExploChecker: function () {
+showFuncCall("ExploChecker");
           for (var c = 0; 50 > c; ) {
             var b = c++
             a.colSmoke.hitTestObject(a.colMFragileRock[b]) &&
@@ -20517,6 +20726,7 @@ $jscomp.polyfill(
             ))
         },
         ExploPrize: function (c, b) {
+showFuncCall("ExploPrize");
           var d = Math.ceil(100 * Math.random())
           if (
             21 == a.south &&
@@ -20553,11 +20763,13 @@ $jscomp.polyfill(
               a.diaArray[b].set_visible(true)
         },
         OnePageMess: function () {
+showFuncCall("OnePageMess");
           this.showMess = true
           a.messPage = 1
           a.messFin = true
         },
         SwitchFromFocusToSpells: function () {
+showFuncCall("SwitchFromFocusToSpells");
           this.TextFieldEdit(
             a.shopMess,
             "Want to upgrade a spell?",
@@ -20579,6 +20791,7 @@ $jscomp.polyfill(
           this.ShowSpells(1)
         },
         CharBounceBack: function () {
+showFuncCall("CharBounceBack");
           var c = 0
           0 < a.lSpeedTics && (c = 2)
           if (1 == this.left) {
@@ -20604,6 +20817,7 @@ $jscomp.polyfill(
             ))
         },
         SetBomb: function () {
+showFuncCall("SetBomb");
           0 < a.bombs
             ? (a.setBombSound.play(),
               (a.bombTics = 0),
@@ -20628,6 +20842,7 @@ $jscomp.polyfill(
             : a.errorSound.play()
         },
         BattleKeyHandler: function (c) {
+showFuncCall("BattleKeyHandler");
           c = c.keyCode
           1 == a.fightMode &&
             1 == a.sideButton[2].get_visible() &&
@@ -21327,6 +21542,7 @@ $jscomp.polyfill(
                 a.BatMesEdit("Not enough magic!", 16728128)))
         },
         keyDownHandler: function (c) {
+showFuncCall("keyDownHandler");
           32 == c.keyCode &&
             (console.log(a["char"][0].get_x() + " " + a["char"][0].get_y()),
             console.log(a.south + " " + a.east))
@@ -21361,6 +21577,7 @@ $jscomp.polyfill(
               ((this.right = true), this.StateChanger(13))
         },
         keyUpHandler: function (a) {
+showFuncCall("keyUpHandler");
           40 == a.keyCode && 1 == this.down
             ? ((this.down = false), this.StateChanger(0))
             : 38 == a.keyCode && 1 == this.up
@@ -21372,6 +21589,7 @@ $jscomp.polyfill(
               ((this.right = false), this.StateChanger(12))
         },
         guiUpDownHandler: function (a) {
+showFuncCall("guiUpDownHandler");
           console.log("up mobile")
           0 == this.up &&
             0 == this.left &&
@@ -21380,9 +21598,11 @@ $jscomp.polyfill(
             ((this.up = true), this.StateChanger(5))
         },
         guiUpUpHandler: function (a) {
+showFuncCall("guiUpUpHandler");
           1 == this.up && ((this.up = false), this.StateChanger(4))
         },
         guiDownDownHandler: function (a) {
+showFuncCall("guiDownDownHandler");
           0 == this.up &&
             0 == this.left &&
             0 == this.right &&
@@ -21390,9 +21610,11 @@ $jscomp.polyfill(
             ((this.down = true), this.StateChanger(1))
         },
         guiDownUpHandler: function (a) {
+showFuncCall("guiDownUpHandler");
           1 == this.down && ((this.down = false), this.StateChanger(0))
         },
         guiLeftDownHandler: function (a) {
+showFuncCall("guiLeftDownHandler");
           0 == this.up &&
             0 == this.left &&
             0 == this.right &&
@@ -21400,9 +21622,11 @@ $jscomp.polyfill(
             ((this.left = true), this.StateChanger(9))
         },
         guiLeftUpHandler: function (a) {
+showFuncCall("guiLeftUpHandler");
           1 == this.left && ((this.left = false), this.StateChanger(8))
         },
         guiRightDownHandler: function (a) {
+showFuncCall("guiRightDownHandler");
           0 == this.up &&
             0 == this.left &&
             0 == this.right &&
@@ -21410,14 +21634,17 @@ $jscomp.polyfill(
             ((this.right = true), this.StateChanger(13))
         },
         guiRightUpHandler: function (a) {
+showFuncCall("guiRightUpHandler");
           1 == this.right && ((this.right = false), this.StateChanger(12))
         },
         MobileHandler: function (c) {
+showFuncCall("MobileHandler");
           a.bombButton.hitTestPoint(this.get_mouseX(), this.get_mouseY(), true) &&
             1 == a.bombButton.get_visible() &&
             this.SetBomb()
         },
         ClickHandler: function (c) {
+showFuncCall("ClickHandler");
           var b = false
           a.colLegPrize[0].hitTestPoint(
             this.get_mouseX(),
@@ -22564,13 +22791,13 @@ $jscomp.polyfill(
                 (a.myLegPts[0] -= 100),
                   (a.myLegPts[1] -= 100),
                   (a.myLegPts[2] -= 100),
-                  (a.magic[a.retrace] = 1),
+                  (a.magic[a.reerror] = 1),
                   a.mess.set_text(
                     "Use the magic of RETRACE to transport to a spot you have MEMORIZED."
                   ),
-                  a.magicGraphic[a.retrace].set_x(340),
-                  a.magicGraphic[a.retrace].set_y(400),
-                  a.magicGraphic[a.retrace].set_alpha(1),
+                  a.magicGraphic[a.reerror].set_x(340),
+                  a.magicGraphic[a.reerror].set_y(400),
+                  a.magicGraphic[a.reerror].set_alpha(1),
                   (a.rX = a["char"][0].get_x() | 0),
                   (a.rY = a["char"][0].get_y() | 0),
                   (a.rSouth = a.south),
@@ -32390,14 +32617,14 @@ $jscomp.polyfill(
                   ),
                   a.errorSound.play())
             else if (
-              this.colMagic[a.retrace].hitTestPoint(
+              this.colMagic[a.reerror].hitTestPoint(
                 this.get_mouseX(),
                 this.get_mouseY(),
                 true
               ) &&
-              1 == this.colMagic[a.retrace].get_visible()
+              1 == this.colMagic[a.reerror].get_visible()
             )
-              a.mp < 20 * a.magic[a.retrace] + 2 - (a.magic[a.retrace] + 1)
+              a.mp < 20 * a.magic[a.reerror] + 2 - (a.magic[a.reerror] + 1)
                 ? (this.TextFieldEdit(
                     a.shopMess,
                     "Your magic is too low.",
@@ -32405,10 +32632,10 @@ $jscomp.polyfill(
                   ),
                   a.errorSound.play())
                 : a.mp >=
-                    20 * a.magic[a.retrace] + 2 - (a.magic[a.retrace] + 1) &&
+                    20 * a.magic[a.reerror] + 2 - (a.magic[a.reerror] + 1) &&
                   0 == a.fightMode
                 ? (a.MPEdit(
-                    -(20 * a.magic[a.retrace] + 2 - (a.magic[a.retrace] + 1))
+                    -(20 * a.magic[a.reerror] + 2 - (a.magic[a.reerror] + 1))
                   ),
                   a.magicPressSound.play(),
                   this.ClearScreen(),
@@ -34594,12 +34821,14 @@ $jscomp.polyfill(
             this.AttackBonusFunc()
         },
         EnterBatEnd: function (c) {
+showFuncCall("EnterBatEnd");
           13 == c.keyCode &&
             1 <= a.butYes.get_alpha() &&
             1 == a.fightMode &&
             this.BatEndFunc()
         },
         BatEndFunc: function () {
+showFuncCall("BatEndFunc");
           14 == a.quest[a.thief] && a.minersCredit++
           a.prob.set_visible(false)
           a.cursor.set_visible(false)
@@ -34701,6 +34930,7 @@ $jscomp.polyfill(
               a.levelUpSound.play())
         },
         ResetHandler: function (c) {
+showFuncCall("ResetHandler");
           if (
             a.butReset.hitTestPoint(this.get_mouseX(), this.get_mouseY(), true) &&
             1 <= a.butReset.get_alpha()
@@ -34772,6 +35002,7 @@ $jscomp.polyfill(
           }
         },
         AttackBonusFunc: function () {
+showFuncCall("AttackBonusFunc");
           a.attBonTitle.set_visible(false)
           a.attBonDisplay.set_visible(false)
           a.attBonAni = 0
@@ -34824,6 +35055,7 @@ $jscomp.polyfill(
           a.attBonSound.play()
         },
         ReturnFunc: function () {
+showFuncCall("ReturnFunc");
           this.AddInputListeners()
           this.ShowButtons()
           this.ClearScreen()
@@ -34859,6 +35091,7 @@ $jscomp.polyfill(
           this.LocaSetUp()
         },
         BombSmokeStarter: function (c) {
+showFuncCall("BombSmokeStarter");
           if (11 > a.quest[a.ransom])
             a.smokeYellow[0].set_x(c.get_x()),
               a.smokeYellow[0].set_y(c.get_y()),
@@ -34895,6 +35128,7 @@ $jscomp.polyfill(
           }
         },
         BattleMagicChecker: function () {
+showFuncCall("BattleMagicChecker");
           for (var c = 0, b = false; c < a.magic.length; )
             0 < a.magic[c] &&
               (1 == c ||
@@ -34921,6 +35155,7 @@ $jscomp.polyfill(
           return b
         },
         timerHandler: function (c) {
+showFuncCall("timerHandler");
           a.attTics++
           0 < a.expTics && a.expTics--
           a.fallingTics--
@@ -36349,6 +36584,7 @@ $jscomp.polyfill(
             this.MHPEdit(-c))
         },
         BattleThemeFunc: function () {
+showFuncCall("BattleThemeFunc");
           0 == a.battleThemePlaying &&
             (1 == a.worldThemePlaying
               ? ((a.worldThemePos = a.chan.get_position()),
@@ -36370,6 +36606,7 @@ $jscomp.polyfill(
             (a.battleThemePlaying = true))
         },
         Drops: function (c, b) {
+showFuncCall("Drops");
           if (
             g.equals(a.mobName.get_text(), "MORIAN ELITE") &&
             (20 <= c || (2 == a.shopProgress && 5 <= c))
@@ -37056,6 +37293,7 @@ $jscomp.polyfill(
                 5 == b && a.BatMesEdit("Victory tastes so sweet.", 16776960))
         },
         LegionPrizes: function () {
+showFuncCall("LegionPrizes");
           for (var c = 0, b = a.colLegPrize.length; c < b; ) {
             var d = c++
             a.colLegPrize[d].set_visible(true)
@@ -37225,6 +37463,7 @@ $jscomp.polyfill(
               a.itemDisplay[d].setTextFormat(this.foodFormat)
         },
         ClearLegionPrizeWindow: function () {
+showFuncCall("ClearLegionPrizeWindow");
           for (var c = 0; 3 > c; ) {
             var b = c++
             a.itemDisplay[b].set_visible(false)
@@ -37244,6 +37483,7 @@ $jscomp.polyfill(
           a.lastDayPlayed != a.today && a.SetNewDay()
         },
         backToBattleFunc: function (c) {
+showFuncCall("backToBattleFunc");
           ;(1 != this.showWeapons &&
             1 != this.showArmor &&
             1 != this.showMagic &&
@@ -37257,6 +37497,7 @@ $jscomp.polyfill(
             (this.BackToBattle(), (a.goBackToBattle = false))
         },
         BackToBattle: function () {
+showFuncCall("BackToBattle");
           a.prob.set_visible(true)
           a.cursor.set_visible(true)
           this.showSkills =
@@ -37335,6 +37576,7 @@ $jscomp.polyfill(
           this.getProb()
         },
         ShowNumButs: function () {
+showFuncCall("ShowNumButs");
           console.log("adding number buttons")
           for (var c = 0; 10 > c; ) {
             var b = c++
@@ -37358,6 +37600,7 @@ $jscomp.polyfill(
           }
         },
         RemoveNumButs: function () {
+showFuncCall("RemoveNumButs");
           for (var c = 0; 11 > c; ) {
             var b = c++
             a.butInput[b].set_visible(false)
@@ -37366,6 +37609,7 @@ $jscomp.polyfill(
           a.backspaceArrow.set_visible(false)
         },
         ShowNumButsLower: function () {
+showFuncCall("ShowNumButsLower");
           for (var c = 0; 10 > c; ) {
             var b = c++
             a.butInput[b].set_x(112 + 57 * b)
@@ -37380,12 +37624,14 @@ $jscomp.polyfill(
           }
         },
         attBonInputHandler: function (c) {
+showFuncCall("attBonInputHandler");
           13 == c.keyCode &&
             1 == a.attBonTitle.get_visible() &&
             1 == a.fightMode &&
             this.AttackBonusFunc()
         },
         mobileAnInputHandler: function (c) {
+showFuncCall("mobileAnInputHandler");
           console.log("but num clicked")
           if (1 == this.showBattle) {
             for (c = 0; 10 > c; ) {
@@ -37422,6 +37668,7 @@ $jscomp.polyfill(
           }
         },
         anInputHandler: function (c) {
+showFuncCall("anInputHandler");
           1 == this.showBattle &&
             (8 == c.keyCode && 0 < a.placeInNumber
               ? (a.placeInNumber--,
@@ -37441,6 +37688,7 @@ $jscomp.polyfill(
             this.ShowingAnswerInput())
         },
         ShowingAnswerInput: function () {
+showFuncCall("ShowingAnswerInput");
           if (a.placeInNumber == a.digits) {
             if (g.equals(a.anDisplay.get_text(), k.string(a.an))) {
               console.log("yes!")
@@ -37680,6 +37928,7 @@ $jscomp.polyfill(
           }
         },
         getProb: function () {
+showFuncCall("getProb");
           console.log("getting new problem")
           a.placeInNumber = 0
           a.anDisplay.set_text("")
@@ -37746,6 +37995,7 @@ $jscomp.polyfill(
             console.log("mobile input handler added"))
         },
         UnEquipArmor: function () {
+showFuncCall("UnEquipArmor");
           for (var c = 0, b = a.armor.length; c < b; ) {
             var d = c++
             2 == a.armor[d] &&
@@ -37787,6 +38037,7 @@ $jscomp.polyfill(
           }
         },
         StatEdit: function (c, b, d) {
+showFuncCall("StatEdit");
           1 == this.showWeapons &&
             "weapon" == b &&
             0 == d &&
@@ -39003,7 +39254,7 @@ $jscomp.polyfill(
             c.set_text(
               "RETRACE\nUses " +
                 k.string(
-                  20 * a.magic[a.retrace] + 2 - (a.magic[a.retrace] + 1)
+                  20 * a.magic[a.reerror] + 2 - (a.magic[a.reerror] + 1)
                 ) +
                 " MP"
             )
@@ -39623,10 +39874,12 @@ $jscomp.polyfill(
             c.set_alpha(1)
         },
         PlaceRingSlot: function (c, b) {
+showFuncCall("PlaceRingSlot");
           a.ringGraphic[c].set_x(this.slot[b].get_x() + 35)
           a.ringGraphic[c].set_y(this.slot[b].get_y() + 40)
         },
         TextFieldSetup: function (c, b, d, m, f, e, g, k, x) {
+showFuncCall("TextFieldSetup");
           c.set_embedFonts(true)
           c.set_selectable(false)
           c.mouseEnabled = false
@@ -39643,6 +39896,7 @@ $jscomp.polyfill(
           this.addChild(c)
         },
         TextFieldEdit: function (c, b, d) {
+showFuncCall("TextFieldEdit");
           a.gaugeFormat.color = 16777215
           c.set_text(b)
           c.setTextFormat(d)
@@ -39650,6 +39904,7 @@ $jscomp.polyfill(
           c.set_alpha(1)
         },
         MHPEdit: function (c) {
+showFuncCall("MHPEdit");
           0 == a.weaknessTriggered && (c = 0)
           a.mHP += c
           g.equals(a.mobName.get_text(), "DOOMED KNIGHT") &&
@@ -39676,6 +39931,7 @@ $jscomp.polyfill(
           a.ShowMobStats()
         },
         ShowFoodInfo: function (c) {
+showFuncCall("ShowFoodInfo");
           0 == c && a.infoDisplay.set_text("Apple")
           1 == c && a.infoDisplay.set_text("Bread")
           2 == c && a.infoDisplay.set_text("Cheese")
@@ -39714,6 +39970,7 @@ $jscomp.polyfill(
           this.addChild(a.infoDisplay)
         },
         ShowMagicInfo: function (c) {
+showFuncCall("ShowMagicInfo");
           0 == c &&
             a.infoDisplay.set_text("Transports you to your\nhome point.")
           1 == c && a.infoDisplay.set_text("Recover health points.")
@@ -39792,6 +40049,7 @@ $jscomp.polyfill(
           this.addChild(a.infoDisplay)
         },
         ShowInventoryInfo: function (c) {
+showFuncCall("ShowInventoryInfo");
           0 == c && a.infoDisplay.set_text("Key")
           1 == c && a.infoDisplay.set_text("Aurastone")
           2 == c && a.infoDisplay.set_text("Diamond")
@@ -39811,6 +40069,7 @@ $jscomp.polyfill(
           this.addChild(a.infoDisplay)
         },
         PlaceSlots: function () {
+showFuncCall("PlaceSlots");
           for (var c = 0, b = this.slot.length; c < b; ) {
             var d = c++
             this.slot[d].set_x(a.window.get_x() + 40)
@@ -39821,11 +40080,13 @@ $jscomp.polyfill(
           }
         },
         PlaceGraphic: function (a, b) {
+showFuncCall("PlaceGraphic");
           a.set_x(this.slot[b].get_x())
           a.set_y(this.slot[b].get_y())
           a.set_alpha(0.01)
         },
         PlaceMagicGraphic: function (c, b, d) {
+showFuncCall("PlaceMagicGraphic");
           a.magicGraphic[c].set_x(b)
           a.magicGraphic[c].set_y(d)
           a.magicGraphic[c].set_alpha(0.01)
@@ -39837,6 +40098,7 @@ $jscomp.polyfill(
           this.magicDisplay[c].set_alpha(0.01)
         },
         PlaceFoodGraphic: function (c, b, d) {
+showFuncCall("PlaceFoodGraphic");
           a.foodGraphic[c].set_x(b)
           a.foodGraphic[c].set_y(d)
           a.foodGraphic[c].set_alpha(0.01)
@@ -39848,11 +40110,13 @@ $jscomp.polyfill(
           this.foodDisplay[c].set_alpha(0.01)
         },
         StateChanger: function (c) {
+showFuncCall("StateChanger");
           a["char"][a.state].set_visible(false)
           a.state = c
           a["char"][a.state].set_visible(true)
         },
         MoveAllChar: function () {
+showFuncCall("MoveAllChar");
           for (var c = 1, b = a["char"].length; c < b; ) {
             var d = c++
             a["char"][d].set_x(a["char"][0].get_x())
@@ -39862,6 +40126,7 @@ $jscomp.polyfill(
           a.colChar.set_y(a["char"][0].get_y() + 80)
         },
         AddInputListeners: function () {
+showFuncCall("AddInputListeners");
           if (0 == a.mobile)
             this.stage.addEventListener(
               "keyDown",
@@ -39946,6 +40211,7 @@ $jscomp.polyfill(
           }
         },
         RemoveInputListeners: function () {
+showFuncCall("RemoveInputListeners");
           if (0 == a.mobile)
             this.stage.removeEventListener(
               "keyDown",
@@ -40035,6 +40301,7 @@ $jscomp.polyfill(
           this.right = this.left = this.down = this.up = false
         },
         ShowButtons: function () {
+showFuncCall("ShowButtons");
           for (var c = 0, b = a.sideButton.length; c < b; ) {
             var d = c++
             a.sideButton[d].set_visible(true)
@@ -40052,6 +40319,7 @@ $jscomp.polyfill(
             a.bombDisplay.set_visible(true))
         },
         NewSkillShow: function (c) {
+showFuncCall("NewSkillShow");
           console.log("new skill")
           a.mess.set_alpha(1)
           a.skillGraphic[c].set_x(350)
@@ -40061,6 +40329,7 @@ $jscomp.polyfill(
           a.butYes.set_alpha(1)
         },
         UpgradeSpellFocus: function () {
+showFuncCall("UpgradeSpellFocus");
           a.upgradeCost =
             (a.magic[a.currUpgrade] + 1) * (a.magic[a.currUpgrade] + 1)
           this.magicDisplay[2].set_text("= " + k.string(a.upgradeCost))
@@ -40632,6 +40901,7 @@ $jscomp.polyfill(
             ))
         },
         ShowSpells: function (c) {
+showFuncCall("ShowSpells");
           for (
             var b = 0,
               d = 0,
@@ -40662,7 +40932,7 @@ $jscomp.polyfill(
             1 == this.inUpgradeShop && c == a.transport && (c = a.transport + 1)
             1 == this.inUpgradeShop && c == a.quake && (c = a.quake + 1)
             1 == this.inUpgradeShop && c == a.wackyWarp && (c = a.wackyWarp + 1)
-            1 == this.inUpgradeShop && c == a.retrace && (c = a.retrace + 1)
+            1 == this.inUpgradeShop && c == a.reerror && (c = a.reerror + 1)
             1 == this.inUpgradeShop && c == a.revive && (c = a.revive + 1)
             1 == this.inUpgradeShop && c == a.portal && (c = a.portal + 1)
           }
@@ -40694,6 +40964,7 @@ $jscomp.polyfill(
           a.butCancel.set_alpha(1)
         },
         ShowFoodFunc: function (c) {
+showFuncCall("ShowFoodFunc");
           for (
             var b = 0,
               d = (a.window.get_x() | 0) + 21,
@@ -40749,6 +41020,7 @@ $jscomp.polyfill(
           a.butCancel.set_alpha(1)
         },
         ShowSkillsFunc: function (c) {
+showFuncCall("ShowSkillsFunc");
           c = a.currSkill
           for (
             var b = 0,
@@ -40800,6 +41072,7 @@ $jscomp.polyfill(
           a.butCancel.set_alpha(1)
         },
         ShowObjectMessage: function (c) {
+showFuncCall("ShowObjectMessage");
           this.CharBounceBack()
           this.RemoveInputListeners()
           a.ClearButtons(-1)
@@ -40820,11 +41093,13 @@ $jscomp.polyfill(
           )
         },
         SwitchFromMagicToField: function () {
+showFuncCall("SwitchFromMagicToField");
           this.showWindow = this.showMagic = false
           this.ShowButtons()
           this.AddInputListeners()
         },
         CreateTile: function (a, b, d, m, f, e, g, k) {
+showFuncCall("CreateTile");
           a = a.addRect(new ia(d, m, f, e))
           a = new ca(a)
           b.addTile(a)
@@ -40834,6 +41109,7 @@ $jscomp.polyfill(
           g[k].set_visible(false)
         },
         ClearScreen: function () {
+showFuncCall("ClearScreen");
           for (var c = 0, b = this.cFloor.length; c < b; ) {
             var d = c++
             4 <= d && 7 >= d && a.icon[d].set_visible(false)
@@ -41324,6 +41600,7 @@ $jscomp.polyfill(
           }
         },
         GetWizWrongs: function () {
+showFuncCall("GetWizWrongs");
           for (
             var c, b, d;
             (c = Math.ceil(89 * Math.random()) + 10),
@@ -41347,6 +41624,7 @@ $jscomp.polyfill(
             : 2 == a.corWiz && ((a.wizNumber[0] = c), (a.wizNumber[1] = b))
         },
         BattleSetUp: function () {
+showFuncCall("BattleSetUp");
           this.showWindow = false
           this.RemoveInputListeners()
           a.ClearButtons(-1)
@@ -41372,6 +41650,7 @@ $jscomp.polyfill(
           this.BattleThemeFunc()
         },
         CrystalWarp: function () {
+showFuncCall("CrystalWarp");
           a.colChar.set_visible(false)
           this.ClearScreen()
           var c = 0,
@@ -41446,6 +41725,7 @@ $jscomp.polyfill(
           this.AddInputListeners()
         },
         LocaSetUp: function () {
+showFuncCall("LocaSetUp");
           e.ShowLoca(
             a.south,
             a.east,
@@ -41769,6 +42049,7 @@ $jscomp.polyfill(
           )
         },
         OverLapChecker: function () {
+showFuncCall("OverLapChecker");
           a.colChar.hitTestObject(a.colPerson[0]) &&
             1 == a.person[a.sagePurple].get_visible() &&
             (a.person[a.sagePurple].set_visible(false),
@@ -41831,6 +42112,7 @@ $jscomp.polyfill(
                 (a.chest[d].set_visible(false), this.colChest.set_visible(false))
         },
         KeepIconsOnScreen: function () {
+showFuncCall("KeepIconsOnScreen");
           for (var c = 0, b = a.icon.length; c < b; ) {
             var d = c++
             d != a.reviveIcon &&
@@ -41848,6 +42130,7 @@ $jscomp.polyfill(
           }
         },
         ShowHiddenCrystal: function (c) {
+showFuncCall("ShowHiddenCrystal");
           a.lavCrystal[0].set_x(c.get_x())
           a.lavCrystal[0].set_y(c.get_y())
           a.lavCrystal[0].set_visible(true)
@@ -41856,6 +42139,7 @@ $jscomp.polyfill(
           a.colLavCrystal[0].set_visible(true)
         },
         LevelUpOutsideOfBattle: function () {
+showFuncCall("LevelUpOutsideOfBattle");
           if (a.exp >= a.expup && 0 == a.titles[1].get_alpha())
             a.mess.set_text(""),
               a.levelUpSound.play(),
@@ -41885,6 +42169,7 @@ $jscomp.polyfill(
           }
         },
         SmokeAni: function (a, b) {
+showFuncCall("SmokeAni");
           if (1 == a[b].get_visible()) a[b].set_visible(false)
           else
             for (--b; -1 < b; ) {
@@ -41922,26 +42207,31 @@ $jscomp.polyfill(
       fb.prototype = {
         r: null,
         match: function (a) {
+showFuncCall("match");
           this.r.global && (this.r.lastIndex = 0)
           this.r.m = this.r.exec(a)
           this.r.s = a
           return null != this.r.m
         },
         matched: function (a) {
+showFuncCall("matched");
           if (null != this.r.m && 0 <= a && a < this.r.m.length)
             return this.r.m[a]
           throw new sa("EReg::matched")
         },
         matchedRight: function () {
+showFuncCall("matchedRight");
           if (null == this.r.m) throw new sa("No string matched")
           var a = this.r.m.index + this.r.m[0].length
           return ra.substr(this.r.s, a, this.r.s.length - a)
         },
         matchedPos: function () {
+showFuncCall("matchedPos");
           if (null == this.r.m) throw new sa("No string matched")
           return { pos: this.r.m.index, len: this.r.m[0].length }
         },
         matchSub: function (a, b, d) {
+showFuncCall("matchSub");
           null == d && (d = -1)
           if (this.r.global) {
             this.r.lastIndex = b
@@ -41958,6 +42248,7 @@ $jscomp.polyfill(
           return c
         },
         split: function (a) {
+showFuncCall("split");
           return a.replace(this.r, "#__delim__#").split("#__delim__#")
         },
         __class__: fb,
@@ -46840,9 +47131,11 @@ $jscomp.polyfill(
       Sc.prototype = {
         head: null,
         hasNext: function () {
+showFuncCall("hasNext");
           return null != this.head
         },
         next: function () {
+showFuncCall("next");
           var a = this.head.item
           this.head = this.head.next
           return a
@@ -55337,7 +55630,7 @@ $jscomp.polyfill(
           8 == b &&
           (x.set_text("Ransford"),
           0 >= x.get_alpha() && x.set_alpha(0.01),
-          1 == a.magic[a.retrace] && 0 == a.skill[a.memorize]
+          1 == a.magic[a.reerror] && 0 == a.skill[a.memorize]
             ? 1 == f
               ? d.set_text(
                   "If you want to set a new spot for your RETRACE spell, you'll need to use the skill of MEMORIZE."
@@ -56288,7 +56581,7 @@ $jscomp.polyfill(
                     ),
                 (q = true)))
           2 == l &&
-            (0 == a.magic[a.retrace]
+            (0 == a.magic[a.reerror]
               ? 1 == f
                 ? d.set_text(
                     "The magic of RETRACE will transport you back to any spot you want. But you will need to learn the skill of MEMORIZE in order to set a new spot."
@@ -56305,9 +56598,9 @@ $jscomp.polyfill(
                         "I can teach you the magic of RETRACE once you have earned 100 legions points for all 3 legions."
                       ),
                       (q = true)))
-              : 1 == a.magic[a.retrace] &&
-                (0 < a.magicGraphic[a.retrace].get_alpha() &&
-                  a.magicGraphic[a.retrace].set_alpha(0),
+              : 1 == a.magic[a.reerror] &&
+                (0 < a.magicGraphic[a.reerror].get_alpha() &&
+                  a.magicGraphic[a.reerror].set_alpha(0),
                 1 == f &&
                   d.set_text(
                     "In order to change the spot to which RETRACE transports you, you will have to MEMORIZE a new spot."
@@ -63930,6 +64223,7 @@ $jscomp.polyfill(
       Hc.__super__ = U
       Hc.prototype = F(U.prototype, {
         onProgress: function (a) {
+showFuncCall("onProgress");
           Hc.pBar.set_scaleX(a.bytesLoaded / a.bytesTotal)
         },
         __class__: Hc,
@@ -65347,9 +65641,11 @@ $jscomp.polyfill(
         useCache: null,
         useEnumIndex: null,
         toString: function () {
+showFuncCall("toString");
           return this.buf.b
         },
         serializeString: function (a) {
+showFuncCall("serializeString");
           var b = this.shash
           b = null != H[a] ? b.getReserved(a) : b.h[a]
           if (null != b)
@@ -65366,6 +65662,7 @@ $jscomp.polyfill(
           }
         },
         serializeRef: function (a) {
+showFuncCall("serializeRef");
           for (var b = typeof a, c = 0, m = this.cache.length; c < m; ) {
             var f = c++,
               e = this.cache[f]
@@ -65380,6 +65677,7 @@ $jscomp.polyfill(
           return false
         },
         serializeFields: function (a) {
+showFuncCall("serializeFields");
           for (var b = 0, c = Ma.fields(a); b < c.length; ) {
             var m = c[b]
             ++b
@@ -65389,6 +65687,7 @@ $jscomp.polyfill(
           this.buf.b += "g"
         },
         serialize: function (a) {
+showFuncCall("serialize");
           var b = ib["typeof"](a)
           switch (b[1]) {
             case 0:
@@ -65590,6 +65889,7 @@ $jscomp.polyfill(
       me.prototype = {
         id: null,
         stop: function () {
+showFuncCall("stop");
           null != this.id && (clearInterval(this.id), (this.id = null))
         },
         run: function () {},
@@ -65600,9 +65900,11 @@ $jscomp.polyfill(
       yf.__name__ = ["haxe", "_Unserializer", "DefaultResolver"]
       yf.prototype = {
         resolveClass: function (a) {
+showFuncCall("resolveClass");
           return ib.resolveClass(a)
         },
         resolveEnum: function (a) {
+showFuncCall("resolveEnum");
           return ib.resolveEnum(a)
         },
         __class__: yf,
@@ -65637,12 +65939,14 @@ $jscomp.polyfill(
         scache: null,
         resolver: null,
         setResolver: function (a) {
+showFuncCall("setResolver");
           null == a
             ? (null == we.instance && (we.instance = new we()),
               (this.resolver = we.instance))
             : (this.resolver = a)
         },
         readDigits: function () {
+showFuncCall("readDigits");
           for (var a = 0, b = false, d = this.pos; ; ) {
             var m = this.buf.charCodeAt(this.pos)
             if (m != m) break
@@ -65659,6 +65963,7 @@ $jscomp.polyfill(
           return a
         },
         readFloat: function () {
+showFuncCall("readFloat");
           for (var a = this.pos; ; ) {
             var b = this.buf.charCodeAt(this.pos)
             if (b != b) break
@@ -65668,6 +65973,7 @@ $jscomp.polyfill(
           return parseFloat(ra.substr(this.buf, a, this.pos - a))
         },
         unserializeObject: function (a) {
+showFuncCall("unserializeObject");
           for (;;) {
             if (this.pos >= this.length) throw new sa("Invalid object")
             if (103 == this.buf.charCodeAt(this.pos)) break
@@ -65679,6 +65985,7 @@ $jscomp.polyfill(
           this.pos++
         },
         unserializeEnum: function (a, b) {
+showFuncCall("unserializeEnum");
           if (58 != this.buf.charCodeAt(this.pos++))
             throw new sa("Invalid enum format")
           var c = this.readDigits()
@@ -65687,6 +65994,7 @@ $jscomp.polyfill(
           return ib.createEnum(a, b, m)
         },
         unserialize: function () {
+showFuncCall("unserialize");
           switch (this.buf.charCodeAt(this.pos++)) {
             case 65:
               var a = this.unserialize(),
@@ -65890,9 +66198,11 @@ $jscomp.polyfill(
       we.__name__ = ["haxe", "_Unserializer", "NullResolver"]
       we.prototype = {
         resolveClass: function (a) {
+showFuncCall("resolveClass");
           return null
         },
         resolveEnum: function (a) {
+showFuncCall("resolveEnum");
           return null
         },
         __class__: we,
@@ -65953,6 +66263,7 @@ $jscomp.polyfill(
         b: null,
         data: null,
         blit: function (a, b, d, m) {
+showFuncCall("blit");
           if (
             0 > a ||
             0 > d ||
@@ -65966,6 +66277,7 @@ $jscomp.polyfill(
             : this.b.set(b.b.subarray(d, d + m), a)
         },
         getString: function (a, b, d) {
+showFuncCall("getString");
           if (0 > a || 0 > b || a + b > this.length)
             throw new sa(Wc.OutsideBounds)
           d = ""
@@ -65994,6 +66306,7 @@ $jscomp.polyfill(
           return d
         },
         toString: function () {
+showFuncCall("toString");
           return this.getString(0, this.length)
         },
         __class__: xb,
@@ -66033,6 +66346,7 @@ $jscomp.polyfill(
         nbits: null,
         tbl: null,
         encodeBytes: function (a) {
+showFuncCall("encodeBytes");
           for (
             var b = this.nbits,
               c = this.base,
@@ -66054,6 +66368,7 @@ $jscomp.polyfill(
           return f
         },
         initTable: function () {
+showFuncCall("initTable");
           for (var a = [], b = 0; 256 > b; ) {
             var d = b++
             a[d] = -1
@@ -66066,6 +66381,7 @@ $jscomp.polyfill(
           this.tbl = a
         },
         decodeBytes: function (a) {
+showFuncCall("decodeBytes");
           var b = this.nbits
           null == this.tbl && this.initTable()
           for (
@@ -66186,33 +66502,41 @@ $jscomp.polyfill(
       zc.prototype = {
         h: null,
         set: function (a, b) {
+showFuncCall("set");
           this.h[a] = b
         },
         get: function (a) {
+showFuncCall("get");
           return this.h[a]
         },
         exists: function (a) {
+showFuncCall("exists");
           return this.h.hasOwnProperty(a)
         },
         remove: function (a) {
+showFuncCall("remove");
           if (!this.h.hasOwnProperty(a)) return false
           delete this.h[a]
           return true
         },
         keys: function () {
+showFuncCall("keys");
           var a = [],
             b
           for (b in this.h) this.h.hasOwnProperty(b) && a.push(b | 0)
           return ra.iter(a)
         },
         iterator: function () {
+showFuncCall("iterator");
           return {
             ref: this.h,
             it: this.keys(),
             hasNext: function () {
+showFuncCall("hasNext");
               return this.it.hasNext()
             },
             next: function () {
+showFuncCall("next");
               var a = this.it.next()
               return this.ref[a]
             },
@@ -66234,9 +66558,11 @@ $jscomp.polyfill(
         index: null,
         count: null,
         hasNext: function () {
+showFuncCall("hasNext");
           return this.index < this.count
         },
         next: function () {
+showFuncCall("next");
           var a = this.map,
             b = this.keys[this.index++]
           return null != H[b] ? a.getReserved(b) : a.h[b]
@@ -66253,27 +66579,34 @@ $jscomp.polyfill(
         h: null,
         rh: null,
         set: function (a, b) {
+showFuncCall("set");
           null != H[a] ? this.setReserved(a, b) : (this.h[a] = b)
         },
         get: function (a) {
+showFuncCall("get");
           return null != H[a] ? this.getReserved(a) : this.h[a]
         },
         exists: function (a) {
+showFuncCall("exists");
           return null != H[a]
             ? this.existsReserved(a)
             : this.h.hasOwnProperty(a)
         },
         setReserved: function (a, b) {
+showFuncCall("setReserved");
           null == this.rh && (this.rh = {})
           this.rh["$" + a] = b
         },
         getReserved: function (a) {
+showFuncCall("getReserved");
           return null == this.rh ? null : this.rh["$" + a]
         },
         existsReserved: function (a) {
+showFuncCall("existsReserved");
           return null == this.rh ? false : this.rh.hasOwnProperty("$" + a)
         },
         remove: function (a) {
+showFuncCall("remove");
           if (null != H[a]) {
             a = "$" + a
             if (null == this.rh || !this.rh.hasOwnProperty(a)) return false
@@ -66285,9 +66618,11 @@ $jscomp.polyfill(
           return true
         },
         keys: function () {
+showFuncCall("keys");
           return ra.iter(this.arrayKeys())
         },
         arrayKeys: function () {
+showFuncCall("arrayKeys");
           var a = [],
             b
           for (b in this.h) this.h.hasOwnProperty(b) && a.push(b)
@@ -66302,6 +66637,7 @@ $jscomp.polyfill(
       Uk.__name__ = ["haxe", "io", "Eof"]
       Uk.prototype = {
         toString: function () {
+showFuncCall("toString");
           return "Eof"
         },
         __class__: Uk,
@@ -66598,6 +66934,7 @@ $jscomp.polyfill(
         byteLength: null,
         a: null,
         slice: function (a, b) {
+showFuncCall("slice");
           return new Xc(this.a.slice(a, b))
         },
         __class__: Xc,
@@ -66626,17 +66963,21 @@ $jscomp.polyfill(
         byteOffset: null,
         buffer: null,
         getInt8: function (a) {
+showFuncCall("getInt8");
           a = this.buf.a[this.offset + a]
           return 128 <= a ? a - 256 : a
         },
         getUint8: function (a) {
+showFuncCall("getUint8");
           return this.buf.a[this.offset + a]
         },
         getInt16: function (a, b) {
+showFuncCall("getInt16");
           a = this.getUint16(a, b)
           return 32768 <= a ? a - 65536 : a
         },
         getUint16: function (a, b) {
+showFuncCall("getUint16");
           return b
             ? this.buf.a[this.offset + a] |
                 (this.buf.a[this.offset + a + 1] << 8)
@@ -66644,6 +66985,7 @@ $jscomp.polyfill(
                 this.buf.a[this.offset + a + 1]
         },
         getInt32: function (a, b) {
+showFuncCall("getInt32");
           var c = this.offset + a
           a = this.buf.a[c++]
           var m = this.buf.a[c++],
@@ -66654,36 +66996,45 @@ $jscomp.polyfill(
             : c | (f << 8) | (m << 16) | (a << 24)
         },
         getUint32: function (a, b) {
+showFuncCall("getUint32");
           a = this.getInt32(a, b)
           return 0 > a ? a + 4294967296 : a
         },
         getFloat32: function (a, b) {
+showFuncCall("getFloat32");
           return td.i32ToFloat(this.getInt32(a, b))
         },
         getFloat64: function (a, b) {
+showFuncCall("getFloat64");
           var c = this.getInt32(a, b)
           a = this.getInt32(a + 4, b)
           return td.i64ToDouble(b ? c : a, b ? a : c)
         },
         setInt8: function (a, b) {
+showFuncCall("setInt8");
           this.buf.a[a + this.offset] = 0 > b ? (b + 128) & 255 : b & 255
         },
         setUint8: function (a, b) {
+showFuncCall("setUint8");
           this.buf.a[a + this.offset] = b & 255
         },
         setInt16: function (a, b, d) {
+showFuncCall("setInt16");
           this.setUint16(a, 0 > b ? b + 65536 : b, d)
         },
         setUint16: function (a, b, d) {
+showFuncCall("setUint16");
           a += this.offset
           d
             ? ((this.buf.a[a] = b & 255), (this.buf.a[a++] = (b >> 8) & 255))
             : ((this.buf.a[a++] = (b >> 8) & 255), (this.buf.a[a] = b & 255))
         },
         setInt32: function (a, b, d) {
+showFuncCall("setInt32");
           this.setUint32(a, b, d)
         },
         setUint32: function (a, b, d) {
+showFuncCall("setUint32");
           a += this.offset
           d
             ? ((this.buf.a[a++] = b & 255),
@@ -66696,9 +67047,11 @@ $jscomp.polyfill(
               (this.buf.a[a++] = b & 255))
         },
         setFloat32: function (a, b, d) {
+showFuncCall("setFloat32");
           this.setUint32(a, td.floatToI32(b), d)
         },
         setFloat64: function (a, b, d) {
+showFuncCall("setFloat64");
           b = td.doubleToI64(b)
           d
             ? (this.setUint32(a, b.low), this.setUint32(a, b.high))
@@ -66865,6 +67218,7 @@ $jscomp.polyfill(
         dispose: function () {},
         init: function () {},
         play: function () {
+showFuncCall("play");
           if (
             !this.playing &&
             null != this.parent.buffer &&
@@ -66887,12 +67241,14 @@ $jscomp.polyfill(
           }
         },
         stop: function () {
+showFuncCall("stop");
           this.playing = false
           null != this.parent.buffer &&
             null != this.parent.buffer.__srcHowl &&
             this.parent.buffer.__srcHowl.stop(this.id)
         },
         howl_onEnd: function () {
+showFuncCall("howl_onEnd");
           this.playing = false
           0 < this.loops
             ? (this.loops--, this.stop(), this.play())
@@ -66903,6 +67259,7 @@ $jscomp.polyfill(
               this.parent.onComplete.dispatch())
         },
         getCurrentTime: function () {
+showFuncCall("getCurrentTime");
           if (-1 == this.id) return 0
           if (this.completed) return this.getLength()
           if (
@@ -66917,6 +67274,7 @@ $jscomp.polyfill(
           return 0
         },
         setCurrentTime: function (a) {
+showFuncCall("setCurrentTime");
           if (
             null != this.parent.buffer &&
             null != this.parent.buffer.__srcHowl
@@ -66928,9 +67286,11 @@ $jscomp.polyfill(
           return a
         },
         getGain: function () {
+showFuncCall("getGain");
           return this.gain
         },
         setGain: function (a) {
+showFuncCall("setGain");
           null != this.parent.buffer &&
             null != this.parent.buffer.__srcHowl &&
             -1 != this.id &&
@@ -66938,6 +67298,7 @@ $jscomp.polyfill(
           return (this.gain = a)
         },
         getLength: function () {
+showFuncCall("getLength");
           return 0 != this.length
             ? this.length
             : null != this.parent.buffer && null != this.parent.buffer.__srcHowl
@@ -66945,15 +67306,19 @@ $jscomp.polyfill(
             : 0
         },
         setLength: function (a) {
+showFuncCall("setLength");
           return (this.length = a)
         },
         setLoops: function (a) {
+showFuncCall("setLoops");
           return (this.loops = a)
         },
         getPosition: function () {
+showFuncCall("getPosition");
           return this.position
         },
         setPosition: function (a) {
+showFuncCall("setPosition");
           this.position.x = a.x
           this.position.y = a.y
           this.position.z = a.z
@@ -67120,9 +67485,11 @@ $jscomp.polyfill(
         request: null,
         validStatus0: null,
         init: function (a) {
+showFuncCall("init");
           this.parent = a
         },
         load: function (a, b, d) {
+showFuncCall("load");
           this.request = new XMLHttpRequest()
           "POST" == this.parent.method
             ? this.request.upload.addEventListener("progress", b, false)
@@ -67167,6 +67534,7 @@ $jscomp.polyfill(
             : this.request.send(b)
         },
         loadData: function (a) {
+showFuncCall("loadData");
           var b = new Vc()
           Xa.activeRequests < Xa.requestLimit
             ? (Xa.activeRequests++, this.__loadData(a, b))
@@ -67179,6 +67547,7 @@ $jscomp.polyfill(
           return b.future
         },
         loadText: function (a) {
+showFuncCall("loadText");
           var b = new Vc()
           Xa.activeRequests < Xa.requestLimit
             ? (Xa.activeRequests++, this.__loadText(a, b))
@@ -67191,6 +67560,7 @@ $jscomp.polyfill(
           return b.future
         },
         processResponse: function () {
+showFuncCall("processResponse");
           if (this.parent.enableResponseHeaders) {
             this.parent.responseHeaders = []
             for (
@@ -67401,9 +67771,11 @@ $jscomp.polyfill(
         textInputEnabled: null,
         unusedTouchesPool: null,
         close: function () {
+showFuncCall("close");
           this.parent.application.__removeWindow(this.parent)
         },
         createContext: function () {
+showFuncCall("createContext");
           var a = new xg(),
             b = this.parent.__attributes.context
           a.window = this.parent
@@ -67475,6 +67847,7 @@ $jscomp.polyfill(
           this.parent.context = a
         },
         handleContextEvent: function (a) {
+showFuncCall("handleContextEvent");
           switch (a.type) {
             case "webglcontextlost":
               a.cancelable && a.preventDefault()
@@ -67489,16 +67862,19 @@ $jscomp.polyfill(
           }
         },
         handleContextMenuEvent: function (a) {
+showFuncCall("handleContextMenuEvent");
           ;(this.parent.onMouseUp.canceled ||
             this.parent.onMouseDown.canceled) &&
             a.cancelable &&
             a.preventDefault()
         },
         handleCutOrCopyEvent: function (a) {
+showFuncCall("handleCutOrCopyEvent");
           a.clipboardData.setData("text/plain", Ic.get_text())
           a.cancelable && a.preventDefault()
         },
         handleDragEvent: function (a) {
+showFuncCall("handleDragEvent");
           switch (a.type) {
             case "dragover":
               return a.preventDefault(), false
@@ -67521,6 +67897,7 @@ $jscomp.polyfill(
           return true
         },
         handleFocusEvent: function (a) {
+showFuncCall("handleFocusEvent");
           var b = this
           this.textInputEnabled &&
             (null == a.relatedTarget || this.isDescendent(a.relatedTarget)) &&
@@ -67529,6 +67906,7 @@ $jscomp.polyfill(
             }, 20)
         },
         handleGamepadEvent: function (a) {
+showFuncCall("handleGamepadEvent");
           switch (a.type) {
             case "gamepadconnected":
               hc.__connect(a.gamepad.index)
@@ -67539,12 +67917,14 @@ $jscomp.polyfill(
           }
         },
         handleInputEvent: function (a) {
+showFuncCall("handleInputEvent");
           Ka.textInput.value != Ka.dummyCharacter &&
             ((a = Ha.replace(Ka.textInput.value, Ka.dummyCharacter, "")),
             0 < a.length && this.parent.onTextInput.dispatch(a),
             (Ka.textInput.value = Ka.dummyCharacter))
         },
         handleMouseEvent: function (a) {
+showFuncCall("handleMouseEvent");
           if ("wheel" != a.type) {
             if (null != this.parent.element)
               if (null != this.canvas) {
@@ -67634,6 +68014,7 @@ $jscomp.polyfill(
           }
         },
         handlePasteEvent: function (a) {
+showFuncCall("handlePasteEvent");
           if (-1 < a.clipboardData.types.indexOf("text/plain")) {
             var b = a.clipboardData.getData("text/plain")
             Ic.set_text(b)
@@ -67642,10 +68023,12 @@ $jscomp.polyfill(
           }
         },
         handleResizeEvent: function (a) {
+showFuncCall("handleResizeEvent");
           this.primaryTouch = null
           this.updateSize()
         },
         handleTouchEvent: function (a) {
+showFuncCall("handleTouchEvent");
           a.cancelable && a.preventDefault()
           var b = null
           null != this.parent.element &&
@@ -67723,6 +68106,7 @@ $jscomp.polyfill(
           }
         },
         isDescendent: function (a) {
+showFuncCall("isDescendent");
           if (a == this.parent.element) return true
           for (; null != a; ) {
             if (a.parentNode == this.parent.element) return true
@@ -67731,6 +68115,7 @@ $jscomp.polyfill(
           return false
         },
         setClipboard: function (a) {
+showFuncCall("setClipboard");
           var b = this.textInputEnabled
           this.setTextInputEnabled(true)
           var c = Ka.textInput.value
@@ -67742,6 +68127,7 @@ $jscomp.polyfill(
           this.setTextInputEnabled(b)
         },
         setCursor: function (a) {
+showFuncCall("setCursor");
           if (this.cursor != a) {
             if (null == a) this.parent.element.style.cursor = "none"
             else {
@@ -67789,6 +68175,7 @@ $jscomp.polyfill(
           return this.cursor
         },
         setTextInputEnabled: function (a) {
+showFuncCall("setTextInputEnabled");
           a
             ? (null == Ka.textInput &&
                 ((Ka.textInput = window.document.createElement("input")),
@@ -67872,6 +68259,7 @@ $jscomp.polyfill(
           return (this.textInputEnabled = a)
         },
         updateSize: function () {
+showFuncCall("updateSize");
           if (this.parent.__resizable) {
             if (null != this.parent.element) {
               var a = this.parent.element.clientWidth
@@ -69309,6 +69697,7 @@ $jscomp.polyfill(
         stride: null,
         tempRect: null,
         clip: function (a, b, d, m) {
+showFuncCall("clip");
           null == this.tempRect && (this.tempRect = new jd())
           this.tempRect.setTo(a, b, d, m)
           this.rect.intersection(this.tempRect, this.rect)
@@ -69525,6 +69914,7 @@ $jscomp.polyfill(
       fe.prototype = F(yg.prototype, {
         index: null,
         toString: function () {
+showFuncCall("toString");
           return "InvalidCodeUnitSequence(index: " + this.index + ")"
         },
         __class__: fe,
@@ -69624,6 +70014,7 @@ $jscomp.polyfill(
         __errorListeners: null,
         __progressListeners: null,
         onComplete: function (a) {
+showFuncCall("onComplete");
           null != a &&
             (this.isComplete
               ? a(this.value)
@@ -69634,6 +70025,7 @@ $jscomp.polyfill(
           return this
         },
         onError: function (a) {
+showFuncCall("onError");
           null != a &&
             (this.isError
               ? a(this.error)
@@ -69643,6 +70035,7 @@ $jscomp.polyfill(
           return this
         },
         onProgress: function (a) {
+showFuncCall("onProgress");
           null != a &&
             (null == this.__progressListeners &&
               (this.__progressListeners = []),
@@ -69650,6 +70043,7 @@ $jscomp.polyfill(
           return this
         },
         then: function (a) {
+showFuncCall("then");
           if (this.isComplete) return a(this.value)
           if (this.isError) {
             var b = new qb()
@@ -69704,6 +70098,7 @@ $jscomp.polyfill(
       Vc.prototype = {
         future: null,
         complete: function (a) {
+showFuncCall("complete");
           if (
             !this.future.isError &&
             ((this.future.isComplete = true),
@@ -69724,12 +70119,14 @@ $jscomp.polyfill(
           return this
         },
         completeWith: function (a) {
+showFuncCall("completeWith");
           a.onComplete(n(this, this.complete))
           a.onError(n(this, this.error))
           a.onProgress(n(this, this.progress))
           return this
         },
         error: function (a) {
+showFuncCall("error");
           if (
             !this.future.isComplete &&
             ((this.future.isError = true),
@@ -69746,6 +70143,7 @@ $jscomp.polyfill(
           return this
         },
         progress: function (a, b) {
+showFuncCall("progress");
           if (
             !this.future.isError &&
             !this.future.isComplete &&
@@ -69777,6 +70175,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -69793,6 +70192,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -69801,6 +70201,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var b = this.__listeners, c = this.__repeat, m = 0;
@@ -69824,6 +70225,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -69832,6 +70234,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a, b, d) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var c = this.__listeners, f = this.__repeat, e = 0;
@@ -69855,6 +70258,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -69871,9 +70275,11 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         cancel: function () {
+showFuncCall("cancel");
           this.canceled = true
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -69882,6 +70288,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a, b, d) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var c = this.__listeners, f = this.__repeat, e = 0;
@@ -69905,6 +70312,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -69921,6 +70329,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -69929,6 +70338,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a, b) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var c = this.__listeners, m = this.__repeat, f = 0;
@@ -69956,6 +70366,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -69972,9 +70383,11 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         cancel: function () {
+showFuncCall("cancel");
           this.canceled = true
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -69983,6 +70396,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a, b, d) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var c = this.__listeners, f = this.__repeat, e = 0;
@@ -70010,6 +70424,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70026,6 +70441,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70034,6 +70450,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a, b, d) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var c = this.__listeners, f = this.__repeat, e = 0;
@@ -70057,6 +70474,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70088,6 +70506,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70104,6 +70523,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70112,6 +70532,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a, b) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var c = this.__listeners, m = this.__repeat, f = 0;
@@ -70135,6 +70556,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70151,6 +70573,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70159,6 +70582,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a, b) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var c = this.__listeners, m = this.__repeat, f = 0;
@@ -70182,6 +70606,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70198,6 +70623,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70206,6 +70632,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var b = this.__listeners, c = this.__repeat, m = 0;
@@ -70233,6 +70660,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70264,6 +70692,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70295,6 +70724,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70311,9 +70741,11 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         cancel: function () {
+showFuncCall("cancel");
           this.canceled = true
         },
         has: function (a) {
+showFuncCall("has");
           for (var b = 0, c = this.__listeners; b < c.length; ) {
             var m = c[b]
             ++b
@@ -70322,6 +70754,7 @@ $jscomp.polyfill(
           return false
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70330,6 +70763,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var b = this.__listeners, c = this.__repeat, m = 0;
@@ -70353,6 +70787,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70369,6 +70804,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70377,6 +70813,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function () {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var a = this.__listeners, b = this.__repeat, d = 0;
@@ -70400,6 +70837,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70416,9 +70854,11 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         cancel: function () {
+showFuncCall("cancel");
           this.canceled = true
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70427,6 +70867,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var b = this.__listeners, c = this.__repeat, m = 0;
@@ -70450,6 +70891,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70466,6 +70908,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70474,6 +70917,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a, b) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var c = this.__listeners, m = this.__repeat, f = 0;
@@ -70497,6 +70941,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70513,6 +70958,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70521,6 +70967,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var b = this.__listeners, c = this.__repeat, m = 0;
@@ -70544,6 +70991,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70560,6 +71008,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70568,6 +71017,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var b = this.__listeners, c = this.__repeat, m = 0;
@@ -70591,6 +71041,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70607,6 +71058,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70615,6 +71067,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var b = this.__listeners, c = this.__repeat, m = 0;
@@ -70642,6 +71095,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70658,9 +71112,11 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         cancel: function () {
+showFuncCall("cancel");
           this.canceled = true
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70669,6 +71125,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a, b) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var c = this.__listeners, m = this.__repeat, f = 0;
@@ -70692,6 +71149,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70708,6 +71166,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70716,6 +71175,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var b = this.__listeners, c = this.__repeat, m = 0;
@@ -70739,6 +71199,7 @@ $jscomp.polyfill(
         __repeat: null,
         __priorities: null,
         add: function (a, b, d) {
+showFuncCall("add");
           null == d && (d = 0)
           null == b && (b = false)
           for (var c = 0, f = this.__priorities.length; c < f; ) {
@@ -70755,6 +71216,7 @@ $jscomp.polyfill(
           this.__repeat.push(!b)
         },
         remove: function (a) {
+showFuncCall("remove");
           for (var b = this.__listeners.length; 0 <= --b; )
             Ma.compareMethods(this.__listeners[b], a) &&
               (this.__listeners.splice(b, 1),
@@ -70763,6 +71225,7 @@ $jscomp.polyfill(
         },
         __listeners: null,
         dispatch: function (a) {
+showFuncCall("dispatch");
           this.canceled = false
           for (
             var b = this.__listeners, c = this.__repeat, m = 0;
@@ -70912,6 +71375,7 @@ $jscomp.polyfill(
         version: null,
         width: null,
         clone: function () {
+showFuncCall("clone");
           if (null != this.buffer) {
             this.type == Vb.CANVAS
               ? Ya.convertToCanvas(this)
@@ -70939,6 +71403,7 @@ $jscomp.polyfill(
           )
         },
         colorTransform: function (a, b) {
+showFuncCall("colorTransform");
           a = this.__clipRect(a)
           if (null != this.buffer && null != a)
             switch (this.type[1]) {
@@ -70958,6 +71423,7 @@ $jscomp.polyfill(
             }
         },
         copyChannel: function (a, b, d, m, f) {
+showFuncCall("copyChannel");
           b = this.__clipRect(b)
           if (
             null != this.buffer &&
@@ -71020,6 +71486,7 @@ $jscomp.polyfill(
             }
         },
         copyPixels: function (a, b, d, m, f, e) {
+showFuncCall("copyPixels");
           null == e && (e = false)
           if (
             null != this.buffer &&
@@ -71077,6 +71544,7 @@ $jscomp.polyfill(
             }
         },
         fillRect: function (a, b, d) {
+showFuncCall("fillRect");
           a = this.__clipRect(a)
           if (null != this.buffer && null != a)
             switch (this.type[1]) {
@@ -71178,6 +71646,7 @@ $jscomp.polyfill(
             -1 == this.height && (this.height = a.height))
         },
         get_data: function () {
+
           null == this.buffer.data &&
             0 < this.buffer.width &&
             0 < this.buffer.height &&
@@ -71185,16 +71654,20 @@ $jscomp.polyfill(
           return this.buffer.data
         },
         get_format: function () {
+
           return this.buffer.format
         },
         set_format: function (a) {
+
           this.buffer.format != a && 1 == this.type[1] && uc.setFormat(this, a)
           return (this.buffer.format = a)
         },
         get_premultiplied: function () {
+
           return this.buffer.premultiplied
         },
         set_premultiplied: function (a) {
+
           if (a && !this.buffer.premultiplied)
             switch (this.type[1]) {
               case 0:
@@ -71209,18 +71682,22 @@ $jscomp.polyfill(
           return a
         },
         get_rect: function () {
+
           return new jd(0, 0, this.width, this.height)
         },
         get_src: function () {
+
           null != this.buffer.__srcCanvas ||
             (null == this.buffer.data && this.type != Vb.DATA) ||
             Ya.convertToCanvas(this)
           return this.buffer.get_src()
         },
         get_transparent: function () {
+
           return null == this.buffer ? false : this.buffer.transparent
         },
         set_transparent: function (a) {
+
           return null == this.buffer ? false : (this.buffer.transparent = a)
         },
         __class__: db,
@@ -71253,6 +71730,7 @@ $jscomp.polyfill(
         __srcImage: null,
         __srcImageData: null,
         clone: function () {
+showFuncCall("clone");
           var a = new ad(this.data, this.width, this.height, this.bitsPerPixel)
           if (null != this.data) {
             var b = this.data.byteLength
@@ -71287,9 +71765,11 @@ $jscomp.polyfill(
           return a
         },
         get_src: function () {
+
           return null != this.__srcImage ? this.__srcImage : this.__srcCanvas
         },
         set_src: function (a) {
+
           Ra.__instanceof(a, Image)
             ? (this.__srcImage = a)
             : Ra.__instanceof(a, HTMLCanvasElement) &&
@@ -71298,6 +71778,7 @@ $jscomp.polyfill(
           return a
         },
         get_stride: function () {
+
           return this.width * ((this.bitsPerPixel / 8) | 0)
         },
         __class__: ad,
@@ -71399,10 +71880,12 @@ $jscomp.polyfill(
         restore: function () {},
         save: function () {},
         setOperator: function (a) {
+showFuncCall("setOperator");
           return a
         },
         setSourceRGB: function (a, b, d) {},
         set_matrix: function (a) {
+
           return a
         },
         __class__: $k,
@@ -71690,6 +72173,7 @@ $jscomp.polyfill(
         x: null,
         y: null,
         intersection: function (a, b) {
+showFuncCall("intersection");
           null == b && (b = new jd())
           var c = this.x < a.x ? a.x : this.x,
             m =
@@ -71710,13 +72194,16 @@ $jscomp.polyfill(
           return b
         },
         offset: function (a, b) {
+showFuncCall("offset");
           this.x += a
           this.y += b
         },
         setEmpty: function () {
+showFuncCall("setEmpty");
           this.x = this.y = this.width = this.height = 0
         },
         setTo: function (a, b, d, m) {
+showFuncCall("setTo");
           this.x = a
           this.y = b
           this.width = d
@@ -71726,9 +72213,11 @@ $jscomp.polyfill(
           return null
         },
         get_bottom: function () {
+
           return this.y + this.height
         },
         get_right: function () {
+
           return this.x + this.width
         },
         __class__: jd,
@@ -71745,6 +72234,7 @@ $jscomp.polyfill(
         x: null,
         y: null,
         offset: function (a, b) {
+showFuncCall("offset");
           this.x += a
           this.y += b
         },
@@ -71880,9 +72370,11 @@ $jscomp.polyfill(
       ec.prototype = {
         __srcHowl: null,
         get_src: function () {
+
           return this.__srcHowl
         },
         set_src: function (a) {
+
           return (this.__srcHowl = a)
         },
         __class__: ec,
@@ -71949,39 +72441,51 @@ $jscomp.polyfill(
         offset: null,
         __backend: null,
         dispose: function () {
+showFuncCall("dispose");
           this.__backend.dispose()
         },
         init: function () {
+showFuncCall("init");
           this.__backend.init()
         },
         play: function () {
+showFuncCall("play");
           this.__backend.play()
         },
         stop: function () {
+showFuncCall("stop");
           this.__backend.stop()
         },
         get_currentTime: function () {
+
           return this.__backend.getCurrentTime()
         },
         set_currentTime: function (a) {
+
           return this.__backend.setCurrentTime(a)
         },
         get_gain: function () {
+
           return this.__backend.getGain()
         },
         set_gain: function (a) {
+
           return this.__backend.setGain(a)
         },
         set_length: function (a) {
+
           return this.__backend.setLength(a)
         },
         set_loops: function (a) {
+
           return this.__backend.setLoops(a)
         },
         get_position: function () {
+
           return this.__backend.getPosition()
         },
         set_position: function (a) {
+
           return this.__backend.setPosition(a)
         },
         __class__: kg,
@@ -71995,15 +72499,19 @@ $jscomp.polyfill(
       cl.__name__ = ["lime", "media", "OpenALAudioContext"]
       cl.prototype = {
         createContext: function (a, b) {
+showFuncCall("createContext");
           return Kd.createContext(a, b)
         },
         makeContextCurrent: function (a) {
+showFuncCall("makeContextCurrent");
           return Kd.makeContextCurrent(a)
         },
         openDevice: function (a) {
+showFuncCall("openDevice");
           return Kd.openDevice(a)
         },
         processContext: function (a) {
+showFuncCall("processContext");
           Kd.processContext(a)
         },
         __class__: cl,
@@ -72082,9 +72590,11 @@ $jscomp.polyfill(
       Be.__super__ = Bd
       Be.prototype = F(Bd.prototype, {
         fromBytes: function (a) {
+showFuncCall("fromBytes");
           return a
         },
         load: function (a) {
+showFuncCall("load");
           var b = this
           null != a && (this.uri = a)
           var c = new Vc()
@@ -72107,6 +72617,7 @@ $jscomp.polyfill(
       gf.__super__ = Bd
       gf.prototype = F(Bd.prototype, {
         load: function (a) {
+showFuncCall("load");
           var b = this
           null != a && (this.uri = a)
           var c = new Vc()
@@ -72137,6 +72648,7 @@ $jscomp.polyfill(
       Hf.__super__ = Be
       Hf.prototype = F(Be.prototype, {
         fromBytes: function (a) {
+showFuncCall("fromBytes");
           return md.fromBytes(a)
         },
         __class__: Hf,
@@ -72149,6 +72661,7 @@ $jscomp.polyfill(
       Df.__super__ = Be
       Df.prototype = F(Be.prototype, {
         fromBytes: function (a) {
+showFuncCall("fromBytes");
           return nd.fromBytes(a)
         },
         __class__: Df,
@@ -72285,15 +72798,19 @@ $jscomp.polyfill(
         onError: null,
         onRun: null,
         queue: function (a) {
+showFuncCall("queue");
           this.runWork(a)
         },
         sendComplete: function (a) {
+showFuncCall("sendComplete");
           this.onComplete.dispatch(a)
         },
         sendError: function (a) {
+showFuncCall("sendError");
           this.onError.dispatch(a)
         },
         runWork: function (a) {
+showFuncCall("runWork");
           this.onRun.dispatch(a)
           this.doWork.dispatch(a)
         },
@@ -72668,9 +73185,11 @@ $jscomp.polyfill(
         __x: null,
         __y: null,
         close: function () {
+showFuncCall("close");
           this.__backend.close()
         },
         set_cursor: function (a) {
+
           return this.__backend.setCursor(a)
         },
         __class__: Ve,
@@ -72691,6 +73210,7 @@ $jscomp.polyfill(
         font: null,
         version: null,
         exists: function (a, b) {
+showFuncCall("exists");
           if ("IMAGE" == b || null == b) {
             var c = this.image
             if (null != H[a] ? c.existsReserved(a) : c.h.hasOwnProperty(a))
@@ -72711,6 +73231,7 @@ $jscomp.polyfill(
           return false
         },
         set: function (a, b, d) {
+showFuncCall("set");
           switch (b) {
             case "FONT":
               this.font.set(a, d)
@@ -72737,6 +73258,7 @@ $jscomp.polyfill(
           }
         },
         clear: function (a) {
+showFuncCall("clear");
           if (null == a)
             (this.audio = new rb()),
               (this.font = new rb()),
@@ -72810,6 +73332,7 @@ $jscomp.polyfill(
         sizes: null,
         types: null,
         exists: function (a, b) {
+showFuncCall("exists");
           b = null != b ? Ra.__cast(b, String) : null
           var c = this.types
           a = null != H[a] ? c.getReserved(a) : c.h[a]
@@ -72824,6 +73347,7 @@ $jscomp.polyfill(
             : true
         },
         getAsset: function (a, b) {
+showFuncCall("getAsset");
           switch (b) {
             case "BINARY":
               return this.getBytes(a)
@@ -72843,6 +73367,7 @@ $jscomp.polyfill(
           }
         },
         getAudioBuffer: function (a) {
+showFuncCall("getAudioBuffer");
           var b = this.cachedAudioBuffers
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -72867,6 +73392,7 @@ $jscomp.polyfill(
           return ec.fromFile(null != H[a] ? b.getReserved(a) : b.h[a])
         },
         getBytes: function (a) {
+showFuncCall("getBytes");
           var b = this.cachedBytes
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -72893,6 +73419,7 @@ $jscomp.polyfill(
           return md.fromFile(null != H[a] ? b.getReserved(a) : b.h[a])
         },
         getFont: function (a) {
+showFuncCall("getFont");
           var b = this.cachedFonts
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -72911,6 +73438,7 @@ $jscomp.polyfill(
           return Gb.fromFile(null != H[a] ? b.getReserved(a) : b.h[a])
         },
         getImage: function (a) {
+showFuncCall("getImage");
           var b = this.cachedImages
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -72929,6 +73457,7 @@ $jscomp.polyfill(
           return db.fromFile(null != H[a] ? b.getReserved(a) : b.h[a])
         },
         getText: function (a) {
+showFuncCall("getText");
           var b = this.cachedText
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -72938,6 +73467,7 @@ $jscomp.polyfill(
           return null == a ? null : a.getString(0, a.length)
         },
         isLocal: function (a, b) {
+showFuncCall("isLocal");
           var c = this.classTypes
           if (null != H[a] ? c.existsReserved(a) : c.h.hasOwnProperty(a))
             return true
@@ -72954,6 +73484,7 @@ $jscomp.polyfill(
           }
         },
         load: function () {
+showFuncCall("load");
           if (this.loaded) return qb.withValue(this)
           if (null == this.promise) {
             this.promise = new Vc()
@@ -73115,6 +73646,7 @@ $jscomp.polyfill(
           return this.promise.future
         },
         loadAudioBuffer: function (a) {
+showFuncCall("loadAudioBuffer");
           var b = this.cachedAudioBuffers
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -73139,6 +73671,7 @@ $jscomp.polyfill(
           return ec.loadFromFile(null != H[a] ? b.getReserved(a) : b.h[a])
         },
         loadBytes: function (a) {
+showFuncCall("loadBytes");
           var b = this.cachedBytes
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -73157,6 +73690,7 @@ $jscomp.polyfill(
           return md.loadFromFile(null != H[a] ? b.getReserved(a) : b.h[a])
         },
         loadFont: function (a) {
+showFuncCall("loadFont");
           var b = this.cachedFonts
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -73177,6 +73711,7 @@ $jscomp.polyfill(
           return Gb.loadFromName(null != H[a] ? b.getReserved(a) : b.h[a])
         },
         loadImage: function (a) {
+showFuncCall("loadImage");
           var b = this.cachedImages
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -73195,6 +73730,7 @@ $jscomp.polyfill(
           return db.loadFromFile(null != H[a] ? b.getReserved(a) : b.h[a])
         },
         loadText: function (a) {
+showFuncCall("loadText");
           var b = this.cachedText
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             return (
@@ -73319,6 +73855,7 @@ $jscomp.polyfill(
                 (this.bytesTotal += null != H[u] ? c.getReserved(u) : c.h[u]))
         },
         loadAudioBuffer_onComplete: function (a, b) {
+showFuncCall("loadAudioBuffer_onComplete");
           var c = this.cachedAudioBuffers
           null != H[a] ? c.setReserved(a, b) : (c.h[a] = b)
           c = this.pathGroups
@@ -73345,6 +73882,7 @@ $jscomp.polyfill(
           this.__assetLoaded(a)
         },
         loadAudioBuffer_onError: function (a, b) {
+showFuncCall("loadAudioBuffer_onError");
           null != b && "" != b
             ? pb.warn('Could not load "' + a + '": ' + k.string(b), {
                 fileName: "AssetLibrary.hx",
@@ -73361,26 +73899,31 @@ $jscomp.polyfill(
           this.loadAudioBuffer_onComplete(a, new ec())
         },
         loadBytes_onComplete: function (a, b) {
+showFuncCall("loadBytes_onComplete");
           var c = this.cachedBytes
           null != H[a] ? c.setReserved(a, b) : (c.h[a] = b)
           this.__assetLoaded(a)
         },
         loadFont_onComplete: function (a, b) {
+showFuncCall("loadFont_onComplete");
           var c = this.cachedFonts
           null != H[a] ? c.setReserved(a, b) : (c.h[a] = b)
           this.__assetLoaded(a)
         },
         loadImage_onComplete: function (a, b) {
+showFuncCall("loadImage_onComplete");
           var c = this.cachedImages
           null != H[a] ? c.setReserved(a, b) : (c.h[a] = b)
           this.__assetLoaded(a)
         },
         loadText_onComplete: function (a, b) {
+showFuncCall("loadText_onComplete");
           var c = this.cachedText
           null != H[a] ? c.setReserved(a, b) : (c.h[a] = b)
           this.__assetLoaded(a)
         },
         load_onError: function (a, b) {
+showFuncCall("load_onError");
           null != b && "" != b
             ? this.promise.error(
                 'Error loading asset "' + a + '": ' + k.string(b)
@@ -73388,6 +73931,7 @@ $jscomp.polyfill(
             : this.promise.error('Error loading asset "' + a + '"')
         },
         load_onProgress: function (a, b, d) {
+showFuncCall("load_onProgress");
           if (0 < b) {
             var c = this.sizes
             c = null != H[a] ? c.getReserved(a) : c.h[a]
@@ -73737,12 +74281,15 @@ $jscomp.polyfill(
         preloadStarted: null,
         simulateProgress: null,
         addLibrary: function (a) {
+showFuncCall("addLibrary");
           this.libraries.push(a)
         },
         addLibraryName: function (a) {
+showFuncCall("addLibraryName");
           ;-1 == this.libraryNames.indexOf(a) && this.libraryNames.push(a)
         },
         load: function () {
+showFuncCall("load");
           for (var a = this, b = 0, d = this.libraries; b < d.length; ) {
             var m = d[b]
             ++b
@@ -73809,6 +74356,7 @@ $jscomp.polyfill(
           this.updateProgress()
         },
         loadedAssetLibrary: function (a) {
+showFuncCall("loadedAssetLibrary");
           this.loadedLibraries++
           var b = this.loadedLibraries
           this.preloadStarted || ++b
@@ -73832,6 +74380,7 @@ $jscomp.polyfill(
           this.updateProgress()
         },
         start: function () {
+showFuncCall("start");
           this.complete ||
             this.simulateProgress ||
             !this.preloadComplete ||
@@ -73839,6 +74388,7 @@ $jscomp.polyfill(
         },
         update: function (a, b) {},
         updateProgress: function () {
+showFuncCall("updateProgress");
           var a = this
           this.simulateProgress ||
             this.onProgress.dispatch(this.bytesLoaded, this.bytesTotal)
@@ -74004,15 +74554,19 @@ $jscomp.polyfill(
         fixed: null,
         __array: null,
         get: function (a) {
+showFuncCall("get");
           return a >= this.__array.length ? false : this.__array[a]
         },
         toJSON: function () {
+showFuncCall("toJSON");
           return this.__array
         },
         get_length: function () {
+
           return this.__array.length
         },
         set_length: function (a) {
+
           if (!this.fixed) {
             var b = this.__array.length
             0 > a && (a = 0)
@@ -74048,6 +74602,7 @@ $jscomp.polyfill(
         fixed: null,
         __array: null,
         concat: function (a) {
+showFuncCall("concat");
           return null == a
             ? new Nd(null, null, this.__array.slice())
             : 0 < a.__array.length
@@ -74055,26 +74610,33 @@ $jscomp.polyfill(
             : new Nd(null, null, this.__array.slice())
         },
         copy: function () {
+showFuncCall("copy");
           return new Nd(null, this.fixed, this.__array.slice())
         },
         get: function (a) {
+showFuncCall("get");
           return this.__array[a]
         },
         push: function (a) {
+showFuncCall("push");
           return this.fixed ? this.__array.length : this.__array.push(a)
         },
         set: function (a, b) {
+showFuncCall("set");
           return !this.fixed || a < this.__array.length
             ? (this.__array[a] = b)
             : b
         },
         toJSON: function () {
+showFuncCall("toJSON");
           return this.__array
         },
         get_length: function () {
+
           return this.__array.length
         },
         set_length: function (a) {
+
           if (a != this.__array.length && !this.fixed) {
             var b = this.__array.length
             0 > a && (a = 0)
@@ -74102,15 +74664,19 @@ $jscomp.polyfill(
         fixed: null,
         __array: null,
         get: function (a) {
+showFuncCall("get");
           return a >= this.__array.length ? null : this.__array[a]
         },
         toJSON: function () {
+showFuncCall("toJSON");
           return this.__array
         },
         get_length: function () {
+
           return this.__array.length
         },
         set_length: function (a) {
+
           if (!this.fixed) {
             var b = this.__array.length
             0 > a && (a = 0)
@@ -74138,15 +74704,19 @@ $jscomp.polyfill(
         fixed: null,
         __array: null,
         get: function (a) {
+showFuncCall("get");
           return this.__array[a]
         },
         toJSON: function () {
+showFuncCall("toJSON");
           return this.__array
         },
         get_length: function () {
+
           return this.__array.length
         },
         set_length: function (a) {
+
           if (!this.fixed) {
             var b = this.__array.length
             0 > a && (a = 0)
@@ -74182,9 +74752,11 @@ $jscomp.polyfill(
         fixed: null,
         __array: null,
         get: function (a) {
+showFuncCall("get");
           return this.__array[a]
         },
         indexOf: function (a, b) {
+showFuncCall("indexOf");
           null == b && (b = 0)
           for (var c = this.__array.length; b < c; ) {
             var m = b++
@@ -74193,26 +74765,33 @@ $jscomp.polyfill(
           return -1
         },
         push: function (a) {
+showFuncCall("push");
           return this.fixed ? this.__array.length : this.__array.push(a)
         },
         set: function (a, b) {
+showFuncCall("set");
           return !this.fixed || a < this.__array.length
             ? (this.__array[a] = b)
             : b
         },
         sort: function (a) {
+showFuncCall("sort");
           this.__array.sort(a)
         },
         splice: function (a, b) {
+showFuncCall("splice");
           return new Le(null, null, this.__array.splice(a, b))
         },
         toJSON: function () {
+showFuncCall("toJSON");
           return this.__array
         },
         get_length: function () {
+
           return this.__array.length
         },
         set_length: function (a) {
+
           if (!this.fixed) {
             var b = this.__array.length
             0 > a && (a = 0)
@@ -74814,6 +75393,7 @@ $jscomp.polyfill(
         programType: null,
         type: null,
         getWriteMask: function () {
+showFuncCall("getWriteMask");
           var a = "."
           0 != (this.mask & 1) && (a += "x")
           0 != (this.mask & 2) && (a += "y")
@@ -74822,6 +75402,7 @@ $jscomp.polyfill(
           return a
         },
         toGLSL: function (a) {
+showFuncCall("toGLSL");
           null == a && (a = true)
           var b =
             3 == this.type
@@ -74856,6 +75437,7 @@ $jscomp.polyfill(
       Tg.prototype = {
         mEntries: null,
         add: function (a, b, d, m) {
+showFuncCall("add");
           for (var c = 0, e = this.mEntries; c < e.length; ) {
             var g = e[c]
             ++c
@@ -74875,12 +75457,15 @@ $jscomp.polyfill(
           this.mEntries.push(c)
         },
         addDR: function (a, b) {
+showFuncCall("addDR");
           this.add(a.type, a.toGLSL(false), a.n, b)
         },
         addSaR: function (a, b) {
+showFuncCall("addSaR");
           this.add(a.type, a.toGLSL(), a.n, b)
         },
         addSR: function (a, b, d) {
+showFuncCall("addSR");
           null == d && (d = 0)
           0 != a.d
             ? (this.add(
@@ -74898,11 +75483,13 @@ $jscomp.polyfill(
             : this.add(a.type, a.toGLSL(false, d), a.n + d, b)
         },
         getRegisterUsage: function (a) {
+showFuncCall("getRegisterUsage");
           return 0 != a.d
             ? ha.VECTOR_4_ARRAY
             : this.getUsage(a.type, a.toGLSL(false), a.n)
         },
         getUsage: function (a, b, d) {
+showFuncCall("getUsage");
           for (var c = 0, f = this.mEntries; c < f.length; ) {
             var e = f[c]
             ++c
@@ -74911,6 +75498,7 @@ $jscomp.polyfill(
           return ha.UNUSED
         },
         toGLSL: function (a) {
+showFuncCall("toGLSL");
           this.mEntries.sort(function (a, b) {
             return a.number - b.number
           })
@@ -75101,9 +75689,11 @@ $jscomp.polyfill(
         type: null,
         w: null,
         toGLSL: function () {
+showFuncCall("toGLSL");
           return xc.prefixFromType(this.type, this.programType) + this.n
         },
         toSamplerState: function () {
+showFuncCall("toSamplerState");
           switch (this.f) {
             case 0:
               var a = 5
@@ -75197,6 +75787,7 @@ $jscomp.polyfill(
         sourceMask: null,
         type: null,
         toGLSL: function (a, b) {
+showFuncCall("toGLSL");
           null == b && (b = 0)
           null == a && (a = true)
           if (3 == this.type)
@@ -75457,9 +76048,11 @@ $jscomp.polyfill(
         root: null,
         symbols: null,
         createButton: function (a) {
+showFuncCall("createButton");
           return null
         },
         createMovieClip: function (a) {
+showFuncCall("createMovieClip");
           null == a && (a = "")
           if ("" == a) return this.root.__createObject(this)
           for (var b = this.symbols.iterator(); b.hasNext(); ) {
@@ -75470,6 +76063,7 @@ $jscomp.polyfill(
           return null
         },
         getBitmapData: function (a) {
+showFuncCall("getBitmapData");
           for (var b = this.symbols.iterator(); b.hasNext(); ) {
             var c = b.next()
             if (c.className == a && Ra.__instanceof(c, Ld))
@@ -75478,11 +76072,13 @@ $jscomp.polyfill(
           return null
         },
         hasSymbol: function (a) {
+showFuncCall("hasSymbol");
           for (var b = this.symbols.iterator(); b.hasNext(); )
             if (b.next().className == a) return true
           return false
         },
         serialize: function () {
+showFuncCall("serialize");
           var a = new Oc()
           a.serialize(this)
           return a.toString()
@@ -75532,79 +76128,95 @@ $jscomp.polyfill(
       Nb.prototype = F(Fb.prototype, {
         __proxy: null,
         exists: function (a, b) {
+showFuncCall("exists");
           return null != this.__proxy
             ? this.__proxy.exists(a, b)
             : Fb.prototype.exists.call(this, a, b)
         },
         getAsset: function (a, b) {
+showFuncCall("getAsset");
           return null != this.__proxy
             ? this.__proxy.getAsset(a, b)
             : Fb.prototype.getAsset.call(this, a, b)
         },
         getAudioBuffer: function (a) {
+showFuncCall("getAudioBuffer");
           return null != this.__proxy
             ? this.__proxy.getAudioBuffer(a)
             : Fb.prototype.getAudioBuffer.call(this, a)
         },
         getBytes: function (a) {
+showFuncCall("getBytes");
           return null != this.__proxy
             ? this.__proxy.getBytes(a)
             : Fb.prototype.getBytes.call(this, a)
         },
         getFont: function (a) {
+showFuncCall("getFont");
           return null != this.__proxy
             ? this.__proxy.getFont(a)
             : Fb.prototype.getFont.call(this, a)
         },
         getImage: function (a) {
+showFuncCall("getImage");
           return null != this.__proxy
             ? this.__proxy.getImage(a)
             : Fb.prototype.getImage.call(this, a)
         },
         getMovieClip: function (a) {
+showFuncCall("getMovieClip");
           return null
         },
         getText: function (a) {
+showFuncCall("getText");
           return null != this.__proxy
             ? this.__proxy.getText(a)
             : Fb.prototype.getText.call(this, a)
         },
         isLocal: function (a, b) {
+showFuncCall("isLocal");
           return null != this.__proxy
             ? this.__proxy.isLocal(a, b)
             : Fb.prototype.isLocal.call(this, a, b)
         },
         load: function () {
+showFuncCall("load");
           return null != this.__proxy
             ? this.__proxy.load()
             : Fb.prototype.load.call(this)
         },
         loadAudioBuffer: function (a) {
+showFuncCall("loadAudioBuffer");
           return null != this.__proxy
             ? this.__proxy.loadAudioBuffer(a)
             : Fb.prototype.loadAudioBuffer.call(this, a)
         },
         loadBytes: function (a) {
+showFuncCall("loadBytes");
           return null != this.__proxy
             ? this.__proxy.loadBytes(a)
             : Fb.prototype.loadBytes.call(this, a)
         },
         loadFont: function (a) {
+showFuncCall("loadFont");
           return null != this.__proxy
             ? this.__proxy.loadFont(a)
             : Fb.prototype.loadFont.call(this, a)
         },
         loadImage: function (a) {
+showFuncCall("loadImage");
           return null != this.__proxy
             ? this.__proxy.loadImage(a)
             : Fb.prototype.loadImage.call(this, a)
         },
         loadText: function (a) {
+showFuncCall("loadText");
           return null != this.__proxy
             ? this.__proxy.loadText(a)
             : Fb.prototype.loadText.call(this, a)
         },
         unload: function () {
+showFuncCall("unload");
           null != this.__proxy
             ? this.__proxy.unload()
             : Fb.prototype.unload.call(this)
@@ -75631,6 +76243,7 @@ $jscomp.polyfill(
         rootPath: null,
         swf: null,
         exists: function (a, b) {
+showFuncCall("exists");
           return null == this.swf
             ? false
             : "" == a && "MOVIE_CLIP" == b
@@ -75640,6 +76253,7 @@ $jscomp.polyfill(
             : this.swf.hasSymbol(a)
         },
         getImage: function (a) {
+showFuncCall("getImage");
           var b = this.imageClassNames
           if (null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a))
             (b = this.imageClassNames),
@@ -75666,12 +76280,15 @@ $jscomp.polyfill(
           return Nb.prototype.getImage.call(this, a)
         },
         getMovieClip: function (a) {
+showFuncCall("getMovieClip");
           return null != this.swf ? this.swf.createMovieClip(a) : null
         },
         isLocal: function (a, b) {
+showFuncCall("isLocal");
           return true
         },
         load: function () {
+showFuncCall("load");
           var a = this
           if (null != this.id) {
             var b = this.id,
@@ -75743,6 +76360,7 @@ $jscomp.polyfill(
           return m.future
         },
         loadImage: function (a) {
+showFuncCall("loadImage");
           var b = this,
             c = this.imageClassNames
           if (null != H[a] ? c.existsReserved(a) : c.h.hasOwnProperty(a))
@@ -75797,6 +76415,7 @@ $jscomp.polyfill(
           return Nb.prototype.loadImage.call(this, a)
         },
         unload: function () {
+showFuncCall("unload");
           if (null != this.swf) {
             var a = this.instanceID
             var b = gd.instances
@@ -75912,10 +76531,12 @@ $jscomp.polyfill(
         prev: null,
         tsPos: null,
         destroy: function () {
+showFuncCall("destroy");
           this.buffer = null
           this.reset()
         },
         reset: function () {
+showFuncCall("reset");
           this.bPos =
             this.iPos =
             this.fPos =
@@ -76034,6 +76655,7 @@ $jscomp.polyfill(
         textureAlpha: null,
         wrap: null,
         clone: function () {
+showFuncCall("clone");
           var a = new De(
             this.wrap,
             this.filter,
@@ -76047,6 +76669,7 @@ $jscomp.polyfill(
           return a
         },
         copyFrom: function (a) {
+showFuncCall("copyFrom");
           null == a ||
             a.ignoreSampler ||
             ((this.wrap = a.wrap),
@@ -76057,6 +76680,7 @@ $jscomp.polyfill(
             (this.textureAlpha = a.textureAlpha))
         },
         equals: function (a) {
+showFuncCall("equals");
           return null == a
             ? false
             : this.wrap == a.wrap &&
@@ -82488,6 +83112,7 @@ $jscomp.polyfill(
         vertexCount: null,
         context3D: null,
         flushVertexBufferData: function () {
+showFuncCall("flushVertexBufferData");
           this.vertexBufferData.length > this.vertexCount &&
             ((this.vertexCount = this.vertexBufferData.length),
             (this.vertexBuffer = this.context3D.createVertexBuffer(
@@ -82498,6 +83123,7 @@ $jscomp.polyfill(
           this.vertexBuffer.uploadFromTypedArray(this.vertexBufferData)
         },
         resize: function (a, b) {
+showFuncCall("resize");
           null == b && (b = -1)
           this.elementCount = a
           ;-1 == b && (b = this.dataPerVertex)
@@ -82665,6 +83291,7 @@ $jscomp.polyfill(
         __worldColorTransform: null,
         __worldTransform: null,
         colorTransform: function (a, b) {
+showFuncCall("colorTransform");
           this.readable &&
             this.image.colorTransform(
               a.__toLimeRectangle(),
@@ -82672,6 +83299,7 @@ $jscomp.polyfill(
             )
         },
         copyPixels: function (a, b, d, e, f, g) {
+showFuncCall("copyPixels");
           null == g && (g = false)
           this.readable &&
             null != a &&
@@ -82687,6 +83315,7 @@ $jscomp.polyfill(
             ))
         },
         dispose: function () {
+showFuncCall("dispose");
           this.image = null
           this.height = this.width = 0
           this.rect = null
@@ -82700,6 +83329,7 @@ $jscomp.polyfill(
               null
         },
         draw: function (a, b, d, e, f, g) {
+showFuncCall("draw");
           null == g && (g = false)
           if (null != a) {
             a.__update(false, true)
@@ -82761,9 +83391,11 @@ $jscomp.polyfill(
           }
         },
         fillRect: function (a, b) {
+showFuncCall("fillRect");
           this.__fillRect(a, b, true)
         },
         getIndexBuffer: function (a) {
+showFuncCall("getIndexBuffer");
           if (
             null == this.__indexBuffer ||
             this.__indexBufferContext != a.__context
@@ -82781,6 +83413,7 @@ $jscomp.polyfill(
           return this.__indexBuffer
         },
         getVertexBuffer: function (a) {
+showFuncCall("getVertexBuffer");
           if (
             null == this.__vertexBuffer ||
             this.__vertexBufferContext != a.__context
@@ -82801,6 +83434,7 @@ $jscomp.polyfill(
           return this.__vertexBuffer
         },
         getTexture: function (a) {
+showFuncCall("getTexture");
           if (!this.__isValid) return null
           if (null == this.__texture || this.__textureContext != a.__context)
             (this.__textureContext = a.__context),
@@ -85826,9 +86460,11 @@ $jscomp.polyfill(
           }
         },
         get_glFragmentSource: function () {
+
           return this.__glFragmentSource
         },
         get_glVertexSource: function () {
+
           return this.__glVertexSource
         },
         __class__: pd,
@@ -86468,10 +87104,12 @@ $jscomp.polyfill(
         x: null,
         y: null,
         copyFrom: function (a) {
+showFuncCall("copyFrom");
           this.x = a.x
           this.y = a.y
         },
         setTo: function (a, b) {
+showFuncCall("setTo");
           this.x = a
           this.y = b
         },
@@ -86867,6 +87505,7 @@ $jscomp.polyfill(
         touchDownTarget: null,
         touchOverTarget: null,
         reset: function () {
+showFuncCall("reset");
           this.touchOverTarget = this.touchDownTarget = this.touch = null
           this.rollOutStack.splice(0, this.rollOutStack.length)
         },
@@ -86884,6 +87523,7 @@ $jscomp.polyfill(
       af.__super__ = Ea
       af.prototype = F(Ea.prototype, {
         createWindow: function (a) {
+showFuncCall("createWindow");
           var b = new bf(this, a)
           this.__windows.push(b)
           this.__windowByID.h[b.id] = b
@@ -86974,6 +87614,7 @@ $jscomp.polyfill(
         __matrix: null,
         __matrix3: null,
         applyMatrix: function (a, b) {
+showFuncCall("applyMatrix");
           null == b && (b = this.cairo)
           this.__matrix.copyFrom(a)
           this.cairo == b &&
@@ -87100,9 +87741,11 @@ $jscomp.polyfill(
         __isDOM: null,
         __tempMatrix: null,
         applySmoothing: function (a, b) {
+showFuncCall("applySmoothing");
           a.imageSmoothingEnabled = b
         },
         setTransform: function (a, b) {
+showFuncCall("setTransform");
           null == b
             ? (b = this.context)
             : this.context == b &&
@@ -87463,9 +88106,11 @@ $jscomp.polyfill(
         __frame: null,
         __name: null,
         get_frame: function () {
+
           return this.__frame
         },
         get_name: function () {
+
           return this.__name
         },
         __class__: rf,
@@ -87531,6 +88176,7 @@ $jscomp.polyfill(
         __path: null,
         __unloaded: null,
         load: function (a, b) {
+showFuncCall("load");
           this.contentLoaderInfo.loaderURL =
             Wb.get_current().get_loaderInfo().url
           this.contentLoaderInfo.url = a.url
@@ -87603,9 +88249,11 @@ $jscomp.polyfill(
           this.contentLoaderInfo.dispatchEvent(b)
         },
         BitmapData_onError: function (a) {
+showFuncCall("BitmapData_onError");
           this.__dispatchError(k.string(a))
         },
         BitmapData_onLoad: function (a) {
+showFuncCall("BitmapData_onLoad");
           null == a
             ? this.__dispatchError("Unknown error")
             : ((this.content = new y(a)),
@@ -87618,12 +88266,14 @@ $jscomp.polyfill(
               this.contentLoaderInfo.dispatchEvent(new Ia("complete")))
         },
         BitmapData_onProgress: function (a, b) {
+showFuncCall("BitmapData_onProgress");
           var c = new Vd("progress")
           c.bytesLoaded = a
           c.bytesTotal = b
           this.contentLoaderInfo.dispatchEvent(c)
         },
         loader_onComplete: function (a) {
+showFuncCall("loader_onComplete");
           var b = this
           a = a.target
           if (
@@ -87668,10 +88318,12 @@ $jscomp.polyfill(
                   .onError(n(this, this.BitmapData_onError)))
         },
         loader_onError: function (a) {
+showFuncCall("loader_onError");
           a.target = this.contentLoaderInfo
           this.contentLoaderInfo.dispatchEvent(a)
         },
         loader_onProgress: function (a) {
+showFuncCall("loader_onProgress");
           a.target = this.contentLoaderInfo
           this.contentLoaderInfo.dispatchEvent(a)
         },
@@ -87812,6 +88464,7 @@ $jscomp.polyfill(
         __values: null,
         __width: null,
         applyAlpha: function (a) {
+showFuncCall("applyAlpha");
           hb.__alphaValue[0] = a
           null != this.__currentShaderBuffer
             ? this.__currentShaderBuffer.addFloatOverride(
@@ -87823,6 +88476,7 @@ $jscomp.polyfill(
               (this.__currentShader.__alpha.value = hb.__alphaValue)
         },
         applyBitmapData: function (a, b, d) {
+showFuncCall("applyBitmapData");
           null == d && (d = false)
           null != this.__currentShaderBuffer
             ? null != a &&
@@ -87854,6 +88508,7 @@ $jscomp.polyfill(
                   : (this.__currentShader.__textureSize.value = null)))
         },
         applyColorTransform: function (a) {
+showFuncCall("applyColorTransform");
           var b = null != a && !a.__isDefault(true)
           this.applyHasColorTransform(b)
           b
@@ -87895,6 +88550,7 @@ $jscomp.polyfill(
                   hb.__emptyColorValue))
         },
         applyHasColorTransform: function (a) {
+showFuncCall("applyHasColorTransform");
           hb.__hasColorTransformValue[0] = a
           null != this.__currentShaderBuffer
             ? this.__currentShaderBuffer.addBoolOverride(
@@ -87907,6 +88563,7 @@ $jscomp.polyfill(
                 hb.__hasColorTransformValue)
         },
         applyMatrix: function (a) {
+showFuncCall("applyMatrix");
           null != this.__currentShaderBuffer
             ? this.__currentShaderBuffer.addFloatOverride("openfl_Matrix", a)
             : null != this.__currentShader &&
@@ -87914,6 +88571,7 @@ $jscomp.polyfill(
               (this.__currentShader.__matrix.value = a)
         },
         setShader: function (a) {
+showFuncCall("setShader");
           this.__currentShaderBuffer = null
           this.__currentShader != a &&
             (null == a
@@ -87927,6 +88585,7 @@ $jscomp.polyfill(
                 (this.__context3D.__state.shader = a)))
         },
         setViewport: function () {
+showFuncCall("setViewport");
           this.__gl.viewport(
             this.__offsetX,
             this.__offsetY,
@@ -87935,6 +88594,7 @@ $jscomp.polyfill(
           )
         },
         updateShader: function () {
+showFuncCall("updateShader");
           null != this.__currentShader &&
             (null != this.__currentShader.__position &&
               (this.__currentShader.__position.__useArray = true),
@@ -87946,11 +88606,13 @@ $jscomp.polyfill(
             this.__currentShader.__update())
         },
         useAlphaArray: function () {
+showFuncCall("useAlphaArray");
           null != this.__currentShader &&
             null != this.__currentShader.__alpha &&
             (this.__currentShader.__alpha.__useArray = true)
         },
         useColorTransformArray: function () {
+showFuncCall("useColorTransformArray");
           null != this.__currentShader &&
             (null != this.__currentShader.__colorMultiplier &&
               (this.__currentShader.__colorMultiplier.__useArray = true),
@@ -88414,6 +89076,7 @@ $jscomp.polyfill(
         display: null,
         ready: null,
         start: function () {
+showFuncCall("start");
           this.ready = true
           Wb.get_current().get_loaderInfo().__complete()
           if (null != this.display) {
@@ -88425,11 +89088,13 @@ $jscomp.polyfill(
             this.complete || ((this.complete = true), this.onComplete.dispatch())
         },
         update: function (a, b) {
+showFuncCall("update");
           Wb.get_current().get_loaderInfo().__update(a, b)
           null != this.display &&
             this.display.dispatchEvent(new Vd("progress", true, true, a, b))
         },
         display_onUnload: function (a) {
+showFuncCall("display_onUnload");
           null != this.display &&
             (this.display.removeEventListener(
               "unload",
@@ -88483,6 +89148,7 @@ $jscomp.polyfill(
         progress: null,
         startAnimation: null,
         getBackgroundColor: function () {
+showFuncCall("getBackgroundColor");
           var a = Wb.get_current().stage.window.context.attributes
           return Object.prototype.hasOwnProperty.call(a, "background") &&
             null != a.background
@@ -88490,17 +89156,21 @@ $jscomp.polyfill(
             : 0
         },
         getHeight: function () {
+showFuncCall("getHeight");
           var a = Wb.get_current().stage.window.__height
           return 0 < a ? a : Wb.get_current().stage.stageHeight
         },
         getWidth: function () {
+showFuncCall("getWidth");
           var a = Wb.get_current().stage.window.__width
           return 0 < a ? a : Wb.get_current().stage.stageWidth
         },
         onInit: function () {
+showFuncCall("onInit");
           this.addEventListener("enterFrame", n(this, this.this_onEnterFrame))
         },
         onLoaded: function () {
+showFuncCall("onLoaded");
           this.removeEventListener(
             "enterFrame",
             n(this, this.this_onEnterFrame)
@@ -88508,11 +89178,13 @@ $jscomp.polyfill(
           this.dispatchEvent(new Ia("unload"))
         },
         onUpdate: function (a, b) {
+showFuncCall("onUpdate");
           var c = 0
           0 < b && ((c = a / b), 1 < c && (c = 1))
           this.progress.set_scaleX(c)
         },
         this_onAddedToStage: function (a) {
+showFuncCall("this_onAddedToStage");
           this.removeEventListener(
             "addedToStage",
             n(this, this.this_onAddedToStage)
@@ -88526,12 +89198,14 @@ $jscomp.polyfill(
           this.addEventListener("complete", n(this, this.this_onComplete))
         },
         this_onComplete: function (a) {
+showFuncCall("this_onComplete");
           a.preventDefault()
           this.removeEventListener("progress", n(this, this.this_onProgress))
           this.removeEventListener("complete", n(this, this.this_onComplete))
           this.onLoaded()
         },
         this_onEnterFrame: function (a) {
+showFuncCall("this_onEnterFrame");
           a =
             (Wb.getTimer() - this.startAnimation) /
             (this.endAnimation - this.startAnimation)
@@ -88541,6 +89215,7 @@ $jscomp.polyfill(
           this.progress.set_alpha(a)
         },
         this_onProgress: function (a) {
+showFuncCall("this_onProgress");
           this.onUpdate(a.bytesLoaded | 0, a.bytesTotal | 0)
         },
         __class__: eh,
@@ -89016,6 +89691,7 @@ $jscomp.polyfill(
           }
         },
         set_name: function (a) {
+
           this.__internal = Ha.startsWith(a, "openfl_")
           return (this.name = a)
         },
@@ -89029,6 +89705,7 @@ $jscomp.polyfill(
       Ee.__super__ = S
       Ee.prototype = F(S.prototype, {
         get_graphics: function () {
+
           null == this.__graphics && (this.__graphics = new Qb(this))
           return this.__graphics
         },
@@ -89209,18 +89886,22 @@ $jscomp.polyfill(
             this.get_hitTestState().__updateTransforms()
         },
         get_downState: function () {
+
           return this.__downState
         },
         set_downState: function (a) {
+
           null != this.__downState &&
             this.__currentState == this.__downState &&
             this.set___currentState(this.__downState)
           return (this.__downState = a)
         },
         get_hitTestState: function () {
+
           return this.__hitTestState
         },
         set_hitTestState: function (a) {
+
           null != this.__hitTestState &&
             this.__hitTestState != a &&
             this.__hitTestState != this.get_downState() &&
@@ -89234,24 +89915,29 @@ $jscomp.polyfill(
           return (this.__hitTestState = a)
         },
         get_overState: function () {
+
           return this.__overState
         },
         set_overState: function (a) {
+
           null != this.__overState &&
             this.__currentState == this.__overState &&
             this.set___currentState(a)
           return (this.__overState = a)
         },
         get_upState: function () {
+
           return this.__upState
         },
         set_upState: function (a) {
+
           null != this.__upState &&
             this.__currentState == this.__upState &&
             this.set___currentState(a)
           return (this.__upState = a)
         },
         set___currentState: function (a) {
+
           null != this.__currentState &&
             this.__currentState != this.get_hitTestState() &&
             (this.__currentState.__renderParent = null)
@@ -89410,6 +90096,7 @@ $jscomp.polyfill(
         __wasFullscreen: null,
         __primaryTouch: null,
         onGamepadAxisMove: function (a, b, d) {
+showFuncCall("onGamepadAxisMove");
           try {
             Eb.__onGamepadAxisMove(a, b, d)
           } catch (m) {
@@ -89419,6 +90106,7 @@ $jscomp.polyfill(
           }
         },
         onGamepadButtonDown: function (a, b) {
+showFuncCall("onGamepadButtonDown");
           try {
             Eb.__onGamepadButtonDown(a, b)
           } catch (d) {
@@ -89428,6 +90116,7 @@ $jscomp.polyfill(
           }
         },
         onGamepadButtonUp: function (a, b) {
+showFuncCall("onGamepadButtonUp");
           try {
             Eb.__onGamepadButtonUp(a, b)
           } catch (d) {
@@ -89437,6 +90126,7 @@ $jscomp.polyfill(
           }
         },
         onGamepadConnect: function (a) {
+showFuncCall("onGamepadConnect");
           try {
             Eb.__onGamepadConnect(a)
           } catch (b) {
@@ -89446,6 +90136,7 @@ $jscomp.polyfill(
           }
         },
         onGamepadDisconnect: function (a) {
+showFuncCall("onGamepadDisconnect");
           try {
             Eb.__onGamepadDisconnect(a)
           } catch (b) {
@@ -89455,17 +90146,21 @@ $jscomp.polyfill(
           }
         },
         onKeyDown: function (a, b, d) {
+showFuncCall("onKeyDown");
           null != this.window &&
             this.window == a &&
             this.__onKey("keyDown", b, d)
         },
         onKeyUp: function (a, b, d) {
+showFuncCall("onKeyUp");
           null != this.window && this.window == a && this.__onKey("keyUp", b, d)
         },
         onModuleExit: function (a) {
+showFuncCall("onModuleExit");
           null != this.window && this.__broadcastEvent(new Ia("deactivate"))
         },
         onMouseDown: function (a, b, d, e) {
+showFuncCall("onMouseDown");
           if (null != this.window && this.window == a) {
             this.__dispatchPendingMouseEvent()
             switch (e) {
@@ -89483,6 +90178,7 @@ $jscomp.polyfill(
           }
         },
         onMouseMove: function (a, b, d) {
+showFuncCall("onMouseMove");
           null != this.window &&
             this.window == a &&
             ((this.__pendingMouseEvent = true),
@@ -89491,6 +90187,7 @@ $jscomp.polyfill(
         },
         onMouseMoveRelative: function (a, b, d) {},
         onMouseUp: function (a, b, d, e) {
+showFuncCall("onMouseUp");
           if (null != this.window && this.window == a) {
             this.__dispatchPendingMouseEvent()
             switch (e) {
@@ -89508,6 +90205,7 @@ $jscomp.polyfill(
           }
         },
         onMouseWheel: function (a, b, d, e) {
+showFuncCall("onMouseWheel");
           null != this.window &&
             this.window == a &&
             (this.__dispatchPendingMouseEvent(),
@@ -89516,6 +90214,7 @@ $jscomp.polyfill(
               : this.__onMouseWheel(b | 0, d | 0, e))
         },
         onRenderContextLost: function () {
+showFuncCall("onRenderContextLost");
           this.context3D = this.__renderer = null
           for (var a = 0, b = this.stage3Ds; a < b.get_length(); ) {
             var d = b.get(a)
@@ -89524,6 +90223,7 @@ $jscomp.polyfill(
           }
         },
         onRenderContextRestored: function (a) {
+showFuncCall("onRenderContextRestored");
           this.__createRenderer()
           a = 0
           for (var b = this.stage3Ds; a < b.get_length(); ) {
@@ -89534,6 +90234,7 @@ $jscomp.polyfill(
         },
         onTextEdit: function (a, b, d, e) {},
         onTextInput: function (a, b) {
+showFuncCall("onTextInput");
           if (null != this.window && this.window == a) {
             var c = []
             null == this.__focus
@@ -89547,27 +90248,33 @@ $jscomp.polyfill(
           }
         },
         onTouchCancel: function (a) {
+showFuncCall("onTouchCancel");
           this.__primaryTouch == a && (this.__primaryTouch = null)
           this.__onTouch("touchEnd", a)
         },
         onTouchMove: function (a) {
+showFuncCall("onTouchMove");
           this.__onTouch("touchMove", a)
         },
         onTouchEnd: function (a) {
+showFuncCall("onTouchEnd");
           this.__primaryTouch == a && (this.__primaryTouch = null)
           this.__onTouch("touchEnd", a)
         },
         onTouchStart: function (a) {
+showFuncCall("onTouchStart");
           null == this.__primaryTouch && (this.__primaryTouch = a)
           this.__onTouch("touchBegin", a)
         },
         onWindowActivate: function (a) {},
         onWindowClose: function (a) {
+showFuncCall("onWindowClose");
           this.window == a && (this.window = null)
           this.__primaryTouch = null
           this.__broadcastEvent(new Ia("deactivate"))
         },
         onWindowCreate: function (a) {
+showFuncCall("onWindowCreate");
           null != this.window &&
             this.window == a &&
             null != a.context &&
@@ -89577,9 +90284,11 @@ $jscomp.polyfill(
         onWindowDropFile: function (a, b) {},
         onWindowEnter: function (a) {},
         onWindowExpose: function (a) {
+showFuncCall("onWindowExpose");
           null != this.window && this.window == a && (this.__renderDirty = true)
         },
         onWindowFocusIn: function (a) {
+showFuncCall("onWindowFocusIn");
           null != this.window &&
             this.window == a &&
             ((this.__renderDirty = true),
@@ -89587,6 +90296,7 @@ $jscomp.polyfill(
             this.set_focus(this.__cacheFocus))
         },
         onWindowFocusOut: function (a) {
+showFuncCall("onWindowFocusOut");
           null != this.window &&
             this.window == a &&
             ((this.__primaryTouch = null),
@@ -89596,6 +90306,7 @@ $jscomp.polyfill(
             (this.__cacheFocus = a))
         },
         onWindowFullscreen: function (a) {
+showFuncCall("onWindowFullscreen");
           null != this.window &&
             this.window == a &&
             (this.__resize(),
@@ -89605,6 +90316,7 @@ $jscomp.polyfill(
               this.__dispatchEvent(new Cd("fullScreen", false, false, true, true))))
         },
         onWindowLeave: function (a) {
+showFuncCall("onWindowLeave");
           null == this.window ||
             this.window != a ||
             ob.__buttonDown ||
@@ -89614,6 +90326,7 @@ $jscomp.polyfill(
         onWindowMinimize: function (a) {},
         onWindowMove: function (a, b, d) {},
         onWindowResize: function (a, b, d) {
+showFuncCall("onWindowResize");
           null != this.window &&
             this.window == a &&
             (this.__resize(),
@@ -89624,6 +90337,7 @@ $jscomp.polyfill(
               this.__dispatchEvent(new Cd("fullScreen", false, false, false, true))))
         },
         onWindowRestore: function (a) {
+showFuncCall("onWindowRestore");
           null != this.window &&
             this.window == a &&
             this.__wasFullscreen &&
@@ -89633,6 +90347,7 @@ $jscomp.polyfill(
             this.__dispatchEvent(new Cd("fullScreen", false, false, false, true)))
         },
         render: function (a) {
+showFuncCall("render");
           if (!this.__rendering) {
             this.__rendering = true
             this.__broadcastEvent(new Ia("enterFrame"))
@@ -89674,6 +90389,7 @@ $jscomp.polyfill(
           }
         },
         update: function (a) {
+showFuncCall("update");
           this.__deltaTime = a
           this.__dispatchPendingMouseEvent()
         },
@@ -90929,6 +91645,7 @@ $jscomp.polyfill(
               b && (this.__wasDirty = false))
         },
         set_color: function (a) {
+
           null == a
             ? ((this.__transparent = true), (a = 0))
             : (this.__transparent = false)
@@ -90942,9 +91659,11 @@ $jscomp.polyfill(
           return a
         },
         get_focus: function () {
+
           return this.__focus
         },
         set_focus: function (a) {
+
           if (a != this.__focus) {
             var b = this.__focus
             this.__cacheFocus = this.__focus = a
@@ -90965,47 +91684,61 @@ $jscomp.polyfill(
           return a
         },
         get_fullScreenSourceRect: function () {
+
           return null == this.__fullScreenSourceRect
             ? null
             : this.__fullScreenSourceRect.clone()
         },
         set_height: function (a) {
+
           return this.get_height()
         },
         get_mouseX: function () {
+
           return this.__mouseX
         },
         get_mouseY: function () {
+
           return this.__mouseY
         },
         get_quality: function () {
+
           return this.__quality
         },
         set_rotation: function (a) {
+
           return 0
         },
         set_scaleX: function (a) {
+
           return 0
         },
         set_scaleY: function (a) {
+
           return 0
         },
         get_tabEnabled: function () {
+
           return false
         },
         get_tabIndex: function () {
+
           return -1
         },
         set_transform: function (a) {
+
           return this.get_transform()
         },
         set_width: function (a) {
+
           return this.get_width()
         },
         set_x: function (a) {
+
           return 0
         },
         set_y: function (a) {
+
           return 0
         },
         __class__: lf,
@@ -91123,9 +91856,11 @@ $jscomp.polyfill(
           this.__createContext()
         },
         get_x: function () {
+
           return this.__x
         },
         get_y: function () {
+
           return this.__y
         },
         __class__: Pf,
@@ -91149,6 +91884,7 @@ $jscomp.polyfill(
       Ge.prototype = F(ca.prototype, {
         __tiles: null,
         addTile: function (a) {
+showFuncCall("addTile");
           if (null == a) return null
           a.parent == this && (ra.remove(this.__tiles, a), this.__length--)
           this.__tiles[this.get_numTiles()] = a
@@ -91158,6 +91894,7 @@ $jscomp.polyfill(
           return a
         },
         get_numTiles: function () {
+
           return this.__length
         },
         __class__: Ge,
@@ -91191,6 +91928,7 @@ $jscomp.polyfill(
         __height: null,
         __width: null,
         addTile: function (a) {
+showFuncCall("addTile");
           return this.__group.addTile(a)
         },
         __enterFrame: function (a) {
@@ -91522,16 +92260,20 @@ $jscomp.polyfill(
             : S.prototype.__updateCacheBitmap.call(this, a, b)
         },
         get_height: function () {
+
           return this.__height * Math.abs(this.get_scaleY())
         },
         set_height: function (a) {
+
           this.__height = a | 0
           return this.__height * Math.abs(this.get_scaleY())
         },
         get_width: function () {
+
           return this.__width * Math.abs(this.__scaleX)
         },
         set_width: function (a) {
+
           this.__width = a | 0
           return this.__width * Math.abs(this.__scaleX)
         },
@@ -91555,6 +92297,7 @@ $jscomp.polyfill(
         __bitmapData: null,
         __data: null,
         addRect: function (a) {
+showFuncCall("addRect");
           if (null == a) return -1
           this.rectData.push(a.x)
           this.rectData.push(a.y)
@@ -91733,6 +92476,7 @@ $jscomp.polyfill(
         __state: null,
         __vertexConstants: null,
         clear: function (a, b, d, e, f, g, k) {
+showFuncCall("clear");
           null == k && (k = 7)
           null == g && (g = 0)
           null == f && (f = 1)
@@ -91778,6 +92522,7 @@ $jscomp.polyfill(
           0 != c && (this.__setGLScissorTest(false), this.gl.clear(c))
         },
         configureBackBuffer: function (a, b, d, e, f, g) {
+showFuncCall("configureBackBuffer");
           null == g && (g = false)
           null == f && (f = false)
           null == e && (e = true)
@@ -91848,21 +92593,26 @@ $jscomp.polyfill(
           }
         },
         createIndexBuffer: function (a, b) {
+showFuncCall("createIndexBuffer");
           null == b && (b = 1)
           return new hh(this, a, b)
         },
         createProgram: function (a) {
+showFuncCall("createProgram");
           null == a && (a = 0)
           return new ih(this, a)
         },
         createRectangleTexture: function (a, b, d, e) {
+showFuncCall("createRectangleTexture");
           return new mf(this, a, b, ll.toString(d), e)
         },
         createVertexBuffer: function (a, b, d) {
+showFuncCall("createVertexBuffer");
           null == d && (d = 1)
           return new jh(this, a, b, Tf.toString(d))
         },
         drawTriangles: function (a, b, d) {
+showFuncCall("drawTriangles");
           null == d && (d = -1)
           null == b && (b = 0)
           null == this.__state.renderToTexture &&
@@ -91876,6 +92626,7 @@ $jscomp.polyfill(
           this.gl.drawElements(this.gl.TRIANGLES, d, a.__elementType, b)
         },
         present: function () {
+showFuncCall("present");
           this.setRenderToBackBuffer()
           if (null != this.__stage3D && null != this.__backBufferTexture) {
             this.__cleared || this.clear(0, 0, 0, 0, 1, 0, 1)
@@ -91893,9 +92644,11 @@ $jscomp.polyfill(
           this.__present = true
         },
         setBlendFactors: function (a, b) {
+showFuncCall("setBlendFactors");
           this.setBlendFactorsSeparate(a, b, a, b)
         },
         setBlendFactorsSeparate: function (a, b, d, e) {
+showFuncCall("setBlendFactorsSeparate");
           this.__state.blendSourceRGBFactor = a
           this.__state.blendDestinationRGBFactor = b
           this.__state.blendSourceAlphaFactor = d
@@ -91903,19 +92656,23 @@ $jscomp.polyfill(
           this.__setGLBlendEquation(this.gl.FUNC_ADD)
         },
         setColorMask: function (a, b, d, e) {
+showFuncCall("setColorMask");
           this.__state.colorMaskRed = a
           this.__state.colorMaskGreen = b
           this.__state.colorMaskBlue = d
           this.__state.colorMaskAlpha = e
         },
         setCulling: function (a) {
+showFuncCall("setCulling");
           this.__state.culling = a
         },
         setDepthTest: function (a, b) {
+showFuncCall("setDepthTest");
           this.__state.depthMask = a
           this.__state.depthCompareMode = b
         },
         setProgram: function (a) {
+showFuncCall("setProgram");
           this.__state.program = a
           this.__state.shader = null
           if (null != a)
@@ -91927,6 +92684,7 @@ $jscomp.polyfill(
             }
         },
         setProgramConstantsFromMatrix: function (a, b, d, e) {
+showFuncCall("setProgramConstantsFromMatrix");
           null == e && (e = false)
           if (
             null != this.__state.program &&
@@ -91981,9 +92739,11 @@ $jscomp.polyfill(
                 this.__state.program.__markDirty(a, b, 4)
         },
         setRenderToBackBuffer: function () {
+showFuncCall("setRenderToBackBuffer");
           this.__state.renderToTexture = null
         },
         setRenderToTexture: function (a, b, d, e) {
+showFuncCall("setRenderToTexture");
           null == e && (e = 0)
           null == d && (d = 0)
           null == b && (b = false)
@@ -91993,6 +92753,7 @@ $jscomp.polyfill(
           this.__state.renderToTextureSurfaceSelector = e
         },
         setSamplerStateAt: function (a, b, d, e) {
+showFuncCall("setSamplerStateAt");
           null == this.__state.samplerStates[a] &&
             (this.__state.samplerStates[a] = new De())
           a = this.__state.samplerStates[a]
@@ -92001,12 +92762,14 @@ $jscomp.polyfill(
           a.mipfilter = e
         },
         setScissorRectangle: function (a) {
+showFuncCall("setScissorRectangle");
           null != a
             ? ((this.__state.scissorEnabled = true),
               this.__state.scissorRectangle.copyFrom(a))
             : (this.__state.scissorEnabled = false)
         },
         setStencilActions: function (a, b, d, e, f) {
+showFuncCall("setStencilActions");
           null == f && (f = 5)
           null == e && (e = 5)
           null == d && (d = 5)
@@ -92019,6 +92782,7 @@ $jscomp.polyfill(
           this.__state.stencilFail = f
         },
         setStencilReferenceValue: function (a, b, d) {
+showFuncCall("setStencilReferenceValue");
           null == d && (d = 255)
           null == b && (b = 255)
           this.__state.stencilReferenceValue = a
@@ -92026,9 +92790,11 @@ $jscomp.polyfill(
           this.__state.stencilWriteMask = d
         },
         setTextureAt: function (a, b) {
+showFuncCall("setTextureAt");
           this.__state.textures[a] = b
         },
         setVertexBufferAt: function (a, b, d, e) {
+showFuncCall("setVertexBufferAt");
           null == e && (e = 4)
           null == d && (d = 0)
           if (null == b)
@@ -92757,12 +93523,14 @@ $jscomp.polyfill(
         __tempUInt16Array: null,
         __usage: null,
         uploadFromTypedArray: function (a, b) {
+showFuncCall("uploadFromTypedArray");
           null != a &&
             ((b = this.__context.gl),
             this.__context.__bindGLElementArrayBuffer(this.__id),
             gb.bufferData(b, b.ELEMENT_ARRAY_BUFFER, a, this.__usage))
         },
         uploadFromVector: function (a, b, d) {
+showFuncCall("uploadFromVector");
           if (null != a) {
             var c = b + d,
               f = this.__tempUInt16Array
@@ -92822,6 +93590,7 @@ $jscomp.polyfill(
         __glVertexSource: null,
         __samplerStates: null,
         upload: function (a, b) {
+showFuncCall("upload");
           if (0 == this.__format) {
             var c = []
             a = xc.convertToGLSL(a, null)
@@ -93069,6 +93838,7 @@ $jscomp.polyfill(
         context: null,
         regDataPointer: null,
         flush: function () {
+showFuncCall("flush");
           var a = this.context.gl,
             b = 4 * this.regIndex
           switch (this.type) {
@@ -93152,6 +93922,7 @@ $jscomp.polyfill(
         __registerLookup: null,
         __uniforms: null,
         flush: function () {
+showFuncCall("flush");
           if (this.__anyDirty) {
             for (var a = 0, b = this.__uniforms; a < b.length; ) {
               var d = b[a]
@@ -93162,9 +93933,11 @@ $jscomp.polyfill(
           }
         },
         markAllDirty: function () {
+showFuncCall("markAllDirty");
           this.__anyDirty = this.__allDirty = true
         },
         markDirty: function (a, b) {
+showFuncCall("markDirty");
           if (!this.__allDirty)
             for (
               b = a + b,
@@ -93202,12 +93975,14 @@ $jscomp.polyfill(
         __usage: null,
         __vertexSize: null,
         uploadFromTypedArray: function (a, b) {
+showFuncCall("uploadFromTypedArray");
           null != a &&
             ((b = this.__context.gl),
             this.__context.__bindGLArrayBuffer(this.__id),
             gb.bufferData(b, b.ARRAY_BUFFER, a, this.__usage))
         },
         uploadFromVector: function (a, b, d) {
+showFuncCall("uploadFromVector");
           if (null != a) {
             b *= this.__vertexSize
             var c = d * this.__vertexSize
@@ -93520,6 +94295,7 @@ $jscomp.polyfill(
       mf.__super__ = yb
       mf.prototype = F(yb.prototype, {
         uploadFromTypedArray: function (a) {
+showFuncCall("uploadFromTypedArray");
           var b = this.__context.gl
           this.__context.__bindGLTexture2D(this.__textureID)
           gb.texImage2D(
@@ -93761,9 +94537,11 @@ $jscomp.polyfill(
         __isCanceledNow: null,
         __preventDefault: null,
         isDefaultPrevented: function () {
+showFuncCall("isDefaultPrevented");
           return this.__preventDefault
         },
         preventDefault: function () {
+showFuncCall("preventDefault");
           this.cancelable && (this.__preventDefault = true)
         },
         __class__: Ia,
@@ -93814,15 +94592,19 @@ $jscomp.polyfill(
         isCopy: null,
         list: null,
         copy: function () {
+showFuncCall("copy");
           this.isCopy || ((this.list = this.list.slice()), (this.isCopy = true))
         },
         hasNext: function () {
+showFuncCall("hasNext");
           return this.index < this.list.length
         },
         next: function () {
+showFuncCall("next");
           return this.list[this.index++]
         },
         remove: function (a, b) {
+showFuncCall("remove");
           if (this.active)
             if (this.isCopy) {
               b = this.index
@@ -93836,14 +94618,17 @@ $jscomp.polyfill(
             } else b < this.index && this.index--
         },
         reset: function (a) {
+showFuncCall("reset");
           this.list = a
           this.isCopy = false
           this.index = 0
         },
         start: function () {
+showFuncCall("start");
           this.active = true
         },
         stop: function () {
+showFuncCall("stop");
           this.active = false
         },
         __class__: le,
@@ -93860,6 +94645,7 @@ $jscomp.polyfill(
         priority: null,
         useCapture: null,
         match: function (a, b) {
+showFuncCall("match");
           return Ma.compareMethods(this.callback, a) ? this.useCapture == b : false
         },
         __class__: cf,
@@ -94329,9 +95115,11 @@ $jscomp.polyfill(
           return zd.__blurShader
         },
         get_blurX: function () {
+
           return this.__blurX
         },
         set_blurX: function (a) {
+
           a != this.__blurX &&
             ((this.__blurX = a),
             (this.__renderDirty = true),
@@ -94340,9 +95128,11 @@ $jscomp.polyfill(
           return a
         },
         get_blurY: function () {
+
           return this.__blurY
         },
         set_blurY: function (a) {
+
           a != this.__blurY &&
             ((this.__blurY = a),
             (this.__renderDirty = true),
@@ -94351,6 +95141,7 @@ $jscomp.polyfill(
           return a
         },
         set_quality: function (a) {
+
           this.__horizontalPasses =
             0 >= this.__blurX ? 0 : Math.round((a / 4) * this.__blurX) + 1
           this.__verticalPasses =
@@ -94387,6 +95178,7 @@ $jscomp.polyfill(
       $f.__super__ = qd
       $f.prototype = F(qd.prototype, {
         init: function (a) {
+showFuncCall("init");
           var b = this.uMultipliers.value,
             c = this.uOffsets.value
           b[0] = a[0]
@@ -94593,9 +95385,11 @@ $jscomp.polyfill(
           return Hd.__colorMatrixShader
         },
         get_matrix: function () {
+
           return this.__matrix
         },
         set_matrix: function (a) {
+
           null == a &&
             (a = [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0])
           return (this.__matrix = a)
@@ -94786,12 +95580,15 @@ $jscomp.polyfill(
           return cd.__glowShader
         },
         get_alpha: function () {
+
           return this.__alpha
         },
         get_blurX: function () {
+
           return this.__blurX
         },
         set_blurX: function (a) {
+
           a != this.__blurX &&
             ((this.__blurX = a),
             (this.__renderDirty = true),
@@ -94800,9 +95597,11 @@ $jscomp.polyfill(
           return a
         },
         get_blurY: function () {
+
           return this.__blurY
         },
         set_blurY: function (a) {
+
           a != this.__blurY &&
             ((this.__blurY = a),
             (this.__renderDirty = true),
@@ -94811,9 +95610,11 @@ $jscomp.polyfill(
           return a
         },
         get_color: function () {
+
           return this.__color
         },
         set_quality: function (a) {
+
           this.__horizontalPasses =
             0 >= this.__blurX ? 0 : Math.round((a / 4) * this.__blurX) + 1
           this.__verticalPasses =
@@ -94840,6 +95641,7 @@ $jscomp.polyfill(
       Sf.prototype = {
         rawData: null,
         append: function (a) {
+showFuncCall("append");
           var b = this.rawData.get(0),
             c = this.rawData.get(4),
             e = this.rawData.get(8),
@@ -94890,6 +95692,7 @@ $jscomp.polyfill(
           this.rawData.set(15, f * Q + h * U + I * K + v * a)
         },
         appendTranslation: function (a, b, d) {
+showFuncCall("appendTranslation");
           var c = this.rawData
           c.set(12, c.get(12) + a)
           a = this.rawData
@@ -94898,6 +95701,7 @@ $jscomp.polyfill(
           b.set(14, b.get(14) + d)
         },
         copyRawDataFrom: function (a, b, d) {
+showFuncCall("copyRawDataFrom");
           null == d && (d = false)
           null == b && (b = 0)
           d && this.transpose()
@@ -94908,6 +95712,7 @@ $jscomp.polyfill(
           d && this.transpose()
         },
         identity: function () {
+showFuncCall("identity");
           this.rawData = da.toFloatVector(
             null,
             null,
@@ -94916,6 +95721,7 @@ $jscomp.polyfill(
           )
         },
         transpose: function () {
+showFuncCall("transpose");
           var a = this.rawData.copy()
           this.rawData.set(1, a.get(4))
           this.rawData.set(2, a.get(8))
@@ -94949,9 +95755,11 @@ $jscomp.polyfill(
         __hasMatrix: null,
         __hasMatrix3D: null,
         get_colorTransform: function () {
+
           return this.__colorTransform
         },
         set_colorTransform: function (a) {
+
           this.__colorTransform.__equals(a, false) ||
             (this.__colorTransform.__copyFrom(a),
             null != a && this.__displayObject.set_alpha(a.alphaMultiplier),
@@ -94961,11 +95769,13 @@ $jscomp.polyfill(
           return this.__colorTransform
         },
         get_matrix: function () {
+
           return this.__hasMatrix
             ? this.__displayObject.__transform.clone()
             : null
         },
         set_matrix: function (a) {
+
           if (null == a) return (this.__hasMatrix = false), null
           this.__hasMatrix = true
           this.__hasMatrix3D = false
@@ -95098,15 +95908,19 @@ $jscomp.polyfill(
             }
         },
         video_onCanPlay: function (a) {
+showFuncCall("video_onCanPlay");
           this.__playStatus("NetStream.Play.canplay")
         },
         video_onCanPlayThrough: function (a) {
+showFuncCall("video_onCanPlayThrough");
           this.__playStatus("NetStream.Play.canplaythrough")
         },
         video_onDurationChanged: function (a) {
+showFuncCall("video_onDurationChanged");
           this.__playStatus("NetStream.Play.durationchanged")
         },
         video_onEnd: function (a) {
+showFuncCall("video_onEnd");
           this.__connection.dispatchEvent(
             new Wd("netStatus", false, false, { code: "NetStream.Play.Stop" })
           )
@@ -95116,12 +95930,14 @@ $jscomp.polyfill(
           this.__playStatus("NetStream.Play.Complete")
         },
         video_onError: function (a) {
+showFuncCall("video_onError");
           this.__connection.dispatchEvent(
             new Wd("netStatus", false, false, { code: "NetStream.Play.Stop" })
           )
           this.__playStatus("NetStream.Play.error")
         },
         video_onLoadMetaData: function (a) {
+showFuncCall("video_onLoadMetaData");
           if (null != this.__video && null != this.client)
             try {
               var b = this.client.onMetaData
@@ -95135,38 +95951,47 @@ $jscomp.polyfill(
             }
         },
         video_onLoadStart: function (a) {
+showFuncCall("video_onLoadStart");
           this.__playStatus("NetStream.Play.loadstart")
         },
         video_onPause: function (a) {
+showFuncCall("video_onPause");
           this.__playStatus("NetStream.Play.pause")
         },
         video_onPlaying: function (a) {
+showFuncCall("video_onPlaying");
           this.__connection.dispatchEvent(
             new Wd("netStatus", false, false, { code: "NetStream.Play.Start" })
           )
           this.__playStatus("NetStream.Play.playing")
         },
         video_onSeeking: function (a) {
+showFuncCall("video_onSeeking");
           this.__playStatus("NetStream.Play.seeking")
           this.__connection.dispatchEvent(
             new Wd("netStatus", false, false, { code: "NetStream.Seek.Complete" })
           )
         },
         video_onStalled: function (a) {
+showFuncCall("video_onStalled");
           this.__playStatus("NetStream.Play.stalled")
         },
         video_onTimeUpdate: function (a) {
+showFuncCall("video_onTimeUpdate");
           null != this.__video &&
             ((this.time = this.__video.currentTime),
             this.__playStatus("NetStream.Play.timeupdate"))
         },
         video_onWaiting: function (a) {
+showFuncCall("video_onWaiting");
           this.__playStatus("NetStream.Play.waiting")
         },
         get___seeking: function () {
+
           return this.__seeking ? true : this.__video.seeking
         },
         set___seeking: function (a) {
+
           return (this.__seeking = a)
         },
         __class__: bg,
@@ -95187,6 +96012,7 @@ $jscomp.polyfill(
         dataFormat: null,
         __httpRequest: null,
         load: function (a) {
+showFuncCall("load");
           var b = this
           if (0 == this.dataFormat) {
             var c = new Df()
@@ -95289,12 +96115,14 @@ $jscomp.polyfill(
           this.__httpRequest.enableResponseHeaders = true
         },
         httpRequest_onError: function (a) {
+showFuncCall("httpRequest_onError");
           this.__dispatchStatus()
           var b = 403 == a ? new Yf("securityError") : new Oe("ioError")
           b.text = k.string(a)
           this.dispatchEvent(b)
         },
         httpRequest_onProgress: function (a, b) {
+showFuncCall("httpRequest_onProgress");
           var c = new Vd("progress")
           c.bytesLoaded = a
           c.bytesTotal = b
@@ -95602,6 +96430,7 @@ $jscomp.polyfill(
       Eb.__super__ = ya
       Eb.prototype = F(ya.prototype, {
         addEventListener: function (a, b, d, e, f) {
+showFuncCall("addEventListener");
           null == f && (f = false)
           null == e && (e = 0)
           null == d && (d = false)
@@ -96055,6 +96884,7 @@ $jscomp.polyfill(
         verbose: null,
         debugEnabled: null,
         assemble: function (a, b, d, e) {
+showFuncCall("assemble");
           null == e && (e = false)
           null == d && (d = 1)
           var c = Wb.getTimer()
@@ -96366,6 +97196,7 @@ $jscomp.polyfill(
           return this.agalcode
         },
         initregmap: function (a, b) {
+showFuncCall("initregmap");
           var c = wa.REGMAP,
             e = new id(
               "va",
@@ -96455,6 +97286,7 @@ $jscomp.polyfill(
           null != H.fi ? b.setReserved("fi", a) : (b.h.fi = a)
         },
         match: function (a, b) {
+showFuncCall("match");
           for (var c = [], e = 0; b.matchSub(a, e); )
             (e = b.matched(0)), c.push(e), (e = b.matchedPos().pos + e.length)
           return c
@@ -96475,6 +97307,7 @@ $jscomp.polyfill(
         name: null,
         numRegister: null,
         toString: function () {
+showFuncCall("toString");
           return (
             '[OpCode name="' +
             this.name +
@@ -96505,6 +97338,7 @@ $jscomp.polyfill(
         flags: null,
         range: null,
         toString: function () {
+showFuncCall("toString");
           return (
             '[Register name="' +
             this.name +
@@ -96558,34 +97392,42 @@ $jscomp.polyfill(
         sound: null,
         __enabled: null,
         getBitmapData: function (a) {
+showFuncCall("getBitmapData");
           var b = this.bitmapData
           return null != H[a] ? b.getReserved(a) : b.h[a]
         },
         getFont: function (a) {
+showFuncCall("getFont");
           var b = this.font
           return null != H[a] ? b.getReserved(a) : b.h[a]
         },
         hasBitmapData: function (a) {
+showFuncCall("hasBitmapData");
           var b = this.bitmapData
           return null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a)
         },
         hasFont: function (a) {
+showFuncCall("hasFont");
           var b = this.font
           return null != H[a] ? b.existsReserved(a) : b.h.hasOwnProperty(a)
         },
         removeBitmapData: function (a) {
+showFuncCall("removeBitmapData");
           Qa.cache.image.remove(a)
           return this.bitmapData.remove(a)
         },
         setBitmapData: function (a, b) {
+showFuncCall("setBitmapData");
           var c = this.bitmapData
           null != H[a] ? c.setReserved(a, b) : (c.h[a] = b)
         },
         setFont: function (a, b) {
+showFuncCall("setFont");
           var c = this.font
           null != H[a] ? c.setReserved(a, b) : (c.h[a] = b)
         },
         get_enabled: function () {
+
           return this.__enabled
         },
         __class__: cg,
@@ -96703,10 +97545,12 @@ $jscomp.polyfill(
         __endian: null,
         __length: null,
         readByte: function () {
+showFuncCall("readByte");
           var a = this.readUnsignedByte()
           return 0 != (a & 128) ? a - 256 : a
         },
         readInt: function () {
+showFuncCall("readInt");
           var a = this.readUnsignedByte(),
             b = this.readUnsignedByte(),
             d = this.readUnsignedByte(),
@@ -96716,10 +97560,12 @@ $jscomp.polyfill(
             : (a << 24) | (b << 16) | (d << 8) | e
         },
         readUnsignedByte: function () {
+showFuncCall("readUnsignedByte");
           if (this.position < this.length) return this.b[this.position++]
           throw new sa(new nf())
         },
         readUnsignedInt: function () {
+showFuncCall("readUnsignedInt");
           var a = this.readUnsignedByte(),
             b = this.readUnsignedByte(),
             d = this.readUnsignedByte(),
@@ -96729,24 +97575,29 @@ $jscomp.polyfill(
             : (a << 24) | (b << 16) | (d << 8) | e
         },
         readUnsignedShort: function () {
+showFuncCall("readUnsignedShort");
           var a = this.readUnsignedByte(),
             b = this.readUnsignedByte()
           return 1 == this.__endian ? (b << 8) + a : (a << 8) | b
         },
         readUTF: function () {
+showFuncCall("readUTF");
           var a = this.readUnsignedShort()
           return this.readUTFBytes(a)
         },
         readUTFBytes: function (a) {
+showFuncCall("readUTFBytes");
           if (this.position + a > this.length) throw new sa(new nf())
           this.position += a
           return this.getString(this.position - a, a)
         },
         writeByte: function (a) {
+showFuncCall("writeByte");
           this.__resize(this.position + 1)
           this.b[this.position++] = a & 255
         },
         writeInt: function (a) {
+showFuncCall("writeInt");
           this.__resize(this.position + 4)
           1 == this.__endian
             ? ((this.b[this.position++] = a & 255),
@@ -96759,6 +97610,7 @@ $jscomp.polyfill(
               (this.b[this.position++] = a & 255))
         },
         writeShort: function (a) {
+showFuncCall("writeShort");
           this.__resize(this.position + 2)
           1 == this.__endian
             ? ((this.b[this.position++] = a & 255),
@@ -96767,6 +97619,7 @@ $jscomp.polyfill(
               (this.b[this.position++] = a & 255))
         },
         writeUnsignedInt: function (a) {
+showFuncCall("writeUnsignedInt");
           this.writeInt(a)
         },
         __fromBytes: function (a) {
@@ -97001,7 +97854,7 @@ $jscomp.polyfill(
       a.quake = 17
       a.wackyWarp = 18
       a.firewall = 19
-      a.retrace = 20
+      a.reerror = 20
       a.panacea = 21
       a.haste = 22
       a.zeal = 23
@@ -98144,6 +98997,7 @@ $jscomp.polyfill(
   }
   ea.prototype = {
     init: function () {
+showFuncCall("init");
       var h = this || t
       return (
         (h._counter = 1e3),
@@ -98169,6 +99023,7 @@ $jscomp.polyfill(
       )
     },
     volume: function (h) {
+showFuncCall("volume");
       var n = this || t
       if (
         ((h = parseFloat(h)), n.ctx || r(), void 0 !== h && 0 <= h && 1 >= h)
@@ -98187,6 +99042,7 @@ $jscomp.polyfill(
       return n._volume
     },
     mute: function (h) {
+showFuncCall("mute");
       var n = this || t
       n.ctx || r()
       n._muted = h
@@ -98201,6 +99057,7 @@ $jscomp.polyfill(
       return n
     },
     unload: function () {
+showFuncCall("unload");
       for (var h = this || t, n = h._howls.length - 1; 0 <= n; n--)
         h._howls[n].unload()
       return (
@@ -98212,6 +99069,7 @@ $jscomp.polyfill(
       )
     },
     codecs: function (h) {
+showFuncCall("codecs");
       return (this || t)._codecs[h.replace(/^x-/, "")]
     },
     _setup: function () {
@@ -98417,6 +99275,7 @@ $jscomp.polyfill(
     }
   R.prototype = {
     init: function (h) {
+showFuncCall("init");
       var n = this
       return (
         t.ctx || r(),
@@ -98459,6 +99318,7 @@ $jscomp.polyfill(
           n._queue.push({
             event: "play",
             action: function () {
+showFuncCall("action");
               n.play()
             },
           }),
@@ -98467,6 +99327,7 @@ $jscomp.polyfill(
       )
     },
     load: function () {
+showFuncCall("load");
       var h = null
       if (t.noAudio)
         return void this._emit("loaderror", null, "No audio support.")
@@ -98514,6 +99375,7 @@ $jscomp.polyfill(
           )
     },
     play: function (h, n) {
+showFuncCall("play");
       var r = this,
         G = null
       if ("number" == typeof h) (G = h), (h = null)
@@ -98538,6 +99400,7 @@ $jscomp.polyfill(
           r._queue.push({
             event: "play",
             action: function () {
+showFuncCall("action");
               r.play(K)
             },
           }),
@@ -98660,12 +99523,14 @@ $jscomp.polyfill(
       return V._id
     },
     pause: function (h, n) {
+showFuncCall("pause");
       var r = this
       if ("loaded" !== r._state || r._playLock)
         return (
           r._queue.push({
             event: "pause",
             action: function () {
+showFuncCall("action");
               r.pause(h)
             },
           }),
@@ -98697,12 +99562,14 @@ $jscomp.polyfill(
       return r
     },
     stop: function (h, n) {
+showFuncCall("stop");
       var r = this
       if ("loaded" !== r._state || r._playLock)
         return (
           r._queue.push({
             event: "stop",
             action: function () {
+showFuncCall("action");
               r.stop(h)
             },
           }),
@@ -98731,12 +99598,14 @@ $jscomp.polyfill(
       return r
     },
     mute: function (h, n) {
+showFuncCall("mute");
       var r = this
       if ("loaded" !== r._state || r._playLock)
         return (
           r._queue.push({
             event: "mute",
             action: function () {
+showFuncCall("action");
               r.mute(h, n)
             },
           }),
@@ -98759,6 +99628,7 @@ $jscomp.polyfill(
       return r
     },
     volume: function () {
+showFuncCall("volume");
       var h,
         n,
         r = this,
@@ -98777,6 +99647,7 @@ $jscomp.polyfill(
           r._queue.push({
             event: "volume",
             action: function () {
+showFuncCall("action");
               r.volume.apply(r, w)
             },
           }),
@@ -98795,12 +99666,14 @@ $jscomp.polyfill(
       return r
     },
     fade: function (h, n, r, w) {
+showFuncCall("fade");
       var G = this
       if ("loaded" !== G._state || G._playLock)
         return (
           G._queue.push({
             event: "fade",
             action: function () {
+showFuncCall("action");
               G.fade(h, n, r, w)
             },
           }),
@@ -98866,6 +99739,7 @@ $jscomp.polyfill(
       )
     },
     loop: function () {
+showFuncCall("loop");
       var h,
         n,
         r,
@@ -98890,6 +99764,7 @@ $jscomp.polyfill(
       return this
     },
     rate: function () {
+showFuncCall("rate");
       var h,
         n,
         r = this,
@@ -98909,6 +99784,7 @@ $jscomp.polyfill(
           r._queue.push({
             event: "rate",
             action: function () {
+showFuncCall("action");
               r.rate.apply(r, w)
             },
           }),
@@ -98941,6 +99817,7 @@ $jscomp.polyfill(
       return r
     },
     seek: function () {
+showFuncCall("seek");
       var h,
         n,
         r = this,
@@ -98958,6 +99835,7 @@ $jscomp.polyfill(
           r._queue.push({
             event: "seek",
             action: function () {
+showFuncCall("action");
               r.seek.apply(r, w)
             },
           }),
@@ -98995,6 +99873,7 @@ $jscomp.polyfill(
       return r
     },
     playing: function (h) {
+showFuncCall("playing");
       if ("number" == typeof h)
         return (h = this._soundById(h)), !!h && !h._paused
       for (h = 0; h < this._sounds.length; h++)
@@ -99002,14 +99881,17 @@ $jscomp.polyfill(
       return false
     },
     duration: function (h) {
+showFuncCall("duration");
       var n = this._duration
       h = this._soundById(h)
       return h && (n = this._sprite[h._sprite][1] / 1e3), n
     },
     state: function () {
+showFuncCall("state");
       return this._state
     },
     unload: function () {
+showFuncCall("unload");
       for (var h = this._sounds, n = 0; n < h.length; n++)
         (h[n]._paused || this.stop(h[n]._id), this._webAudio) ||
           (/MSIE |Trident\//.test(t._navigator && t._navigator.userAgent) ||
@@ -99040,6 +99922,7 @@ $jscomp.polyfill(
       )
     },
     on: function (h, n, r, t) {
+showFuncCall("on");
       h = this["_on" + h]
       return (
         "function" == typeof n &&
@@ -99048,6 +99931,7 @@ $jscomp.polyfill(
       )
     },
     off: function (h, n, r) {
+showFuncCall("off");
       var t = this["_on" + h]
       if (("number" == typeof n && ((r = n), (n = null)), n || r))
         for (h = 0; h < t.length; h++) {
@@ -99066,6 +99950,7 @@ $jscomp.polyfill(
       return this
     },
     once: function (h, n, r) {
+showFuncCall("once");
       return this.on(h, n, r, 1), this
     },
     _emit: function (h, n, r) {
@@ -99211,6 +100096,7 @@ $jscomp.polyfill(
   }
   D.prototype = {
     init: function () {
+showFuncCall("init");
       var h = this._parent
       return (
         (this._muted = h._muted),
@@ -99228,6 +100114,7 @@ $jscomp.polyfill(
       )
     },
     create: function () {
+showFuncCall("create");
       var h = this._parent,
         n = t._muted || this._muted || this._parent._muted ? 0 : this._volume
       return (
@@ -99252,6 +100139,7 @@ $jscomp.polyfill(
       )
     },
     reset: function () {
+showFuncCall("reset");
       var h = this._parent
       return (
         (this._muted = h._muted),
@@ -99521,6 +100409,7 @@ $jscomp.polyfill(
         D._queue.push({
           event: "stereo",
           action: function () {
+showFuncCall("action");
             D.stereo(t, R)
           },
         }),
@@ -99561,6 +100450,7 @@ $jscomp.polyfill(
         da._queue.push({
           event: "pos",
           action: function () {
+showFuncCall("action");
             da.pos(t, R, D, w)
           },
         }),
@@ -99599,6 +100489,7 @@ $jscomp.polyfill(
         da._queue.push({
           event: "orientation",
           action: function () {
+showFuncCall("action");
             da.orientation(t, R, D, w)
           },
         }),
@@ -100164,11 +101055,13 @@ $jscomp.polyfill(
           }
           var w = {
               arraySet: function (t, w, n, r, h) {
+showFuncCall("arraySet");
                 if (w.subarray && t.subarray)
                   return void t.set(w.subarray(n, n + r), h)
                 for (var F = 0; F < r; F++) t[h + F] = w[n + F]
               },
               flattenChunks: function (t) {
+showFuncCall("flattenChunks");
                 var w, n
                 var r = (n = 0)
                 for (w = t.length; r < w; r++) n += t[r].length
@@ -100184,9 +101077,11 @@ $jscomp.polyfill(
             },
             da = {
               arraySet: function (t, w, n, r, h) {
+showFuncCall("arraySet");
                 for (var F = 0; F < r; F++) t[h + F] = w[n + F]
               },
               flattenChunks: function (t) {
+showFuncCall("flattenChunks");
                 return [].concat.apply([], t)
               },
             }
@@ -103152,4 +104047,31 @@ var saveAs =
 // ^ +([a-zA-Z]\w+): function \(.*\{$
 // 
 // $&
-// trace("function called: $1");
+// showFuncCall("$1");
+
+function showFuncCall(name) {
+  window.funcCalls ??= []
+  window.overcalledFuncs ??= ['equals', 'setProgram']
+
+  // Count occurrences of this name in the current funcCalls
+  let count = 0
+  if (window.overcalledFuncs.includes(name))
+    return
+  for (const n of window.funcCalls) {
+    if (n === name) count++
+  }
+
+  // If overcalled, track separately and do not add to main array
+  if (count >= 20) {
+    window.overcalledFuncs.push(name)
+    return
+  }
+
+  // Otherwise add to main array
+  window.funcCalls.push(name)
+  // log(name)
+  // Keep funcCalls capped at 50 (remove first)
+  if (window.funcCalls.length > 150) {
+    window.funcCalls.shift()
+  }
+}
