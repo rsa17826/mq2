@@ -113039,23 +113039,20 @@ function showFuncCall(name) {
   window.funcCalls ??= []
   window.overcalledFuncs ??= ["equals", "setProgram"]
 
-  // Count occurrences of this name in the current funcCalls
   let count = 0
   if (window.overcalledFuncs.includes(name)) return
   for (const n of window.funcCalls) {
-    if (n === name) count++
+    if (n === name) {count++
+      if (count >= 20) {
+        window.overcalledFuncs.push(name)
+        return
+      }
+    
+    }
   }
 
-  // If overcalled, track separately and do not add to main array
-  if (count >= 20) {
-    window.overcalledFuncs.push(name)
-    return
-  }
-
-  // Otherwise add to main array
   window.funcCalls.push(name)
   // log(name)
-  // Keep funcCalls capped at 50 (remove first)
   if (window.funcCalls.length > 150) {
     window.funcCalls.shift()
   }
