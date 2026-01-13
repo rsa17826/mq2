@@ -1,3 +1,29 @@
+var escPressed = false
+var savePressed = false
+
+window.onblur=()=>escPressed=false
+window.onkeydown=(e)=>{
+  if (["esc", "escape"].includes(e.key.toLowerCase())){
+    e.preventDefault()
+    escPressed=true
+    window.clickHandler()
+  }
+  if (e.key.toLowerCase()=='s' && e.ctrlKey){
+    e.preventDefault()
+    savePressed=true
+    window.clickHandler()
+  }
+}
+window.onkeyup=(e)=>{
+  if (e.key.toLowerCase()=='s'||!e.ctrlKey){
+    savePressed=false
+  }
+  if (["esc", "escape"].includes(e.key.toLowerCase())){
+    e.preventDefault()
+    escPressed=false
+  }
+}
+
 /*
  howler.js v2.1.1 | (c) 2013-2018, James Simpson of GoldFire Studios | MIT License | howlerjs.com  Spatial Plugin  @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
 var $jscomp = $jscomp || {}
@@ -2740,6 +2766,8 @@ $jscomp.polyfill(
           return (this.__mask = a)
         },
         get_mouseX: function () {
+          if (savePressed)
+            return 0
           var a =
               null != this.stage
                 ? this.stage.__mouseX
@@ -2755,6 +2783,8 @@ $jscomp.polyfill(
             : (1 / m) * (d.c * (d.ty - b) + d.d * (a - d.tx))
         },
         get_mouseY: function () {
+          if (savePressed)
+            return 0
           var a =
               null != this.stage
                 ? this.stage.__mouseX
@@ -18526,6 +18556,12 @@ $jscomp.polyfill(
           a.hsFormat.color = 20224
         },
         sendComplete: function (c) {
+          setTimeout(()=>document.querySelector("canvas").dispatchEvent(new MouseEvent("mousedown", {
+            bubbles: true,
+            cancelable: true,
+            view: window
+          })),1000)
+          log(1111)
           showFuncCall("sendComplete")
           this.sender.removeEventListener(
             "complete",
@@ -24740,6 +24776,7 @@ $jscomp.polyfill(
             this.SetBomb()
         },
         ClickHandler: function (c) {
+          window.clickHandler ??= this.ClickHandler.bind(this, c)
           showFuncCall("ClickHandler")
           var b = false
           a.colLegPrize[0].hitTestPoint(
@@ -28135,11 +28172,11 @@ $jscomp.polyfill(
           )
             this.BatEndFunc()
           else if (
-            a.butCancel.hitTestPoint(
+            (escPressed||a.butCancel.hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
               true
-            ) &&
+            )) &&
             1 <= a.butCancel.get_alpha() &&
             1 == this.showMess
           )
@@ -28639,11 +28676,11 @@ $jscomp.polyfill(
                 ++za)
             }
           } else if (
-            a.butCancel.hitTestPoint(
+            (escPressed||a.butCancel.hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
               true
-            ) &&
+            )) &&
             0 < a.butCancel.get_alpha() &&
             (1 == this.specialMessage ||
               1 == this.inUpgradeShop ||
@@ -33821,11 +33858,11 @@ $jscomp.polyfill(
             }
             this.TextFieldEdit(a.shopMess, "Quests", this.shopFormat)
           } else if (
-            a.sideButton[8].hitTestPoint(
+            (savePressed||a.sideButton[8].hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
               true
-            ) &&
+            )) &&
             1 == a.sideButton[8].get_visible() &&
             0 == a.fightMode &&
             0 == b

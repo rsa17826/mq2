@@ -1,7 +1,8 @@
 import os
 import re
 
-reg = re.compile("&stat\\d+=(-?\\d+(?:\\.\\d+)?)")
+reg = re.compile("&stat\\d+=([^&]+)")
+# reg = re.compile("&stat\\d+=(-?\\d+(?:\\.\\d+)?)")
 print("Content-Type: text/plain")
 print()  # blank line is REQUIRED
 try:
