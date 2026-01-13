@@ -18220,20 +18220,22 @@ $jscomp.polyfill(
           a.titles[a.loadingLegionData].set_x(75)
           a.titles[a.loadingLegionData].set_y(250)
           a.titles[a.loadingLegionData].set_alpha(1)
-          var c = new zb("./MQphp/MQ2Day.php")
-          this.sender.load(c)
-          this.sender.addEventListener(
-            "complete",
-            n(this, this.DayComplete)
-          )
+          this.DayComplete()
+          // var c = new zb("./MQphp/MQ2Day.php")
+          // this.sender.load(c)
+          // this.sender.addEventListener(
+          //   "complete",
+          //   n(this, this.DayComplete)
+          // )
         },
         DayComplete: function (c) {
+          a.today=a.lastDayPlayed+1
           showFuncCall("DayComplete")
-          this.sender.removeEventListener(
-            "complete",
-            n(this, this.DayComplete)
-          )
-          a.today = k.parseInt(this.sender.data)
+          // this.sender.removeEventListener(
+          //   "complete",
+          //   n(this, this.DayComplete)
+          // )
+          // a.today = k.parseInt(this.sender.data)
           console.log("MQ Day: " + a.today)
           this.GetLegionpoints()
         },
@@ -18571,6 +18573,7 @@ $jscomp.polyfill(
             cancelable: true,
             view: window
           })),1000)
+          a.today=a.lastDayPlayed+1
           log(1111)
           showFuncCall("sendComplete")
           this.sender.removeEventListener(
@@ -24786,7 +24789,9 @@ $jscomp.polyfill(
             this.SetBomb()
         },
         ClickHandler: function (c) {
-          window.player ??= a
+          if (!window.player) {
+            window.player = a
+          }
           window.clickHandler ??= this.ClickHandler.bind(this, c)
           showFuncCall("ClickHandler")
           var b = false
