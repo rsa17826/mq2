@@ -1,26 +1,36 @@
 var escPressed = false
 var savePressed = false
-
-window.onblur=()=>escPressed=false
-window.onkeydown=(e)=>{
-  if (["esc", "escape"].includes(e.key.toLowerCase())){
+var lastSpeed = null
+window.onblur = () => (escPressed = false)
+window.onkeydown = (e) => {
+  if (["shift"].includes(e.key.toLowerCase())) {
+    if (lastSpeed === null) {
+      lastSpeed = window.player.speed
+      window.player.speed = 20
+    }
+  }
+  if (["esc", "escape"].includes(e.key.toLowerCase())) {
     e.preventDefault()
-    escPressed=true
+    escPressed = true
     window.clickHandler()
   }
-  if (e.key.toLowerCase()=='s' && e.ctrlKey){
+  if (e.key.toLowerCase() == "s" && e.ctrlKey) {
     e.preventDefault()
-    savePressed=true
+    savePressed = true
     window.clickHandler()
   }
 }
-window.onkeyup=(e)=>{
-  if (e.key.toLowerCase()=='s'||!e.ctrlKey){
-    savePressed=false
+window.onkeyup = (e) => {
+  if (["shift"].includes(e.key.toLowerCase())) {
+    window.player.speed = lastSpeed
+    lastSpeed = null
   }
-  if (["esc", "escape"].includes(e.key.toLowerCase())){
+  if (e.key.toLowerCase() == "s" || !e.ctrlKey) {
+    savePressed = false
+  }
+  if (["esc", "escape"].includes(e.key.toLowerCase())) {
     e.preventDefault()
-    escPressed=false
+    escPressed = false
   }
 }
 
@@ -24776,6 +24786,7 @@ $jscomp.polyfill(
             this.SetBomb()
         },
         ClickHandler: function (c) {
+          window.player ??= a
           window.clickHandler ??= this.ClickHandler.bind(this, c)
           showFuncCall("ClickHandler")
           var b = false
@@ -33858,7 +33869,7 @@ $jscomp.polyfill(
             }
             this.TextFieldEdit(a.shopMess, "Quests", this.shopFormat)
           } else if (
-            (savePressed||a.sideButton[8].hitTestPoint(
+            ((savePressed &&lastSpeed===null)||a.sideButton[8].hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
               true
@@ -113084,7 +113095,7 @@ function showFuncCall(name) {
         window.overcalledFuncs.push(name)
         return
       }
-    
+
     }
   }
 
