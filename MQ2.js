@@ -2,6 +2,8 @@ var escPressed = false
 var savePressed = false
 var enterPressed = false
 var lastSpeed = null
+let dialogueKeyLock = false;
+
 window.onblur = () => {escPressed = false
   enterPressed = false
   savePressed = false
@@ -20,10 +22,12 @@ window.onkeydown = (e) => {
     window.clickHandler()
   }
   if (["enter", "\n"].includes(e.key.toLowerCase())) {
+    if (dialogueKeyLock) return;
+    dialogueKeyLock = true;
+
     e.preventDefault()
     enterPressed = true
     window.clickHandler()
-        enterPressed = false
   }
   if (e.key.toLowerCase() == "s" && e.ctrlKey) {
     e.preventDefault()
@@ -47,6 +51,7 @@ window.onkeyup = (e) => {
     e.preventDefault()
     enterPressed = false
     window.clickHandler()
+    dialogueKeyLock = false;
   }
 }
 
@@ -25035,12 +25040,12 @@ $jscomp.polyfill(
               true
             ) &&
               1 <= a.butNo.get_alpha()) ||
-            (a.butNext.hitTestPoint(
+              (enterPressed|| (a.butNext.hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
               true
             ) &&
-              (enterPressed||1 <= a.butNext.get_alpha())) ||
+             1 <= a.butNext.get_alpha())) ||
             (a.butPrev.hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
@@ -28228,12 +28233,12 @@ $jscomp.polyfill(
               this.RemoveNumButs(),
               a.cipherDisplay.set_visible(false)
           else if (
-            a.butNext.hitTestPoint(
+            (enterPressed||a.butNext.hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
               true
             ) &&
-            (enterPressed||1 <= a.butNext.get_alpha()) &&
+            1 <= a.butNext.get_alpha()) &&
             1 == this.showMess
           )
             console.log("next page"),
@@ -28272,12 +28277,12 @@ $jscomp.polyfill(
                 a.item
               ))
           else if (
-            a.butNext.hitTestPoint(
+            
+            (enterPressed||a.butNext.hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
               true
-            ) &&
-            (enterPressed||1 <= a.butNext.get_alpha() )&&
+            ) &&1 <= a.butNext.get_alpha() )&&
             (1 == this.showMagic || 1 == this.inUpgradeShop) &&
             1 == a.window.get_visible()
           ) {
@@ -28324,12 +28329,12 @@ $jscomp.polyfill(
             console.log(a.magicPage + " " + a.currMagic)
             this.ShowSpells(a.currMagic)
           } else if (
-            a.butNext.hitTestPoint(
+            
+            (enterPressed||a.butNext.hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
               true
-            ) &&
-            (enterPressed||1 <= a.butNext.get_alpha()) &&
+            ) &&1 <= a.butNext.get_alpha()) &&
             1 == this.showFood &&
             1 == a.window.get_visible()
           ) {
@@ -28367,12 +28372,12 @@ $jscomp.polyfill(
             1 == a.foodPage && (a.currFood = 0)
             this.ShowFoodFunc(a.currFood)
           } else if (
-            a.butNext.hitTestPoint(
+            
+            (enterPressed||a.butNext.hitTestPoint(
               this.get_mouseX(),
               this.get_mouseY(),
               true
-            ) &&
-            (enterPressed||1 <= a.butNext.get_alpha()) &&
+            ) &&1 <= a.butNext.get_alpha()) &&
             1 == this.showSkills &&
             1 == a.window.get_visible()
           ) {
