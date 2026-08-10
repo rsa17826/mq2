@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-i='mainLine'
+i='strawberry'
 temp_file="MQ2.tmp.js"
 target_file="MQ2.js"
 
