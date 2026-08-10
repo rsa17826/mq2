@@ -4,6 +4,15 @@
     <script type="text/javascript" src="./MQ2.js"></script>
     <script>
       Object.assign(window, console)
+      function getSaveFileId() {
+        return window.seed ?
+            window.seed + "|" + window?.ap?.playerName
+          : "nonAP"
+      }
+      function createNewSave() {}
+      ;(async () => {
+        window.saveData = await createDB()
+      })()
       window.addEventListener(
         "keydown",
         function (e) {
