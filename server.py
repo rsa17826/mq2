@@ -15,7 +15,7 @@ import main
 
 main.main()
 
-PORT = 1533
+PORT = 8061
 DIRECTORY = "."
 WATCH_FILE = os.path.normpath("MathQuest/play.base.html")
 
