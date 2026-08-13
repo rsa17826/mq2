@@ -1,0 +1,10 @@
+{
+  "north": "up",
+  "south": "down",
+  "east": "right",
+  "west": "left",
+  "North": "Up",
+  "South": "Down",
+  "East": "Right",
+  "West": "Left"
+}
