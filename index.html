@@ -4,13 +4,25 @@
     <script type="text/javascript" src="./MQ2.js"></script>
     <script>
       Object.assign(window, console)
+      window.onPlayerLoaded = []
+      window.onItemSent = []
+      window.apErrors = []
+      window.onLootUpdated = []
+      window.playerCheckedEntrances = new Set()
+      window.chestedItemInfo = {}
+      window.questLocations = {}
+      window.settingQuestVal = 0
+      window.onApConnect = []
+      window.onApCreated = []
+      window.onQuestChanged = []
+      window.onNewScreen = []
       function getSaveFileId() {
         return window.seed ?
             window.seed + "|" + window?.ap?.playerName
           : "nonAP"
       }
       function createNewSave() {
-        return saveData[getSaveFileId()] = {
+        return (saveData[getSaveFileId()] = {
           x: 350,
           y: 450,
           food: [
@@ -131,7 +143,7 @@
             0, 0, 0,
           ],
           wrong: 0,
-        }
+        })
       }
       ;(async () => {
         window.saveData = await createDB()
@@ -147,18 +159,6 @@
         false,
       )
     </script>
-    <script src="./newelem.js"></script>
-    <script src="./ap/apClient.js"></script>
-    <script src="./ap/aplog.js"></script>
-    <script src="./ap/archipelago_manifest.js"></script>
-    <script src="./ap/hintTracker.js"></script>
-    <script src="./ap/htmlStorage.js"></script>
-    <script src="./ap/item_tracker.js"></script>
-    <script src="./ap/logic.js"></script>
-    <script src="./ap/map.js"></script>
-    <script src="./ap/queststate.js"></script>
-    <script src="./ap/roomgraph.js"></script>
-    <script src="./ap/tracker.js"></script>
     <link rel="stylesheet" href="main.css" />
     <style>
       @font-face {
@@ -189,6 +189,35 @@
   </head>
 
   <body>
+    <div id="apChatLogContainer">
+      <div id="apChatLogHeader" onclick="toggleCollapse()">
+        <span>Archipelago Log</span>
+        <span id="apChatLogToggle">▾</span>
+      </div>
+      <div id="apChatLog"></div>
+      <div id="apChatSayRow">
+        <input
+          type="text"
+          id="apChatSayInput"
+          placeholder="Say something..."
+          maxlength="300"
+        />
+        <button id="apChatSaySend">Send</button>
+      </div>
+    </div>
+    <script src="./owo.js"></script>
+    <script src="./newelem.js"></script>
+    <script src="./ap/apClient.js"></script>
+    <script src="./ap/aplog.js"></script>
+    <script src="./ap/archipelago_manifest.js"></script>
+    <script src="./ap/hintTracker.js"></script>
+    <script src="./ap/htmlStorage.js"></script>
+    <script src="./ap/item_tracker.js"></script>
+    <script src="./ap/logic.js"></script>
+    <script src="./ap/map.js"></script>
+    <script src="./ap/queststate.js"></script>
+    <script src="./ap/roomgraph.js"></script>
+    <script src="./ap/tracker.js"></script>
     <!--
     <center>
       <div>
@@ -217,12 +246,16 @@
         >This webpage makes extensive use of JavaScript. Please enable
         JavaScript in your web browser to view this page.</noscript
       >
-      <div id="openfl-content"></div>
+      <div id="openfl-content">
+        <canvas id="overlayCanvas" width="900" height="600"></canvas>
+      </div>
       <script type="text/javascript">
         lime.embed("MQ2", "openfl-content", 900, 650, {
           parameters: {},
         })
       </script>
+      <script src="./draw.js"></script>
+      <script src="./overlay.js"></script>
     </div>
   </body>
 </html>

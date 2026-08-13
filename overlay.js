@@ -1,0 +1,777 @@
+function rerange(val, low1, high1, low2, high2) {
+  return ((val - low1) / (high1 - low1)) * (high2 - low2) + low2
+}
+const overlayCanvas = document.querySelector("#overlayCanvas")
+var overlayCtx = overlayCanvas.getContext("2d")
+const mixCache = {}
+function mix(color1, color2) {
+  if (!color1) return color2
+  if (!color2) return color1
+  if (mixCache[`${color1}/${color2}`]) {
+    return mixCache[`${color1}/${color2}`]
+  }
+  // Helper to parse HSL, Hex, or RGB strings into an {r, g, b, a} object
+  function parseToRgba(cssString) {
+    cssString = cssString.trim()
+
+    // 1. Match HSL/HSLA strings
+    var hslMatches = cssString.match(
+      /hsla?\(\s*([\d.]+)\s*,\s*([\d.]+)%\s*,\s*([\d.]+)%\s*(?:,\s*([\d.]+)%?\s*)?\)/i,
+    )
+    if (hslMatches) {
+      var h = parseFloat(hslMatches[1])
+      var s = parseFloat(hslMatches[2]) / 100
+      var l = parseFloat(hslMatches[3]) / 100
+      var a =
+        hslMatches[4] !== undefined ? parseFloat(hslMatches[4]) : 1
+      if (a > 1) a /= 100 // Normalize "60%" or "60" to 0.6
+
+      // Convert HSL to RGB
+      var c = (1 - Math.abs(2 * l - 1)) * s
+      var x = c * (1 - Math.abs(((h / 60) % 2) - 1))
+      var m = l - c / 2
+      var r = 0,
+        g = 0,
+        b = 0
+
+      if (0 <= h && h < 60) {
+        r = c
+        g = x
+        b = 0
+      } else if (60 <= h && h < 120) {
+        r = x
+        g = c
+        b = 0
+      } else if (120 <= h && h < 180) {
+        r = 0
+        g = c
+        b = x
+      } else if (180 <= h && h < 240) {
+        r = 0
+        g = x
+        b = c
+      } else if (240 <= h && h < 300) {
+        r = x
+        g = 0
+        b = c
+      } else if (300 <= h && h < 360) {
+        r = c
+        g = 0
+        b = x
+      }
+
+      return (mixCache[`${color1}/${color2}`] = {
+        r: Math.round((r + m) * 255),
+        g: Math.round((g + m) * 255),
+        b: Math.round((b + m) * 255),
+        a: a,
+      })
+    }
+
+    // 2. Match Hex strings (e.g., #1157, #ff0000)
+    if (cssString.startsWith("#")) {
+      var hex = cssString.substring(1)
+      var r,
+        g,
+        b,
+        a = 1
+
+      if (hex.length === 3 || hex.length === 4) {
+        r = parseInt(hex[0] + hex[0], 16)
+        g = parseInt(hex[1] + hex[1], 16)
+        b = parseInt(hex[2] + hex[2], 16)
+        if (hex.length === 4) a = parseInt(hex[3] + hex[3], 16) / 255
+      } else if (hex.length === 6 || hex.length === 8) {
+        r = parseInt(hex.substring(0, 2), 16)
+        g = parseInt(hex.substring(2, 4), 16)
+        b = parseInt(hex.substring(4, 6), 16)
+        if (hex.length === 8)
+          a = parseInt(hex.substring(6, 8), 16) / 255
+      }
+      return { r: r, g: g, b: b, a: a }
+    }
+
+    // 3. Match raw RGB/RGBA strings (for recursive mixtures)
+    var rgbaMatches = cssString.match(
+      /rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)\s*(?:,\s*([\d.]+)%?\s*)?\)/i,
+    )
+    if (rgbaMatches) {
+      var a =
+        rgbaMatches[4] !== undefined ? parseFloat(rgbaMatches[4]) : 1
+      if (a > 1) a /= 100
+      return (mixCache[`${color1}/${color2}`] = {
+        r: parseInt(rgbaMatches[1]),
+        g: parseInt(rgbaMatches[2]),
+        b: parseInt(rgbaMatches[3]),
+        a: a,
+      })
+    }
+
+    return (mixCache[`${color1}/${color2}`] = {
+      r: 0,
+      g: 0,
+      b: 0,
+      a: 1,
+    }) // Fallback
+  }
+
+  var c1 = parseToRgba(color1) // Existing background layer
+  var c2 = parseToRgba(color2) // New incoming layer drawn on top
+
+  // Standard Source-Over Alpha Blending Formula
+  var out_a = c2.a + c1.a * (1 - c2.a)
+  if (out_a === 0) return "rgba(0,0,0,0)"
+
+  var out_r = Math.round(
+    (c2.r * c2.a + c1.r * c1.a * (1 - c2.a)) / out_a,
+  )
+  var out_g = Math.round(
+    (c2.g * c2.a + c1.g * c1.a * (1 - c2.a)) / out_a,
+  )
+  var out_b = Math.round(
+    (c2.b * c2.a + c1.b * c1.a * (1 - c2.a)) / out_a,
+  )
+
+  // Canvas context accept rgba() strings natively
+  return (mixCache[`${color1}/${color2}`] =
+    "rgba(" +
+    out_r +
+    ", " +
+    out_g +
+    ", " +
+    out_b +
+    ", " +
+    out_a.toFixed(2) +
+    ")")
+}
+function customDrawLoop() {
+  // 1. Clear the frame
+  overlayCtx.clearRect(
+    0,
+    0,
+    overlayCanvas.width,
+    overlayCanvas.height,
+  )
+
+  if (!window.manager) {
+    return
+  }
+  // 1. Define the size of each checkerboard tile
+  var tileSize = 50 // Pixels per tile
+
+  // Helper function to check if a specific grid cell (col, row) is an exit tile
+  function getExitColor(roomExits, col, row) {
+    // Convert our bottom-up canvas row (0 at bottom, 10 at top)
+    // to the top-down row index (0 at top,10 at bottom) used by the data generator
+    var topDownRow = 10 - row
+    var color = null
+    for (var i = 0; i < roomExits.length; i++) {
+      var exit = roomExits[i]
+
+      if (exit.side === "warp") {
+        if (col == exit.x && row == exit.y) {
+          color = mix(color, exit.color)
+        }
+      }
+      if (exit.side === "west" && col === 0) {
+        if (topDownRow >= exit.top && topDownRow <= exit.bottom) {
+          color = mix(color, exit.color)
+        }
+      }
+      if (exit.side === "east" && col === 13) {
+        // 14 columns total (0 to 13)
+        if (topDownRow >= exit.top && topDownRow <= exit.bottom) {
+          color = mix(color, exit.color)
+        }
+      }
+      if (exit.side === "north" && row === 10) {
+        // Top row
+        if (col >= exit.left && col <= exit.right) {
+          color = mix(color, exit.color)
+        }
+      }
+      if (exit.side === "south" && row === 0) {
+        // Bottom row
+        if (col >= exit.left && col <= exit.right) {
+          color = mix(color, exit.color)
+        }
+      }
+    }
+    return color
+  }
+
+  function drawExits(room) {
+    for (var row = 0; row < 11; row++) {
+      for (var col = 0; col < 14; col++) {
+        // Check if this tile is an exit
+        var exitColor = null
+        if (localStorage.renderExits == "true")
+          exitColor = mix(exitColor, getExitColor(room, col, row))
+
+        if (localStorage.renderCheckerboard == "true")
+          if ((row + col) % 2 === 0) {
+            exitColor = mix(exitColor, "#FFFFFF10") // Light overlay instead of skipping entirely
+          } else {
+            exitColor = mix(exitColor, "#00000050") // Transparent black tile
+          }
+        if (!exitColor) {
+          continue
+        }
+        overlayCtx.fillStyle = exitColor // Render with the designated exit color
+
+        // Calculate X coordinate (normal math going right)
+        var x = col * tileSize
+
+        // Calculate Y coordinate (reverse math starting from bottom-left)
+        var y = overlayCanvas.height - tileSize - row * tileSize
+
+        // Draw the tile
+        overlayCtx.fillRect(x, y, tileSize, tileSize)
+      }
+    }
+  }
+  if (
+    Logic.roomsWithAvailableItems.has(
+      `${manager.north}_${manager.east}`,
+    ) ||
+    Logic.roomsWithAvailableQuests.has(
+      `${manager.north}_${manager.east}`,
+    )
+  ) {
+    var startX = 0
+    var startY = overlayCanvas.height - 11 * tileSize
+    // overlayCtx.lineJoin = "miter"
+    // 2. Calculate dimensions (width, height)
+    var rectWidth = 14 * tileSize
+    var rectHeight = 11 * tileSize
+    let w = 4
+    draw(overlayCtx)
+      .lineWidth(w)
+      .strokeStyle(
+        (
+          Logic.roomsWithAvailableItems.has(
+            `${manager.north}_${manager.east}`,
+          )
+        ) ?
+          "#2020aa"
+        : "#f1c40f",
+      )
+      .strokeRect(
+        startX + (w - 1) / 2,
+        startY + (w - 1) / 2,
+        rectWidth - (w - 1),
+        rectHeight - (w - 1),
+      )
+  }
+  // Draws the map.js path-to-target arrow (see map.js's WorldMap.PATH_ROUTES),
+  // but reprojected onto this room's slice of the checkerboard instead
+  // of the whole overview map. The checkerboard covers the full 14x11
+  // room grid (tileSize px per block) flush against the bottom of the
+  // canvas, so a point that sits at fraction (fx, fy) across the room's
+  // map tile lands at the *same relative spot* here.
+  var PF_DIR_SCREEN_VECTOR = {
+    north: [0, -1],
+    south: [0, 1],
+    east: [1, 0],
+    west: [-1, 0],
+  }
+
+  function drawOverlayArrow(a, b, isWarp, destLabel) {
+    var angle = Math.atan2(b.y - a.y, b.x - a.x)
+    var arrowSize = 14
+
+    draw(overlayCtx)
+      .beginPath()
+      .moveTo(a.x, a.y)
+      .lineTo(b.x, b.y)
+      .strokeStyle("#39ff14")
+      .lineWidth(5)
+      .lineCap("round")
+      .setLineDash(isWarp ? [10, 7] : [])
+      .stroke()
+
+      .beginPath()
+      .moveTo(b.x, b.y)
+      .lineTo(
+        b.x - arrowSize * Math.cos(angle - 0.35),
+        b.y - arrowSize * Math.sin(angle - 0.35),
+      )
+      .lineTo(
+        b.x - arrowSize * Math.cos(angle + 0.35),
+        b.y - arrowSize * Math.sin(angle + 0.35),
+      )
+      .closePath()
+      .setLineDash([])
+      .fillStyle(mix("#39ff14", "#00f2"))
+      .fill()
+
+    // Warp hops jump to a different room than the one currently on
+    // screen -- label the arrival point with the destination room so it
+    // reads as "warp to X" instead of just an arrow pointing at a wall.
+    if (isWarp && destLabel) {
+      destLabel =
+        // @ts-ignore
+        {
+          "15_22": "warp forest of faith",
+          "12_19": "warp east of castle multivadd",
+          "14_16": "warp Myuwtipwe Myountains",
+          "10_16": "warp temple of tessalation",
+          "12_10": "warp east of the scelene scioety",
+          "18_20": "warp south of dyce",
+          "11_12": "sunflower seeds",
+          "7_9": "warp toomb of the quarter hawk",
+          "11_24": "warp garden of shadowsoul",
+          "19_12": "warp grimbsbane",
+          "20_20": "home dyce",
+          "13_18": "home multivadd",
+          "12_9": "home desert",
+          "20_15": "home arena",
+        }[destLabel] || destLabel
+      var labelX = b.x
+      var labelY = b.y - arrowSize - 6
+      overlayCtx.font = '22px "Booter - Zero Zero"'
+      draw(overlayCtx)
+        .strokeStyle("#000")
+        .lineJoin("round")
+        .lineWidth(3)
+        .strokeText(owo(destLabel), labelX, labelY)
+        .fillStyle("#39ff14")
+        .fillText(owo(destLabel), labelX, labelY)
+    }
+  }
+
+  function drawRoomPathArrow() {
+    // map.js exposes these; if it hasn't loaded (or there's no route
+    // selected on the map), there's nothing to draw.
+    if (!PathFinding.worldPointToRoomFraction) return
+    var routes = WorldMap.PATH_ROUTES
+    if (!routes || !routes.length) return
+
+    var roomKey = `${window.manager.north}_${window.manager.east}`
+    var gridWidth = 14 * tileSize
+    var gridHeight = 11 * tileSize
+    var gridTop = overlayCanvas.height - gridHeight
+    var stubLength = tileSize * 0.8
+
+    function toOverlayPoint(point, forRoom) {
+      var frac = PathFinding.worldPointToRoomFraction(forRoom, point)
+      if (!frac) return null
+      return {
+        x: frac.fx * gridWidth,
+        y: gridTop + frac.fy * gridHeight,
+      }
+    }
+
+    routes.forEach(function (route) {
+      var fromHere = route.fromRoom === roomKey
+      var toHere = route.toRoom === roomKey
+      if (!fromHere && !toHere) return
+
+      var fromPt =
+        fromHere ? toOverlayPoint(route.fromPoint, roomKey) : null
+      var toPt =
+        toHere ? toOverlayPoint(route.toPoint, roomKey) : null
+
+      if (fromPt && toPt) {
+        // Both ends of this hop are in the room the player is standing
+        // in (an in-room move) -- draw it exactly as it appears on the
+        // overview map, just rescaled to this room's slice of the grid.
+        drawOverlayArrow(
+          fromPt,
+          toPt,
+          route.isWarp,
+          route.isWarp ? route.toRoom : null,
+        )
+        return
+      }
+
+      // Only one end of this hop is in the current room -- the other
+      // end is elsewhere on the map, so just point toward the exit (or,
+      // for a warp, straight toward the hub) and label the destination
+      // room so it's clear where the hop actually leads.
+      if (fromPt) {
+        var vec = PF_DIR_SCREEN_VECTOR[route.fromDir] || [0, 0]
+        drawOverlayArrow(
+          fromPt,
+          {
+            x: fromPt.x + vec[0] * (stubLength / 1.6),
+            y: fromPt.y + vec[1] * (stubLength / 1.6),
+          },
+          route.isWarp,
+          route.toRoom,
+        )
+      } else if (toPt) {
+        // Player is standing at the WARP DESTINATION here, not its origin
+        // -- no label in this case (see the fromPt branch above, which is
+        // the only place a warp's destination name should be shown, since
+        // that's where the player is actually deciding to take the warp).
+        var vec2 = PF_DIR_SCREEN_VECTOR[route.toDir] || [0, 0]
+        drawOverlayArrow(
+          {
+            x: toPt.x - vec2[0] * -(stubLength / 1.6),
+            y: toPt.y - vec2[1] * -(stubLength / 1.6),
+          },
+          toPt,
+          route.isWarp,
+          null,
+        )
+      }
+    })
+  }
+  // Sample multi-line coordinate text setup
+  var coordString = ""
+  // Same idea as map.js's WorldMap.updateEntranceColors (which colors the
+  // rendered .exit-square elements on the overview map), but drawn on this
+  // room's slice of the in-game overlay canvas instead: outlines each real
+  // exit's bounding box green if the player has already walked through it,
+  // orange-red if not. Only meaningful under entrance_rando -- when it's
+  // off every exit leads exactly where vanilla says it does, so there's
+  // nothing to distinguish.
+  function drawEntranceBorders(roomKey, roomExits) {
+    if (
+      !(
+        window.ap &&
+        window.ap.slotData &&
+        window.ap.slotData.entrance_rando
+      )
+    )
+      return
+
+    // idx per side = position among same-side exits, in list order --
+    // matches how gen_map.py / map.js's findExitData index exits.
+    var seenBySide = {}
+
+    for (var i = 0; i < roomExits.length; i++) {
+      var exit = roomExits[i]
+      if (exit.side === "warp") continue
+
+      var idx = seenBySide[exit.side] || 0
+      seenBySide[exit.side] = idx + 1
+
+      var checked = PathFinding.isEntranceChecked(
+        roomKey,
+        exit.side,
+        idx,
+      )
+      var color =
+        checked ?
+          WorldMap.ENTRANCE_CHECKED_COLOR
+        : WorldMap.ENTRANCE_UNCHECKED_COLOR
+
+      var x, y, w, h
+      if (exit.side === "west" || exit.side === "east") {
+        x = (exit.side === "west" ? 0 : 13) * tileSize
+        w = tileSize
+        y = (exit.top + 1) * tileSize
+        h = (exit.bottom - exit.top + 1) * tileSize
+      } else {
+        // north / south
+        y = (exit.side === "north" ? 1 : 11) * tileSize
+        h = tileSize
+        x = exit.left * tileSize
+        w = (exit.right - exit.left + 1) * tileSize
+      }
+
+      draw(overlayCtx)
+        .lineWidth(3)
+        .strokeStyle(color)
+        .strokeRect(x + 1.5, y + 1.5, w - 3, h - 3)
+    }
+  }
+
+  if (
+    localStorage.renderExits == "true" ||
+    localStorage.renderCheckerboard == "true"
+  ) {
+    drawExits(
+      EXITS_DATA[`${window.manager.north}_${window.manager.east}`] ||
+        [],
+    )
+
+    if (localStorage.renderExits == "true")
+      drawEntranceBorders(
+        `${window.manager.north}_${window.manager.east}`,
+        EXITS_DATA[`${window.manager.north}_${window.manager.east}`] ||
+          [],
+      )
+  }
+
+  // if (
+  //   !(
+  //     manager.exitButton.__visible ||
+  //     manager.mess.__visible ||
+  //     test.fightMode == 1
+  //   )
+  // ) {
+  //   drawRoomPathArrow()
+  // }
+
+  coordString =
+    localStorage.showPlayerPos == "true" ?
+      `
+            SCREEN: ${window.manager.north}_${window.manager.east}
+            POS: ${Math.round(window.manager.x)} ${Math.round(window.manager.y)}
+            `
+    : ""
+  if (window?.test?.fightVarCheat == 666) {
+    coordString += "battle mode enabled - [ to toggle\n"
+  }
+  if (window.saveComplete == true) {
+    coordString += "save complete\n"
+  }
+  if (window.saveComplete == false) {
+    coordString += "saving...\n"
+  }
+  for (let hint of HintTracker.all) {
+    if (hint.found) continue
+    var finder = ap.players.find((e) => e.slot == hint.finding_player)
+    var owner = ap.players.find(
+      (e) => e.slot == hint.receiving_player,
+    )
+    var itemName =
+      ap.itemIdToName[ap.slotInfo[hint.receiving_player].game][
+        hint.item
+      ]
+    var finderName =
+      hint.finding_player == ap.slot ? "your"
+      : finder.alias == finder.name ? `${finder.name}'s`
+      : `${finder.name} (${finder.alias})'s`
+    var ownerName =
+      hint.receiving_player == ap.slot ? "your"
+      : owner.alias == owner.name ? `${owner.name}'s`
+      : `${owner.name} (${owner.alias})'s`
+
+    const finderGame = ap.slotInfo[hint.finding_player].game
+    const locationName =
+      ap.locationIdToName[finderGame][hint.location]
+    coordString += `${ownerName} ${itemName} - found at ${finderName} ${locationName}\n`
+  }
+  coordString += window.extraData?.() ?? ""
+  overlayCtx.font = '36px "Booter - Zero Zero"'
+
+  // Clean the text array up
+  var allText = coordString.trim().split("\n")
+  if (coordString.trim() === "") allText = [] // Handle empty text gracefully
+
+  // 3. Define layout parameters
+  var lineHeight = 30 // Distance between your rows of text
+  var baseBottomPadding = 20 // Margin from the bottom boundary line
+
+  // --- PROGRESS BAR CONFIGURATION ---
+  // Change these values or bind them to your player stats (e.g., window.manager.hp / window.manager.maxHp)
+
+  // 4. Draw lines calculating offsets dynamically
+  var totalTextHeight = allText.length * lineHeight
+
+  for (var i = 0; i < allText.length; i++) {
+    var text = allText[i].trim()
+
+    // Measure current line width so right-alignment holds true
+    var textWidth = overlayCtx.measureText(text).width
+    var x = overlayCanvas.width - textWidth - 20
+
+    var y =
+      overlayCanvas.height -
+      baseBottomPadding -
+      (allText.length - 1 - i) * lineHeight
+
+    draw(overlayCtx)
+      .strokeStyle("#000")
+      .lineJoin("round")
+      .lineWidth(3) // Controls the thickness of the outline
+      .strokeText(owo(text), x, y)
+      .fillStyle("#ddd")
+      .fillText(owo(text), x, y)
+  }
+  // render chest hints
+  // {
+  //   if (localStorage.neverShowLocationScouts != "true") {
+  //     if (
+  //       !(
+  //         manager.exitButton.__visible ||
+  //         manager.mess.__visible ||
+  //         test.fightMode == 1
+  //       )
+  //     ) {
+  //       for (var [
+  //         _color,
+  //         {
+  //           data: items,
+  //           position: { x: _x, y: _y },
+  //           elem,
+  //         },
+  //       ] of Object.entries(
+  //         window.chestedItemInfo[
+  //           `${manager.north}_${manager.east}`
+  //         ] ?? {},
+  //       )) {
+  //         if (elem.__visible) {
+  //           var lines = items
+  //             .filter(([_i, e]) => !ap.checkedLocations.includes(_i))
+  //             .map(([_i, e]) => owo(e))
+
+  //           overlayCtx.strokeStyle = "#000"
+  //           overlayCtx.lineJoin = "round"
+  //           overlayCtx.lineWidth = 3
+  //           overlayCtx.fillStyle = "#ddd"
+
+  //           lines.forEach(function (line, index) {
+  //             var currentY = _y + index * lineHeight
+  //             var w = overlayCtx.measureText(line).width
+
+  //             // 1. Find where the text would normally start if centered
+  //             var startX = _x - w / 2
+
+  //             // 2. Find where the text would end
+  //             var endX = startX + w
+
+  //             // 3. Calculate how much it overflows past 700 pixels
+  //             var roff = endX - 690
+  //             if (roff < 0) roff = 0 // No overflow means no offset
+
+  //             // 4. Apply the offset, but keep it at least 10px away from the left wall
+  //             var finalX = Math.max(10, startX - roff)
+
+  //             overlayCtx.strokeText(line, finalX, currentY)
+  //             overlayCtx.fillText(line, finalX, currentY)
+  //           })
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  var currentOffsetY = totalTextHeight - 10
+  var progressValue = 0
+  var maxProg = 0
+  if (window.ap?.slotData) {
+    var prog = 0
+    if (ap.slotData.final_boss) {
+      maxProg += 23
+      if (manager.quest)
+        prog += Math.min(manager.quest[Enum.Quest.gTree], 23)
+    }
+    if (ap.slotData?.all_quests_maxed) {
+      if (manager.quest)
+        prog += Object.entries(ap.slotData.maxQuests).reduce(
+          (a, [k, v]) =>
+            a + Math.min(v, manager.quest[Enum.Quest[k]]),
+          0,
+        )
+      if (manager.quest)
+        maxProg += Object.values(ap.slotData.maxQuests).reduce(
+          (a, v) => a + v,
+          0,
+        )
+    }
+    progressValue = rerange(prog, 0, maxProg, 0, 1)
+    newBar(
+      progressValue,
+      155 + 30,
+      12,
+      10,
+      `progress: ${Math.floor(progressValue * 100)}%`,
+    )
+    window.currentGoalProgress = Math.floor(progressValue * 100)
+  }
+  var progressValue = 0
+  var maxProg = 0
+  if (window.ap?.slotData) {
+    progressValue = rerange(
+      ap.checkedLocations.length,
+      0,
+      ap.missingLocations.length + ap.checkedLocations.length,
+      0,
+      1,
+    )
+    newBar(
+      progressValue,
+      155 + 30,
+      12,
+      10,
+      `checks: ${Math.floor(progressValue * 100)}%`,
+    )
+    window.currentCheckProgress = Math.floor(progressValue * 100)
+  }
+
+  function newBar(
+    progressValue,
+    barWidth,
+    barHeight,
+    barPadding,
+    barText,
+  ) {
+    // Add padding first
+    currentOffsetY += barPadding
+
+    // Base coordinates for the entire component container
+    var containerX = overlayCanvas.width - barWidth - 5
+    var barY =
+      overlayCanvas.height -
+      baseBottomPadding -
+      currentOffsetY -
+      barHeight
+
+    var dynamicBarWidth = barWidth
+    var textWidth = 0
+
+    // If text is provided, measure it and adjust the bar's width
+    if (barText) {
+      overlayCtx.font = '28px "Booter - Zero Zero"' // Font for the bar text
+      textWidth = overlayCtx.measureText(barText).width
+      var textSpacing = 8 // Space between the bar and the text
+
+      // Shrink the bar width to make room for the text and spacing
+      dynamicBarWidth = Math.max(
+        0,
+        barWidth - textWidth - textSpacing,
+      )
+    }
+
+    // 1. Draw Background / Border Outline for the bar
+    if (dynamicBarWidth > 0) {
+      overlayCtx.fillStyle = "#000"
+      overlayCtx.fillRect(
+        containerX - 2,
+        barY - 2,
+        dynamicBarWidth + 4,
+        barHeight + 4,
+      ) // Outer black border
+
+      overlayCtx.fillStyle = "#444"
+      overlayCtx.fillRect(
+        containerX,
+        barY,
+        dynamicBarWidth,
+        barHeight,
+      ) // Dark background fill
+
+      // 2. Draw Foreground (The actual progress)
+      overlayCtx.fillStyle = "#00ffcc" // Cyan/Green progress color
+      overlayCtx.fillRect(
+        containerX,
+        barY,
+        dynamicBarWidth * progressValue,
+        barHeight,
+      )
+    }
+
+    // 3. Draw the text on the far right of the total barWidth area
+    if (barText) {
+      var textX = overlayCanvas.width - textWidth - 5
+      // Vertically center text relative to the bar height
+      var textY = barY + barHeight / 2 + 5
+
+      overlayCtx.strokeStyle = "#000"
+      overlayCtx.lineJoin = "round"
+      overlayCtx.lineWidth = 3
+      overlayCtx.strokeText(owo(barText), textX, textY)
+      overlayCtx.fillStyle = "#ddd"
+      overlayCtx.fillText(owo(barText), textX, textY)
+    }
+
+    // Shift the offset up by the height of this bar so the next bar sits above it
+    currentOffsetY += barHeight
+  }
+  requestAnimationFrame(customDrawLoop)
+}
+customDrawLoop()
