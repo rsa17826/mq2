@@ -1,0 +1,24 @@
+magick map/12,7.jpg \
+  -gravity NorthWest -chop 248x0 \
+  -gravity NorthEast -chop 406x73 \
+  "crop.jpg"
+
+rm map
+mv oldmap map
+
+rm crop.jpg
+mkdir -p t2
+
+for f in map/*.jpg; do
+  magick "$f" \
+    -gravity NorthWest -chop 248x0 \
+    -gravity NorthEast -chop 406x73 \
+    -quality 82 \
+    "t2/$(basename "$f")"
+done
+
+rm oldmap
+mv map oldmap
+mv t2 map
+./generate_map_scales.sh
+python gen_map.py

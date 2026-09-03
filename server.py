@@ -17,7 +17,7 @@ main.main()
 
 PORT = 8061
 DIRECTORY = "."
-WATCH_FILE = os.path.normpath("MathQuest/play.base.html")
+# WATCH_FILE = os.path.normpath("index.base.html")
 
 
 class ProcessManager:
@@ -226,6 +226,7 @@ class HTMLChangeHandler(FileSystemEventHandler):
 
 
 def start_file_watcher():
+  return
   watch_dir = os.path.dirname(WATCH_FILE) or "."
   if not os.path.exists(watch_dir):
     os.makedirs(watch_dir, exist_ok=True)

@@ -9,7 +9,6 @@ import re
 # Target folder pointing to the downsized versions
 FULL_IMAGE_FOLDER = "map"
 
-OUTPUT_FILE = "randomized_index.html"
 CONNECTIONS_JSON_PATH = "./json/connections.json"
 
 # Path to the icon image representing progression events
@@ -489,7 +488,7 @@ def main():
     print("[-] No valid tiles found in image folder.")
     return
 
-  unique_norths = sorted(list(set(t[0] for t in parsed_tiles)), reverse=True)
+  unique_norths = sorted(list(set(t[0] for t in parsed_tiles)))
   unique_easts = sorted(list(set(t[1] for t in parsed_tiles)))
 
   north_to_track = {n: idx for idx, n in enumerate(unique_norths)}
@@ -895,14 +894,8 @@ def main():
     </script>
     """
 
-  with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
-    f.write(dynamic_html_start)
-    f.write("\n".join(html_elements))
-    f.write(script_payload)
-    f.write("\n" + html_end)
-
-  with open("./MathQuest/play.base.html", "r", encoding="utf-8") as ff:
-    with open("./MathQuest/play.html", "w", encoding="utf-8") as f:
+  with open("./index.base.html", "r", encoding="utf-8") as ff:
+    with open("./index.html", "w", encoding="utf-8") as f:
       oldData = ff.read().split('<map id="map"></map>')
       f.write(oldData[0])
       f.write('<map id="map">')

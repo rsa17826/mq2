@@ -535,16 +535,22 @@ window.onkeydown = (e) => {
     test.newScreen()
   }
   if (key == "w") {
-    manager.realnorth++
+    manager.realnorth--
     test.newScreen()
   }
   if (key == "s") {
-    manager.realnorth--
+    manager.realnorth++
     test.newScreen()
   }
   if (key == "d") {
     manager.realeast++
     test.newScreen()
+  }
+  if (key == "l") {
+    fetch("//fs.localhost/./pos", {
+      body: `[${manager.realnorth},${manager.realeast}],`,
+      method: "PUT",
+    }).then((e) => e.text().then(log))
   }
   if (e.key.toLowerCase() == "p") {
     e.preventDefault()
@@ -2901,6 +2907,8 @@ howlerConfig.polyfill(
             return bound
           },
           hitTestObject: function (localBoundsChecker) {
+            if (window.ss)
+              return false
             if (
               localBoundsChecker != null &&
               localBoundsChecker.parent != null &&
@@ -2917,6 +2925,8 @@ howlerConfig.polyfill(
             localCoordinate,
             isStaging,
           ) {
+            if (window.ss)
+            return false
             const yesButtons = [manager.butYes, manager.butNext]
             if (
               window.escPressed ||
@@ -31305,7 +31315,8 @@ howlerConfig.polyfill(
               if (
                 this.showWindow == 0 &&
                 this.showMess == 0 &&
-                manager.icon[Enum.Icon.tomeGreen].get_visible() == 1 &&
+                manager.icon[Enum.Icon.tomeGreen].get_visible() ==
+                  1 &&
                 manager.area != 4
               ) {
                 for (var variableName = 4; variableName < 7; ) {
@@ -50435,7 +50446,9 @@ howlerConfig.polyfill(
                     " completed.",
                 )
               }
-              manager.questDisplay[Enum.Quest.mainLine].setTextFormat(this.windowFormat)
+              manager.questDisplay[Enum.Quest.mainLine].setTextFormat(
+                this.windowFormat,
+              )
               manager.questDisplay[Enum.Quest.mainLine].set_alpha(1)
             } else if (
               this.inWeapShop == 0 &&
@@ -94564,7 +94577,9 @@ howlerConfig.polyfill(
               manager.questDisplay[Enum.Quest.mainLine].set_text(
                 "Speed bonus (10 legion points = +5 minutes)",
               )
-              manager.questDisplay[Enum.Quest.hiddenTreasures].set_text(
+              manager.questDisplay[
+                Enum.Quest.hiddenTreasures
+              ].set_text(
                 "Skill point bonus (20 legion points = +5 minutes)",
               )
               manager.questDisplay[Enum.Quest.bombQuest].set_text(
@@ -94968,29 +94983,29 @@ howlerConfig.polyfill(
               }
               if (manager.completedHunt[1] == 0) {
                 if (manager.hunt2 == 1) {
-                  manager.questDisplay[Enum.Quest.hiddenTreasures].set_text(
-                    "7 Yeti  -  Reward: bombs",
-                  )
+                  manager.questDisplay[
+                    Enum.Quest.hiddenTreasures
+                  ].set_text("7 Yeti  -  Reward: bombs")
                 }
                 if (manager.hunt2 == 2) {
-                  manager.questDisplay[Enum.Quest.hiddenTreasures].set_text(
-                    "7 Undead creatures  -  Reward: bombs",
-                  )
+                  manager.questDisplay[
+                    Enum.Quest.hiddenTreasures
+                  ].set_text("7 Undead creatures  -  Reward: bombs")
                 }
                 if (manager.hunt2 == 3) {
-                  manager.questDisplay[Enum.Quest.hiddenTreasures].set_text(
-                    "7 Bouldermonks  -  Reward: bombs",
-                  )
+                  manager.questDisplay[
+                    Enum.Quest.hiddenTreasures
+                  ].set_text("7 Bouldermonks  -  Reward: bombs")
                 }
                 if (manager.hunt2 == 4) {
-                  manager.questDisplay[Enum.Quest.hiddenTreasures].set_text(
-                    "7 Grumlings  -  Reward: bombs",
-                  )
+                  manager.questDisplay[
+                    Enum.Quest.hiddenTreasures
+                  ].set_text("7 Grumlings  -  Reward: bombs")
                 }
                 if (manager.hunt2 == 5) {
-                  manager.questDisplay[Enum.Quest.hiddenTreasures].set_text(
-                    "7 Goblin vandals  -  Reward: bombs",
-                  )
+                  manager.questDisplay[
+                    Enum.Quest.hiddenTreasures
+                  ].set_text("7 Goblin vandals  -  Reward: bombs")
                 }
               }
               if (manager.completedHunt[2] == 0) {
